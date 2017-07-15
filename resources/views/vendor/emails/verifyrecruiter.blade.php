@@ -57,8 +57,8 @@ $style = [
                 <!-- Logo -->
                 <tr>
                     <td style="{{ $style['email-masthead'] }}" bgcolor="#1c202b">
-                        <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank">
-                          Job Portal
+                        <a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="#" target="_blank">
+                            Job Portal
                             {{--<img src="{{ URL::asset('public/images/logo.png') }}">--}}
                         </a>
                     </td>
@@ -72,14 +72,19 @@ $style = [
                                 <td style="{{ $fontFamily }} {{ $style['email-body_cell'] }}">
                                     <!-- Greeting -->
                                     <h1 style="{{ $style['header-1'] }}">
-                                        Hello <span style="text-transform:uppercase;">{{ $user->name }},
+                                      Thanks For Connecting Us. <span style="text-transform:uppercase;">
                                     </h1>
 
                                     <!-- Intro -->
 
                                     <p style="{{ $style['paragraph'] }}">
-                                        Click on the below button to verify your email address
+                                       Please Click on the below button to verify your email address
+
                                     </p>
+                                    <a href='{{ url("api/register-seeker/confirm/{$user->token}") }}'
+                                       target="_blank">
+                                        {{ url("api/register-seeker/confirm/{$user->token}") }}
+                                    </a>
 
 
                                     <!-- Action Button -->
@@ -91,7 +96,7 @@ $style = [
                                                 $actionColor = 'button--blue';
                                                 ?>
 
-                                                <a href='{{ url("register/confirm/{$user->token}") }}'
+                                                <a href='{{ url("api/register-recruiter/confirm/{$user->token}") }}'
                                                    style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
                                                    class="button"
                                                    target="_blank">

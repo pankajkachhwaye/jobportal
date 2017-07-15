@@ -12,29 +12,29 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="{{URL::asset('public/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="{{URL::asset('public/plugins/node-waves/waves.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('plugins/node-waves/waves.css')}}" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="{{URL::asset('public/plugins/animate-css/animate.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('plugins/animate-css/animate.css')}}" rel="stylesheet" />
 
     <!-- Bootstrap Material Datetime Picker Css -->
-    <link href="{{URL::asset('public/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="{{URL::asset('public/plugins/morrisjs/morris.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('plugins/morrisjs/morris.css')}}" rel="stylesheet" />
 
 
-    <link href="{{URL::asset('public/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css')}}" rel="stylesheet">
 
      {{--Sweet Alert--}}
-    <link href="{{URL::asset('public/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
 
     <!-- Custom Css -->
-    <link href="{{URL::asset('public/css/style.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/style.css')}}" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="{{URL::asset('public/css/themes/all-themes.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('css/themes/all-themes.css')}}" rel="stylesheet" />
 </head>

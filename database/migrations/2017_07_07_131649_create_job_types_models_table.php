@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAreaOfSectorsTable extends Migration
+class CreateJobTypesModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateAreaOfSectorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('area_of_sectors', function (Blueprint $table) {
+        Schema::create('job_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('area_of_sector')->unique();
+            $table->string('job_type')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateAreaOfSectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('area_of_sectors');
+        Schema::dropIfExists('job_types_models');
     }
 }

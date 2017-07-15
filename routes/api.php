@@ -16,3 +16,21 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+Route::group(['namespace'=>'Api'],function(){
+
+    /*************** Seeker Routes ****************/
+    Route::post('/register-new-seeker','SeekerController@registerSeeker');
+    Route::get('register-seeker/confirm/{token}', 'SeekerController@confirmEmail');
+    Route::post('login-seeker', 'SeekerController@loginSeeker');
+    Route::get('/general','SeekerController@generalInfo');
+    Route::post('fill-seeker-profile', 'SeekerController@fillSeekerProfile');
+
+    /*************** Recruiter Routes ****************/
+    Route::post('/register-new-recruiter','RecruiterController@registerRecruiter');
+    Route::get('register-recruiter/confirm/{token}', 'RecruiterController@recruiterConfirmEmail');
+    Route::post('/recruiter-login','RecruiterController@loginRecruiter');
+
+});

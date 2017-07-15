@@ -16,6 +16,7 @@ class CrudRepository
     public function createNew($data = [], $modal)
     {
         try {
+
             $data['created_at'] = Carbon::now();
             $modal->create($data);
             return ['code' => 101, 'message' => 'success'];

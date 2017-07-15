@@ -29,7 +29,7 @@
 
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Add Discount</button>
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Add Area Of Sector</button>
                                     </form>
                                 </div>
                             </div>

@@ -5,7 +5,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>LOCATIONS</h2>
+                <h2>JOB BY ROLES</h2>
             </div>
 
             <div class="row clearfix">
@@ -13,24 +13,25 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Add New Location
+                                Add Job Role
                             </h2>
                         </div>
                         <div class="body">
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <form method="POST" id="add_attribute" action="{{url('/add-new-location')}}" novalidate="novalidate">
-                                {{csrf_field()}}
-                                <label class="form-label">Location Name</label>
-                                <div class="form-group form-float">
-                                    <div class="form-line">
 
-                                        <input type="text" name="location_name" required class="form-control">
+                                    <form method="POST" id="add_attribute" action="{{url('/add-new-job-role')}}" novalidate="novalidate">
+                                        {{csrf_field()}}
+                                        <label class="form-label">Job Role Name</label>
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
 
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">Add Location</button>
-                            </form>
+                                                <input type="text" name="job_by_role" required class="form-control">
+
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Add Job Role</button>
+                                    </form>
                                 </div>
                             </div>
 
@@ -39,7 +40,7 @@
                                     <div class="card">
                                         <div class="header">
                                             <h2>
-                                               All Locations
+                                                All Job Roles
                                             </h2>
                                         </div>
                                         <div class="body">
@@ -48,19 +49,19 @@
                                                 <tr>
 
                                                     <th>ID</th>
-                                                    <th>Loaction Name</th>
+                                                    <th>Job Roles Name</th>
                                                     <th>Action</th>
                                                 </tr>
                                                 </thead>
 
                                                 <tbody>
-                                                @foreach($locations as $key_location => $value_location)
+                                                @foreach($job_by_roles as $key_role => $value_role)
                                                     <tr>
                                                         <td>
-                                                            {{$value_location['id']}}
+                                                            {{$value_role['id']}}
                                                         </td>
                                                         <td>
-                                                            {{$value_location['location_name']}}
+                                                            {{$value_role['job_by_role']}}
                                                         </td>
 
                                                         <td> <button type="submit" id="editdelivery" class="btn btn-primary m-t-15 waves-effect">Edit</button>

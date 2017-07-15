@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LocationModel extends Model
+class JobTypesModel extends Model
 {
-    protected $table = 'location';
+    protected $table = 'job_types';
 
     /**
      * The attributes that are mass assignable.
@@ -14,6 +14,6 @@ class LocationModel extends Model
      * @var array
      */
     protected $fillable = [
-        'location_name'
+        'job_type'
     ];
 }

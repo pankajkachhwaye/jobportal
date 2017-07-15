@@ -53,14 +53,14 @@
                         </li>
                     </ul>
                 </li>
-                <li class="{{(isset($page) && $page && $page=='orders')?'active':''}}">
+                <li class="{{(isset($page) && $page && $page=='user')?'active':''}}">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">toc</i>
                         <span>Users</span>
                     </a>
                     <ul class="ml-menu">
-                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='pending-order')?'active':''}}">
-                            <a href="{{ url('/order/pending-order')  }}">All User</a>
+                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='all-user')?'active':''}}">
+                            <a href="{{ url('/all-user')  }}">All User</a>
                         </li>
                     </ul>
                 </li>
@@ -76,31 +76,30 @@
                         <span>Area of Sectors</span>
                     </a>
                 </li>
-                <li class="">
-                    <a href="{{url('/dashboard')}}">
+                <li class="{{(isset($page) && $page && $page=='specialization')?'active':''}}">
+                    <a href="{{url('/specialization')}}">
                         <i class="material-icons">dashboard</i>
                         <span>Specialization</span>
                     </a>
                 </li>
-                <li class="">
-                    <a href="{{url('/dashboard')}}">
+                <li class="{{(isset($page) && $page && $page=='qualification')?'active':''}}">
+                    <a href="{{url('/qualification')}}">
                         <i class="material-icons">dashboard</i>
                         <span>Qualifications</span>
                     </a>
                 </li>
-                <li class="">
-                    <a href="{{url('/dashboard')}}">
-                        <i class="material-icons">dashboard</i>
-                        <span>Job types</span>
-                    </a>
-                </li>
-                <li class="">
-                    <a href="{{url('/dashboard')}}">
+                <li class="{{(isset($page) && $page && $page=='job-by-roles')?'active':''}}">
+                    <a href="{{url('/job-by-role')}}">
                         <i class="material-icons">dashboard</i>
                         <span>Job By Roles</span>
                     </a>
                 </li>
-
+                <li class="{{(isset($page) && $page && $page=='job-types')?'active':''}}">
+                    <a href="{{url('/job-types')}}">
+                        <i class="material-icons">dashboard</i>
+                        <span>Job types</span>
+                    </a>
+                </li>
 
 
                 <li class="header">MORE</li>

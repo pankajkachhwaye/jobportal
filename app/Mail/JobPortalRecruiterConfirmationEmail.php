@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class JobPortalConfirmationEmail extends Mailable
+class JobPortalRecruiterConfirmationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,7 +22,6 @@ class JobPortalConfirmationEmail extends Mailable
         $this->user = $user;
     }
 
-
     /**
      * Build the message.
      *
@@ -30,6 +29,6 @@ class JobPortalConfirmationEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('pankaj@samyotech.com' , 'Pankaj Kachhwaye')->view('vendor.emails.verifyseeker');
+        return $this->from('pankaj@samyotech.com' , 'Pankaj Kachhwaye')->view('vendor.emails.verifyrecruiter');
     }
 }
