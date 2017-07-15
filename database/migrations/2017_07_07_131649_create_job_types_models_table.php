@@ -15,7 +15,7 @@ class CreateJobTypesModelsTable extends Migration
     {
         Schema::create('job_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('job_type')->unique();
+            $table->string('job_type',100)->unique();
             $table->timestamps();
         });
     }

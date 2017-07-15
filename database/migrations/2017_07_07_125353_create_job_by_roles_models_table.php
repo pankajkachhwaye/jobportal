@@ -15,7 +15,7 @@ class CreateJobByRolesModelsTable extends Migration
     {
         Schema::create('job_by_roles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('job_by_role')->unique();
+            $table->string('job_by_role',100)->unique();
             $table->timestamps();
         });
     }

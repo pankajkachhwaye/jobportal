@@ -15,7 +15,7 @@ class CreateQualificationModelsTable extends Migration
     {
         Schema::create('qualifications', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('qualification')->unique();
+            $table->string('qualification',100)->unique();
             $table->timestamps();
         });
     }

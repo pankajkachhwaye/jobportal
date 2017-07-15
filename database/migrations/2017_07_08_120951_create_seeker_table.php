@@ -16,8 +16,8 @@ class CreateSeekerTable extends Migration
         Schema::create('seeker', function (Blueprint $table) {
             $table->increments('id');
             $table->string('full_name');
-            $table->string('email')->unique();
-            $table->string('mobile_no')->unique();
+            $table->string('email',100)->unique();
+            $table->string('mobile_no',100)->unique();
             $table->string('password');
             $table->tinyInteger('profile_update')->default(false);
             $table->tinyInteger('verified')->default(false); // this column will be a TINYINT with a default value of 0 , [0 for false & 1 for true i.e. verified]
