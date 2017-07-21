@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Repository\RecruiterRepository;
 use App\Mail\JobPortalRecruiterConfirmationEmail;
+use App\Models\JobsModel;
 use App\Models\RecruiterModel;
+use App\Models\RecruiterProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -71,4 +74,32 @@ class RecruiterController extends Controller
             return Response::json(['code' => 500, 'status' => false, 'message' => $exception->getMessage()]);
         }
     }
+
+    public function fillRecruiterProfile(Request $request,RecruiterRepository $repository){
+        $save = $repository->fillRecruiterProfile($request, new RecruiterProfile());
+        if ($save['code'] == 400)
+            return Response::json(['code' => 400, 'status' => false, 'message' => $save['message']]);
+
+        if($save['code'] == 101)
+            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
+
+        if($save['code'] == 500)
+            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
+    }
+
+    public function postNewJob(Request $request,RecruiterRepository $repository){
+        $save = $repository->saveNewJob($request, new JobsModel());
+        if ($save['code'] == 400)
+            return Response::json(['code' => 400, 'status' => false, 'message' => $save['message']]);
+
+        if($save['code'] == 101)
+            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
+
+        if($save['code'] == 500)
+            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
+    }
+
+
+
+
 }

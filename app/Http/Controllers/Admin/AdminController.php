@@ -147,10 +147,19 @@ class AdminController extends Controller
         return view('vendor.seeker.allseeker' ,compact('users','page','sub_page'));
     }
 
+
     public function getAllRecruiter(){
         $page = 'recruiter';
         $sub_page = 'all-recruiter';
         $recruiter = RecruiterModel::all()->toArray();
 
+        return view('vendor.recruiter.allrecruiter',compact('page','sub_page','recruiter'));
+
+    }
+
+    public function addNewRecruiter(){
+        $page = 'recruiter';
+        $sub_page = 'add-recruiter';
+        return view('vendor.recruiter.addrecruiter',compact('page','sub_page'));
     }
 }

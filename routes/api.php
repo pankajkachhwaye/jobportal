@@ -32,5 +32,7 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/register-new-recruiter','RecruiterController@registerRecruiter');
     Route::get('register-recruiter/confirm/{token}', 'RecruiterController@recruiterConfirmEmail');
     Route::post('/recruiter-login','RecruiterController@loginRecruiter');
+    Route::post('/fill-recruiter-profile','RecruiterController@fillRecruiterProfile');
+    Route::post('/post-job','RecruiterController@postNewJob');
 
 });

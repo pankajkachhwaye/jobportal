@@ -5,7 +5,6 @@ namespace App\Http\Repository;
 
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
-use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 use Illuminate\Support\Facades\Storage;
 
 class SeekerRepository

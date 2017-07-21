@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Facades\General;
+use App\Models\RecruiterModel;
 use App\Models\SeekerModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,6 +37,19 @@ class ApiController extends Controller
 
     public function showRecruiterLogin(){
         return view('api.recruiter.recruiterlogin');
+    }
+
+    public function showRecruiterProfileForm(){
+        $recruiter = RecruiterModel::all()->toArray();
+        $basicInfo = General::basicInfo();
+        return view('api.recruiter.recruiterprofile',compact('recruiter','basicInfo'));
+    }
+
+    public function showPostJobForm(){
+        $recruiter = RecruiterModel::all()->toArray();
+        $basicInfo = General::basicInfo();
+
+        return view('api.recruiter.postjob',compact('recruiter','basicInfo'));
     }
 
 }

@@ -24,20 +24,20 @@
                                     </thead>
 
                                     <tbody>
-                                    {{--@foreach($users as $key_user => $value_user)--}}
-                                        {{--<tr>--}}
-                                            {{--<td>--}}
-                                                {{--{{$value_user['full_name']}}--}}
-                                            {{--</td>--}}
-                                            {{--<td>--}}
-                                                {{--{{$value_user['email']}}--}}
-                                            {{--</td>--}}
-                                            {{--<td>--}}
-                                                {{--{{$value_user['mobile_no']}}--}}
-                                            {{--</td>--}}
+                                    @foreach($recruiter as $key_recruiter => $value_recruiter)
+                                        <tr>
+                                            <td>
+                                                {{$value_recruiter['organisation_name']}}
+                                            </td>
+                                            <td>
+                                                {{$value_recruiter['recruiter_email']}}
+                                            </td>
+                                            <td>
+                                                {{$value_recruiter['recruiter_mobile_no']}}
+                                            </td>
 
-                                        {{--</tr>--}}
-                                    {{--@endforeach--}}
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
 

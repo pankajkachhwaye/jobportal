@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Admin'], function () {
     Route::get('/dashboard','AdminController@index');
     Route::get('/all-user','AdminController@getAllUser');
+    Route::get('/all-recruiter','AdminController@getAllRecruiter');
     Route::get('/location','AdminController@location');
     Route::post('/add-new-location','AdminController@postLocation');
     Route::get('/area-of-sectors','AdminController@areaOfSectors');
@@ -40,6 +41,8 @@ Route::group(['namespace' => 'Api'],function (){
    Route::get('seeker-profile','ApiController@showSeekerProfileForm');
    Route::get('recruiter-register','ApiController@recruiterRegister');
    Route::get('recruiter-login','ApiController@showRecruiterLogin');
+   Route::get('recruiter-profile','ApiController@showRecruiterProfileForm');
+   Route::get('post-new-job','ApiController@showPostJobForm');
 });
 
 

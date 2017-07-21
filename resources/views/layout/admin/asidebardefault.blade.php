@@ -36,17 +36,14 @@
                     </a>
                 </li>
 
-                <li class="{{(isset($page) && $page && $page=='orders')?'active':''}}">
+                <li class="{{(isset($page) && $page && $page=='recruiter')?'active':''}}">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">toc</i>
                         <span>Recruiters</span>
                     </a>
                     <ul class="ml-menu">
-                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='pending-order')?'active':''}}">
-                            <a href="{{ url('/order/pending-order')  }}">Add Recruiter</a>
-                        </li>
-                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='order-history')?'active':''}}">
-                            <a href="{{ url('/order/order-history')  }}">
+                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='all-recruiter')?'active':''}}">
+                            <a href="all-recruiter">
                                 All Recruiter
                             </a>
 

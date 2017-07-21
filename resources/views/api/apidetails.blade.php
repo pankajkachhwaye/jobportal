@@ -29,6 +29,8 @@
     <div>
         <p><a href="{{url('/recruiter-register')}}">Register Recruiter</a></p>
         <p><a href="{{url('/recruiter-login')}}">Login Recruiter</a></p>
+        <p><a href="{{url('/recruiter-profile')}}">Recruiter Fill-Profile</a></p>
+        <p><a href="{{url('/post-new-job')}}">Post New Job</a></p>
         {{--<p><a href="{{url('/seeker-profile')}}">Update-Profile </a></p>--}}
 
 
