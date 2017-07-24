@@ -19,6 +19,7 @@
 <div id="accordion">
     <h3>Seeker</h3>
     <div>
+        <p><a href="{{url('/active-jobs')}}">Active Jobs</a></p>
         <p><a href="{{url('/seeker-register')}}">Register Seeker</a></p>
         <p><a href="{{url('/seeker-login')}}">Login Seeker</a></p>
         <p><a href="{{url('/seeker-profile')}}">Seeker Fill-Profile</a></p>

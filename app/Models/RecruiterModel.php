@@ -42,4 +42,14 @@ class RecruiterModel extends Model
             ->orWhere('recruiter_mobile_no', $value);
     }
 
+    public function recruiterProfile(){
+        return $this->hasOne('App\Models\RecruiterProfile','recruiter_id');
+    }
+
+    public function postedJobs(){
+        return $this->hasMany('App\Models\JobsModel','recruiter_id');
+    }
+
+
+
 }

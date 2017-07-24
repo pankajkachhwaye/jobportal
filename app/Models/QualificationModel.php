@@ -16,4 +16,8 @@ class QualificationModel extends Model
     protected $fillable = [
         'qualification'
     ];
+
+    public function jobsByQualification(){
+        return $this->hasMany('App\Models\JobsModel','qualification');
+    }
 }

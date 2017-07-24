@@ -6,7 +6,7 @@
     <title>Api-Panel</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Jquery Core Js -->
-    <script src="{{URL::asset('public/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{URL::asset('plugins/jquery/jquery.min.js')}}"></script>
 
 </head>
 <body>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class SeekerModel extends Model
 {
     protected $table = 'seeker';
@@ -42,6 +43,10 @@ class SeekerModel extends Model
 
       return $query->where('email', $value)
             ->orWhere('mobile_no', $value);
+    }
+
+    public function seekerProfile(){
+        return $this->hasOne('App\Models\SeekerProfile','seeker_id');
     }
 
 }

@@ -16,4 +16,8 @@ class JobByRolesModel extends Model
     protected $fillable = [
         'job_by_role'
     ];
+
+    public function jobsByRoles(){
+        return $this->hasMany('App\Models\JobsModel','job_by_roles');
+    }
 }

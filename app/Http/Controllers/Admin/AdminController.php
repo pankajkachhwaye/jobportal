@@ -148,14 +148,7 @@ class AdminController extends Controller
     }
 
 
-    public function getAllRecruiter(){
-        $page = 'recruiter';
-        $sub_page = 'all-recruiter';
-        $recruiter = RecruiterModel::all()->toArray();
 
-        return view('vendor.recruiter.allrecruiter',compact('page','sub_page','recruiter'));
-
-    }
 
     public function addNewRecruiter(){
         $page = 'recruiter';

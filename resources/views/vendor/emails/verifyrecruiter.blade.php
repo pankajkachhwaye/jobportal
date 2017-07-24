@@ -81,9 +81,9 @@ $style = [
                                        Please Click on the below button to verify your email address
 
                                     </p>
-                                    <a href='{{ url("api/register-seeker/confirm/{$user->token}") }}'
+                                    <a href='{{ url("api/register-recruiter/confirm/{$user->token}") }}'
                                        target="_blank">
-                                        {{ url("api/register-seeker/confirm/{$user->token}") }}
+                                        {{ url("api/register-recruiter/confirm/{$user->token}") }}
                                     </a>
 
 

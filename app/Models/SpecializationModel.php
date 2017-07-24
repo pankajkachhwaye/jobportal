@@ -16,4 +16,8 @@ class SpecializationModel extends Model
     protected $fillable = [
         'specialization'
     ];
+
+    public function jobsBySpecialization(){
+        return $this->hasMany('App\Models\JobsModel','specialization');
+    }
 }

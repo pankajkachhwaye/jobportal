@@ -16,4 +16,10 @@ class JobTypesModel extends Model
     protected $fillable = [
         'job_type'
     ];
+
+    public function jobsByJobType(){
+            return $this->hasMany('App\Models\JobsModel','job_type');
+    }
+
+
 }

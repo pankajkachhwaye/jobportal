@@ -8,6 +8,8 @@ use App\Models\JobTypesModel;
 use App\Models\LocationModel;
 use App\Models\QualificationModel;
 use App\Models\SpecializationModel;
+use App\Models\SeekerModel;
+use App\Models\JobsModel;
 
 class GeneralInformation{
 
@@ -21,6 +23,35 @@ class GeneralInformation{
         $basicinfo['job_types'] = JobTypesModel::all()->toArray();
         return $basicinfo;
     }
+
+    public function matchJob($user){
+       $userprofile = $user->seekerProfile->toArray();
+        $tem_jobs =   JobsModel::ProfileMatchedJobs($userprofile['seeker_qualification'],$userprofile['preferred_location'],$userprofile['specialization'],$userprofile['role_type'],$userprofile['job_type'])->get();
+        $jobs = [];
+        foreach ($tem_jobs as $key_job => $value_job){
+            $x = $value_job->toArray();
+              $job_type = $value_job->jobType->toArray();
+              $x['job_type'] = $job_type['job_type'];
+              $x['job_type_id'] = $job_type['id'];
+              $job_by_roles = $value_job->jobRole->toArray();
+              $x['job_by_roles'] =$job_by_roles['job_by_role'];
+              $x['job_by_roles_id'] =$job_by_roles['id'];
+              $qualification = $value_job->jobQualification->toArray();
+              $x['qualification'] = $qualification['qualification'];
+              $x['qualification_id'] = $qualification['id'];
+              $location = $value_job->jobLocation->toArray();
+                $x['job_location'] = $location['location_name'];
+                $x['job_location_id'] = $location['id'];
+                $specialization = $value_job->jobSpecialization->toArray();
+            $x['specialization'] = $specialization['specialization'];
+            $x['specialization_id'] = $specialization['id'];
+
+              array_push($jobs,$x);
+        }
+
+        return $jobs;
+    }
+
 }
 
 ?>

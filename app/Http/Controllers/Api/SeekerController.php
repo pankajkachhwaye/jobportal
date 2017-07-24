@@ -99,5 +99,19 @@ class SeekerController extends Controller
             return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
     }
 
+    public function activeJobs(Request $request){
+      $seeker =  SeekerModel::find($request->seeker_id);
+      $jobs = General::matchjob($seeker);
+
+      if(count($jobs) > 0){
+          return Response::json(['code' => 101, 'status' => true, 'data' => $jobs]);
+      }
+      else{
+          return Response::json(['code' => 200, 'status' => false, 'message' => 'No Matching Jobs Are found For this Profile']);
+      }
+
+
+    }
+
 
 }

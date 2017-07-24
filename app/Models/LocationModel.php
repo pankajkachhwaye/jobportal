@@ -16,4 +16,8 @@ class LocationModel extends Model
     protected $fillable = [
         'location_name'
     ];
+
+    public function jobsByLocation(){
+        return $this->hasMany('App\Models\JobsModel','job_location');
+    }
 }

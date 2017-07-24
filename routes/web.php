@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Admin'], function () {
     Route::get('/dashboard','AdminController@index');
     Route::get('/all-user','AdminController@getAllUser');
-    Route::get('/all-recruiter','AdminController@getAllRecruiter');
+
     Route::get('/location','AdminController@location');
     Route::post('/add-new-location','AdminController@postLocation');
     Route::get('/area-of-sectors','AdminController@areaOfSectors');
@@ -34,6 +34,12 @@ Route::group(['namespace' => 'Admin'], function () {
 
 });
 
+
+Route::group(['namespace' => 'Admin','prefix'=>'recruiter'], function () {
+    Route::get('/all-recruiter','ManageRecruiterController@getAllRecruiter');
+    Route::get('/view-details/{id}','ManageRecruiterController@recruiterViewDetails');
+});
+
 Route::group(['namespace' => 'Api'],function (){
    Route::get('api-details','ApiController@index');
    Route::get('seeker-register','ApiController@seekerregister');
@@ -43,7 +49,10 @@ Route::group(['namespace' => 'Api'],function (){
    Route::get('recruiter-login','ApiController@showRecruiterLogin');
    Route::get('recruiter-profile','ApiController@showRecruiterProfileForm');
    Route::get('post-new-job','ApiController@showPostJobForm');
+   Route::get('active-jobs','ApiController@showActiveJobsForm');
 });
+
+//
 
 
 Auth::routes();

@@ -43,7 +43,7 @@
                     </a>
                     <ul class="ml-menu">
                         <li class="{{(isset($sub_page) && $sub_page && $sub_page=='all-recruiter')?'active':''}}">
-                            <a href="all-recruiter">
+                            <a href="{{ url('/recruiter/all-recruiter') }}">
                                 All Recruiter
                             </a>
 
