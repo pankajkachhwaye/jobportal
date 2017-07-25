@@ -78,7 +78,10 @@
     <br />
     <br />
 
-   Minimum Experience Required (experience)<span style="color: red">*</span> :: <select name="experience">
+    Skills(skills_required)<span style="color: red">*</span>  :: <input type="text" name="skills_required">
+    <br />
+    <br />
+    Minimum Experience Required (experience)<span style="color: red">*</span> :: <select name="experience">
         <option value="">Please select</option>
       <option value="0(Freasher)">0(Freasher)</option>
       <option value="06 Months">06 Months</option>

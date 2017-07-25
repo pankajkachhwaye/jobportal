@@ -8,12 +8,12 @@ class JobsModel extends Model
 {
     protected $table = 'jobs';
 
-    public function scopeProfileMatchedJobs($query,$qualification,$location,$specilization,$role_type,$job_type){
+    public function scopeProfileMatchedJobs($query,$qualification,$location,$specilization,$role_type){
         return $query->where('qualification',$qualification)
              ->orWhere('job_location', $location)
             ->orWhere('specialization', $specilization)
-            ->orWhere('job_by_roles', $role_type)
-            ->orWhere('job_type', $job_type);
+            ->orWhere('job_by_roles', $role_type);
+            //->orWhere('job_type', $job_type);
 
 
     }

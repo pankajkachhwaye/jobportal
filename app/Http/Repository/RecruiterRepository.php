@@ -87,6 +87,11 @@ class RecruiterRepository
             else
                 return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.specialization'))];
 
+            if($data->skills_required != '')
+                $temp_data['skills_required']= $data->skills_required;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.skills'))];
+
             if($data->experience != '')
                 $temp_data['experience']= $data->experience;
             else

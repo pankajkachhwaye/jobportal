@@ -50,6 +50,7 @@ Route::group(['namespace' => 'Api'],function (){
    Route::get('recruiter-profile','ApiController@showRecruiterProfileForm');
    Route::get('post-new-job','ApiController@showPostJobForm');
    Route::get('active-jobs','ApiController@showActiveJobsForm');
+   Route::get('apply-for-job','ApiController@showApplyForJobForm');
 });
 
 //

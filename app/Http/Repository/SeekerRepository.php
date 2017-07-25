@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 
+use App\Models\ApplyOnJobModel;
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -52,6 +53,25 @@ class SeekerRepository
             $temp_data['created_at'] = Carbon::now();
             $model->insert($temp_data);
             return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully'];
+
+        }
+        catch (\Exception $exception){
+            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
+        }
+    }
+
+
+    public function applyjob($data = [], $model){
+        try {
+            $check = ApplyOnJobModel::GetJobApplication($data['job_id'], $data['seeker_id'])->get()->toArray();
+            if (count($check) > 0) {
+                return ['code' => 400, 'message' => trim(Lang::get('seeker.already-apply'))];
+            } else {
+                $data['created_at'] = Carbon::now();
+                $model->insert($data);
+                return ['code' => 101, 'status' => true, 'message' => trim(Lang::get('seeker.apply-success'))];
+            }
+
 
         }
         catch (\Exception $exception){

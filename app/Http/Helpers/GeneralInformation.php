@@ -26,7 +26,7 @@ class GeneralInformation{
 
     public function matchJob($user){
        $userprofile = $user->seekerProfile->toArray();
-        $tem_jobs =   JobsModel::ProfileMatchedJobs($userprofile['seeker_qualification'],$userprofile['preferred_location'],$userprofile['specialization'],$userprofile['role_type'],$userprofile['job_type'])->get();
+        $tem_jobs =   JobsModel::ProfileMatchedJobs($userprofile['seeker_qualification'],$userprofile['preferred_location'],$userprofile['specialization'],$userprofile['role_type'])->get();
         $jobs = [];
         foreach ($tem_jobs as $key_job => $value_job){
             $x = $value_job->toArray();

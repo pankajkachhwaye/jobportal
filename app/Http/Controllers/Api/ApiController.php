@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Facades\General;
+use App\Models\JobsModel;
 use App\Models\RecruiterModel;
 use App\Models\SeekerModel;
 use Illuminate\Http\Request;
@@ -57,4 +58,20 @@ class ApiController extends Controller
         return view('api.seeker.activejob' , compact('seeker'));
     }
 
+
+    public function showApplyForJobForm(){
+        $seeker = SeekerModel::all()->toArray();
+        $tem_jobs = JobsModel::all();
+        $jobs = [];
+        foreach ($tem_jobs as $key_job => $value_job){
+            $x = $value_job->toArray();
+            $specialization = $value_job->jobSpecialization->toArray();
+            $x['specialization'] = $specialization['specialization'];
+            $x['specialization_id'] = $specialization['id'];
+
+            array_push($jobs,$x);
+        }
+
+        return view('api.seeker.applyjob' , compact('seeker','jobs'));
+    }
 }

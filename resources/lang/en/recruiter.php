@@ -19,6 +19,7 @@ return [
                     'qualification' => 'Please provide Qualification/ Eligibility.',
                     'job-location' => 'Please provide Location.',
                     'specialization' => 'Please provide Specialization.',
+                    'skills' => 'Please provide Skills required for the job.',
                     'experience' => 'Please provide Experience.',
                     'job-discription' => 'Please provide Job Discription.',
                     'minimum-salary' => 'Please provide Minimum Salary.',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Facades\General;
 use App\Http\Repository\SeekerRepository;
+use App\Models\ApplyOnJobModel;
 use App\Models\SeekerProfile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
@@ -113,5 +114,15 @@ class SeekerController extends Controller
 
     }
 
+    public function applyOnJob(Request $request,SeekerRepository $repository){
+        $save = $repository->applyjob($request->all(), new ApplyOnJobModel());
+        if($save['code'] == 101)
+            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
+        if ($save['code'] == 400)
+            return Response::json(['code' => 400, 'status' => false, 'message' => $save['message']]);
+
+        if($save['code'] == 500)
+            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
+    }
 
 }
