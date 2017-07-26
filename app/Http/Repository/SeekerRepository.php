@@ -62,6 +62,7 @@ class SeekerRepository
 
 
     public function applyjob($data = [], $model){
+
         try {
             $check = ApplyOnJobModel::GetJobApplication($data['job_id'], $data['seeker_id'])->get()->toArray();
             if (count($check) > 0) {
@@ -71,9 +72,7 @@ class SeekerRepository
                 $model->insert($data);
                 return ['code' => 101, 'status' => true, 'message' => trim(Lang::get('seeker.apply-success'))];
             }
-
-
-        }
+       }
         catch (\Exception $exception){
             return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
         }

@@ -36,5 +36,7 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/recruiter-login','RecruiterController@loginRecruiter');
     Route::post('/fill-recruiter-profile','RecruiterController@fillRecruiterProfile');
     Route::post('/post-job','RecruiterController@postNewJob');
+    Route::post('/get-recruiter-jobs','RecruiterController@getRecruiterJobs');
+    Route::post('/job-application','RecruiterController@getJobApplications');
 
 });

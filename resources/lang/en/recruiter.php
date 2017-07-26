@@ -29,6 +29,15 @@ return [
                     'last-date-app' => 'Please provide Last Date of Application.',
                     'process' => 'Please provide Hiring Process.',
 
-    ]
+    ],
+
+    'check-application' => [
+
+                    'invalid-recruiter' => 'Not a Valid Recruiter',
+                    'invalid-job' => 'Not a Valid Job',
+                    'no-application' => 'No Application found on this job',
+
+
+        ]
 
 ];

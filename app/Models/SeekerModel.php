@@ -49,4 +49,9 @@ class SeekerModel extends Model
         return $this->hasOne('App\Models\SeekerProfile','seeker_id');
     }
 
+
+    public function seekerApplications(){
+        return $this->hasMany('App\Models\ApplyOnJobModel','seeker_id');
+    }
+
 }

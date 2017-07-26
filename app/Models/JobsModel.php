@@ -14,8 +14,10 @@ class JobsModel extends Model
             ->orWhere('specialization', $specilization)
             ->orWhere('job_by_roles', $role_type);
             //->orWhere('job_type', $job_type);
+    }
 
-
+    public function jobApplications(){
+        return $this->hasMany('App\Models\ApplyOnJobModel','job_id');
     }
 
     public function jobType(){

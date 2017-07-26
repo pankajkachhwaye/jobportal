@@ -23,7 +23,7 @@
         <p><a href="{{url('/seeker-register')}}">Register Seeker</a></p>
         <p><a href="{{url('/seeker-login')}}">Login Seeker</a></p>
         <p><a href="{{url('/seeker-profile')}}">Seeker Fill-Profile</a></p>
-
+        <p><a href="{{url('/apply-for-job')}}">Apply on Job</a></p>
 
     </div>
     <h3>Recruiter</h3>
@@ -32,7 +32,8 @@
         <p><a href="{{url('/recruiter-login')}}">Login Recruiter</a></p>
         <p><a href="{{url('/recruiter-profile')}}">Recruiter Fill-Profile</a></p>
         <p><a href="{{url('/post-new-job')}}">Post New Job</a></p>
-        <p><a href="{{url('/apply-for-job')}}">Apply on Job</a></p>
+        <p><a href="{{url('/job-applications-form')}}">Job Application</a></p>
+
         {{--<p><a href="{{url('/seeker-profile')}}">Update-Profile </a></p>--}}
 
 

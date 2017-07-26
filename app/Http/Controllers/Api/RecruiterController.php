@@ -100,6 +100,31 @@ class RecruiterController extends Controller
     }
 
 
+        public function getRecruiterJobs(Request $request){
+            $tem_jobs = JobsModel::where('recruiter_id',$request->id)->get();
+            $jobs = [];
+            foreach ($tem_jobs as $key_job => $value_job){
+                $x = $value_job->toArray();
+                $specialization = $value_job->jobSpecialization->toArray();
+                $x['specialization'] = $specialization['specialization'];
+                $x['specialization_id'] = $specialization['id'];
 
+                array_push($jobs,$x);
+            }
+
+            return Response::json($jobs);
+        }
+
+        public function getJobApplications(Request $request,RecruiterRepository $repository){
+            $response = $repository->checkJobApplication($request->all());
+            if ($response['code'] == 400)
+                return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
+
+            if($response['code'] == 101)
+                return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
+
+            if($response['code'] == 500)
+                return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
+        }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 
+use App\Models\JobsModel;
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -144,7 +145,38 @@ class RecruiterRepository
         }
     }
 
+    public function checkJobApplication($data){
+        try{
+            if($data['recruiter_id'] == null)
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.check-application.invalid-recruiter'))];
 
+            if($data['job_id'] == null)
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.check-application.invalid-job'))];
+
+            $job = JobsModel::find($data['job_id']);
+            $application = $job->jobApplications()->get();
+
+            $seeker = [];
+            foreach ($application as $key_app => $value_app){
+                $temp_x = $value_app->seekerOnJob;
+                $x = $temp_x->toArray();
+                $x['profile'] = $temp_x->seekerProfile->toArray();
+                $resume = $x['profile']['resume'];
+                $x['profile']['resume'] = asset('storage/'.$resume);
+                array_push($seeker,$x);
+            }
+
+            if(count($seeker) > 0)
+                return ['code' => 101,'status'=>true, 'message' => 'Job Application Found','data' => $seeker];
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.check-application.no-application'))];
+        }
+        catch (\Exception $exception){
+            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
+        }
+
+
+    }
 
 
 }
