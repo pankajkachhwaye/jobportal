@@ -64,7 +64,8 @@
                                                             {{$value_specialization['specialization']}}
                                                         </td>
 
-                                                        <td> <button type="submit" id="editdelivery" class="btn btn-primary m-t-15 waves-effect">Edit</button>
+                                                        <td>
+                                                            <a href="{{ url('edit-specialization').'/'.$value_specialization['id'] }}"><button type="submit" id="editdelivery" class="btn btn-primary m-t-15 waves-effect">Edit</button></a>
                                                             <button type="submit" class="btn btn-info m-t-15 waves-effect">Delete</button>
                                                         </td>
                                                     </tr>

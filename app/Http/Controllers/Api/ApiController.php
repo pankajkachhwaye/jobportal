@@ -80,4 +80,6 @@ class ApiController extends Controller
 
         return view('api.recruiter.jobapplication',compact('recruiter'));
     }
+
+
 }

@@ -19,12 +19,25 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/dashboard','AdminController@index');
     Route::get('/all-user','AdminController@getAllUser');
 
+    /********** Location Module ***********/
     Route::get('/location','AdminController@location');
-    Route::post('/add-new-location','AdminController@postLocation');
+     Route::post('/add-new-location','AdminController@postLocation');
+    Route::get('/edit-location/{id}','AdminController@editLocation');
+    Route::post('/update-location','AdminController@updateLocation');
+
+
+    /********** Area Of Sectors ***********/
     Route::get('/area-of-sectors','AdminController@areaOfSectors');
     Route::post('/add-new-area-of-sector','AdminController@postAreaOfSectors');
+    Route::get('/edit-area-of-sector/{id}','AdminController@editAreaOfSector');
+    Route::post('/update-area-of-sector','AdminController@updateAreaOfSectors');
+
+    /********** Specialization ***********/
     Route::get('/specialization','AdminController@specialization');
     Route::post('/add-new-specialization','AdminController@postSpecialization');
+    Route::get('/edit-specialization/{id}','AdminController@editSpecialization');
+    Route::post('/update-specialization','AdminController@updateSpecialization');
+
     Route::get('/qualification','AdminController@qualification');
     Route::post('/add-new-qualification','AdminController@postQualification');
     Route::get('/job-by-role','AdminController@jobByRoles');
@@ -51,7 +64,7 @@ Route::group(['namespace' => 'Api'],function (){
    Route::get('post-new-job','ApiController@showPostJobForm');
    Route::get('active-jobs','ApiController@showActiveJobsForm');
    Route::get('apply-for-job','ApiController@showApplyForJobForm');
-   Route::get('job-applications-form','ApiController@showJobApplicationForm');
+
 });
 
 //

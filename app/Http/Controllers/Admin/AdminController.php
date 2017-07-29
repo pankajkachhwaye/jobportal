@@ -41,6 +41,14 @@ class AdminController extends Controller
         return view('vendor.admin.locations',compact('page','locations'));
     }
 
+
+
+    public function editLocation($id){
+        $location = LocationModel::find($id)->toArray();
+        $page = 'location';
+        return view('vendor.admin.editlocation',compact('page','location'));
+    }
+
     public function postLocation(Request $req,CrudRepository $repo){
         $save =$repo->createNew($req->all(), new LocationModel());
         if($save['code'] == 101){
@@ -49,6 +57,17 @@ class AdminController extends Controller
         }
         else{
             return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+        }
+    }
+
+    public function updateLocation(Request $req,CrudRepository $repo){
+        $update = $repo->updateModelById($req->all(), new LocationModel());
+        if($update['code'] == 101){
+            $locations = LocationModel::all()->toArray();
+            return redirect('location')->with('returnStatus', true)->with('status', 101)->with('message', 'Location Updated Successfully')->with($locations);
+        }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $update['message']);
         }
     }
 
@@ -70,11 +89,31 @@ class AdminController extends Controller
         }
     }
 
+    public function editAreaOfSector($id){
+        $area_of_sector = AreaOfSectorsModel::find($id)->toArray();
+        $page = 'area-of-sectors';
+        return view('vendor.admin.editareaofsector',compact('page','area_of_sector'));
+
+    }
+
+    public function updateAreaOfSectors(Request $req,CrudRepository $repo){
+        $update = $repo->updateModelById($req->all(), new AreaOfSectorsModel());
+        if($update['code'] == 101){
+            $area_of_sectors = AreaOfSectorsModel::all()->toArray();
+            return redirect('area-of-sectors')->with('returnStatus', true)->with('status', 101)->with('message', 'Area Of Sectors Updated Successfully')->with($area_of_sectors);
+        }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $update['message']);
+        }
+    }
+
     public function specialization(){
         $specializations = SpecializationModel::all()->toArray();
         $page = 'specialization';
         return view('vendor.admin.specialization',compact('page','specializations'));
     }
+
+
 
     public function postSpecialization(Request $req,CrudRepository $repo){
         $save =$repo->createNew($req->all(), new SpecializationModel());
@@ -84,6 +123,23 @@ class AdminController extends Controller
         }
         else{
             return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+        }
+    }
+
+    public function editSpecialization($id){
+        $specialization = SpecializationModel::find($id)->toArray();
+        $page = 'specialization';
+        return view('vendor.admin.editspecialization',compact('page','specialization'));
+    }
+
+    public function updateSpecialization(Request $req,CrudRepository $repo){
+        $update = $repo->updateModelById($req->all(), new SpecializationModel());
+        if($update['code'] == 101){
+            $specializations = SpecializationModel::all()->toArray();
+            return redirect('specialization')->with('returnStatus', true)->with('status', 101)->with('message', 'Specializations Updated Successfully')->with($specializations);
+        }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $update['message']);
         }
     }
 

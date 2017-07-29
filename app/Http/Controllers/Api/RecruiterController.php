@@ -116,6 +116,7 @@ class RecruiterController extends Controller
         }
 
         public function getJobApplications(Request $request,RecruiterRepository $repository){
+
             $response = $repository->checkJobApplication($request->all());
             if ($response['code'] == 400)
                 return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
@@ -126,5 +127,6 @@ class RecruiterController extends Controller
             if($response['code'] == 500)
                 return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
         }
+
 
 }
