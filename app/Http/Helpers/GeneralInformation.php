@@ -42,6 +42,8 @@ class GeneralInformation{
            $tem_jobs =   JobsModel::ProfileMatchedJobs($userprofile['seeker_qualification'],$userprofile['preferred_location'],$userprofile['specialization'],$userprofile['role_type'])->get();
             $jobs = [];
            foreach ($tem_jobs as $key_job => $value_job){
+               $recruiter = $value_job->postedRecruiter;
+                $profile = $recruiter->recruiterProfile;
                $x = $value_job->toArray();
                $job_type = $value_job->jobType->toArray();
                $x['job_type'] = $job_type['job_type'];
@@ -58,6 +60,8 @@ class GeneralInformation{
                $specialization = $value_job->jobSpecialization->toArray();
                $x['specialization'] = $specialization['specialization'];
                $x['specialization_id'] = $specialization['id'];
+//               $x['recruiter'] = $recruiter;
+//               $x['recruiter']['profile'] = $profile;
 
                array_push($jobs,$x);
            }

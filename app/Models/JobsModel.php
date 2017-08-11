@@ -39,4 +39,8 @@ class JobsModel extends Model
     public function jobSpecialization(){
         return $this->belongsTo('App\Models\SpecializationModel','specialization');
     }
+
+    public function postedRecruiter(){
+        return $this->belongsTo('App\Models\RecruiterModel','recruiter_id');
+    }
 }
