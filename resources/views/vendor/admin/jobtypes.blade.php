@@ -64,7 +64,8 @@
                                                 {{$value_job_types['job_type']}}
                                                 </td>
 
-                                                <td> <button type="submit" id="editdelivery" class="btn btn-primary m-t-15 waves-effect">Edit</button>
+                                                <td>
+                                                    <a href="{{ url('edit-job-type').'/'.$value_job_types['id'] }}"><button type="submit" id="editdelivery" class="btn btn-primary m-t-15 waves-effect">Edit</button>
                                                 <button type="submit" class="btn btn-info m-t-15 waves-effect">Delete</button>
                                                 </td>
                                                 </tr>

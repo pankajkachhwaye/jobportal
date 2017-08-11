@@ -14,7 +14,7 @@
                     <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                     <ul class="dropdown-menu pull-right">
                         <li><a href="{{ url('/logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">><i class="material-icons">input</i>Sign Out</a></li>
+                                                     document.getElementById('logout-form').submit();"><i class="material-icons">input</i>Sign Out</a></li>
 
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
@@ -99,19 +99,19 @@
                 </li>
 
 
-                <li class="header">MORE</li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons col-red">donut_large</i>
-                        <span>Settings</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons col-amber">donut_large</i>
-                        <span>Notifications</span>
-                    </a>
-                </li>
+                {{--<li class="header">MORE</li>--}}
+                {{--<li>--}}
+                    {{--<a href="javascript:void(0);">--}}
+                        {{--<i class="material-icons col-red">donut_large</i>--}}
+                        {{--<span>Settings</span>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                    {{--<a href="javascript:void(0);">--}}
+                        {{--<i class="material-icons col-amber">donut_large</i>--}}
+                        {{--<span>Notifications</span>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
 
             </ul>
         </div>

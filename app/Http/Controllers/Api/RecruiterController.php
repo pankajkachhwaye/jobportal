@@ -9,6 +9,7 @@ use App\Models\RecruiterModel;
 use App\Models\RecruiterProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Hash;
@@ -125,8 +126,12 @@ class RecruiterController extends Controller
                 return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
 
             if($response['code'] == 500)
+
                 return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
         }
+
+
+
 
 
 }

@@ -64,7 +64,8 @@
                                                             {{$value_role['job_by_role']}}
                                                         </td>
 
-                                                        <td> <button type="submit" id="editdelivery" class="btn btn-primary m-t-15 waves-effect">Edit</button>
+                                                        <td>
+                                                            <a href="{{ url('edit-job-by-role').'/'.$value_role['id'] }}"><button type="submit" class="btn btn-primary m-t-15 waves-effect">Edit</button></a>
                                                             <button type="submit" class="btn btn-info m-t-15 waves-effect">Delete</button>
                                                         </td>
                                                     </tr>

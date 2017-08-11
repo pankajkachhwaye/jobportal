@@ -43,6 +43,7 @@ class RecruiterModel extends Model
     }
 
     public function recruiterProfile(){
+
         return $this->hasOne('App\Models\RecruiterProfile','recruiter_id');
     }
 

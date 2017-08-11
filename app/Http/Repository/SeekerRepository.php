@@ -4,6 +4,7 @@ namespace App\Http\Repository;
 
 
 use App\Models\ApplyOnJobModel;
+use App\Models\SeekerModel;
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -14,6 +15,10 @@ class SeekerRepository
     public function fillSeekerProfile($data = [], $model){
         try{
             $temp_data = $data->all();
+
+            $seeker = SeekerModel::find($data->seeker_id);
+            $seeker->profile_update = 1;
+            $seeker->save();
 
             if(isset($data->gender))
                 $temp_data['gender']= $data->gender;

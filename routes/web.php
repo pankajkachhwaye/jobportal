@@ -38,12 +38,23 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/edit-specialization/{id}','AdminController@editSpecialization');
     Route::post('/update-specialization','AdminController@updateSpecialization');
 
+    /********** Qualifications ***********/
     Route::get('/qualification','AdminController@qualification');
     Route::post('/add-new-qualification','AdminController@postQualification');
+    Route::get('/edit-qualification/{id}','AdminController@editQualification');
+    Route::post('/update-qualification','AdminController@updateQualification');
+
+    /********** Job By Roles ***********/
     Route::get('/job-by-role','AdminController@jobByRoles');
     Route::post('/add-new-job-role','AdminController@postJobByRoles');
+    Route::get('/edit-job-by-role/{id}','AdminController@editJobByRoles');
+    Route::post('/update-job-role','AdminController@updateJobByRoles');
+
+    /********** Job Types ***********/
     Route::get('/job-types','AdminController@jobTypes');
     Route::post('/add-new-job-type','AdminController@postJobType');
+    Route::get('/edit-job-type/{id}','AdminController@editJobTypes');
+    Route::post('/update-job-type','AdminController@updateJobType');
 
 });
 

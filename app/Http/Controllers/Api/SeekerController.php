@@ -43,6 +43,8 @@ class SeekerController extends Controller
 
             Mail::to($user->email)->send(new JobPortalConfirmationEmail($user));
 
+
+
             if (count(Mail::failures()) == 0) {
                 return Response::json(['code' => 200, 'status' => true, 'message' => trim(Lang::get('seeker.register-succees'))]);
             }
@@ -104,14 +106,7 @@ class SeekerController extends Controller
       $seeker =  SeekerModel::find($request->seeker_id);
       $jobs = General::matchjob($seeker);
 
-      if(count($jobs) > 0){
-          return Response::json(['code' => 101, 'status' => true, 'data' => $jobs]);
-      }
-      else{
-          return Response::json(['code' => 200, 'status' => false, 'message' => 'No Matching Jobs Are found For this Profile']);
-      }
-
-
+      return Response::json($jobs);
     }
 
     public function applyOnJob(Request $request,SeekerRepository $repository){

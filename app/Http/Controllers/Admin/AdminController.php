@@ -160,6 +160,23 @@ class AdminController extends Controller
         }
     }
 
+    public function editQualification($id){
+        $qualification = QualificationModel::find($id)->toArray();
+        $page = 'qualification';
+        return view('vendor.admin.editqualification',compact('page','qualification'));
+    }
+
+    public function updateQualification(Request $req,CrudRepository $repo){
+        $update = $repo->updateModelById($req->all(), new QualificationModel());
+        if($update['code'] == 101){
+            $qualifications = QualificationModel::all()->toArray();
+            return redirect('qualification')->with('returnStatus', true)->with('status', 101)->with('message', 'Qualification Updated Successfully')->with($qualifications);
+        }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $update['message']);
+        }
+    }
+
 
     public function jobByRoles(){
         $job_by_roles = JobByRolesModel::all()->toArray();
@@ -178,6 +195,24 @@ class AdminController extends Controller
         }
     }
 
+        public function editJobByRoles($id){
+            $job_by_role = JobByRolesModel::find($id)->toArray();
+            $page = 'job-by-roles';
+            return view('vendor.admin.editjobbyroles',compact('page','job_by_role'));
+        }
+
+        public function updateJobByRoles(Request $req,CrudRepository $repo){
+            $update = $repo->updateModelById($req->all(), new JobByRolesModel());
+            if($update['code'] == 101){
+                $job_by_roles = JobByRolesModel::all()->toArray();
+                return redirect('job-by-role')->with('returnStatus', true)->with('status', 101)->with('message', 'Job Role Updated Successfully')->with($job_by_roles);
+            }
+            else{
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', $update['message']);
+            }
+        }
+
+
         public function jobTypes(){
             $job_types = JobTypesModel::all()->toArray();
             $page = 'job-types';
@@ -195,6 +230,25 @@ class AdminController extends Controller
         }
     }
 
+    public function editJobTypes($id){
+        $job_type = JobTypesModel::find($id)->toArray();
+        $page = 'job-types';
+        return view('vendor.admin.editjobtypes',compact('page','job_type'));
+    }
+
+
+    public function updateJobType(Request $req,CrudRepository $repo){
+        $update = $repo->updateModelById($req->all(), new JobTypesModel());
+        if($update['code'] == 101){
+            $job_types = JobTypesModel::all()->toArray();
+            return redirect('job-types')->with('returnStatus', true)->with('status', 101)->with('message', 'Job Type Updated Successfully')->with($job_types);
+        }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $update['message']);
+        }
+    }
+
+
 
     public function getAllUser(){
         $page = 'user';
@@ -207,6 +261,7 @@ class AdminController extends Controller
 
 
     public function addNewRecruiter(){
+
         $page = 'recruiter';
         $sub_page = 'add-recruiter';
         return view('vendor.recruiter.addrecruiter',compact('page','sub_page'));

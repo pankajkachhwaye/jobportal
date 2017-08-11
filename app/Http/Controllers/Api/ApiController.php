@@ -76,6 +76,8 @@ class ApiController extends Controller
     }
 
     public function showJobApplicationForm(){
+
+
         $recruiter = RecruiterModel::all()->toArray();
 
         return view('api.recruiter.jobapplication',compact('recruiter'));
