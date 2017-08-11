@@ -25,7 +25,6 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/register-new-seeker','SeekerController@registerSeeker');
     Route::get('register-seeker/confirm/{token}', 'SeekerController@confirmEmail');
     Route::post('login-seeker', 'SeekerController@loginSeeker');
-    Route::get('/general','SeekerController@generalInfo');
     Route::post('fill-seeker-profile', 'SeekerController@fillSeekerProfile');
     Route::post('/active-jobs', 'SeekerController@activeJobs');
     Route::post('/apply-on-job', 'SeekerController@applyOnJob');
@@ -38,6 +37,9 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/post-job','RecruiterController@postNewJob');
     Route::post('/get-recruiter-jobs','RecruiterController@getRecruiterJobs');
     Route::post('/job-application','RecruiterController@getJobApplications');
+
+
+    Route::get('/general','CommonController@basicInformation');
     
 
 });
