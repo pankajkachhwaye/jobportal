@@ -14,7 +14,8 @@ class AddAvtarToSeekerProfileTable extends Migration
     public function up()
     {
         Schema::table('seeker_profile', function (Blueprint $table) {
-            $table->string('avtar')->after('gender');
+            $table->text('avtar')->after('gender');
+            $table->text('resume')->change();
         });
     }
 
@@ -27,6 +28,7 @@ class AddAvtarToSeekerProfileTable extends Migration
     {
         Schema::table('seeker_profile', function (Blueprint $table) {
             $table->dropColumn('avtar');
+            $table->dropColumn('resume');
         });
     }
 }
