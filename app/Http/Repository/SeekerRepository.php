@@ -21,7 +21,18 @@ class SeekerRepository
             else
                 return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-gender')),'data'=>[]];
 
-            if(isset($data->job_type))
+            if($data->hasFile('avtar')) {
+                $ext = $data->avtar->getClientOriginalExtension();
+
+                $path = Storage::putFileAs('seeker_pic', $data->avtar,time().$data->seeker_id .".".$ext);
+                $temp_data['avtar'] = $path;
+            }
+            else{
+                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-picture')),'data'=>[]];
+            }
+
+
+           if(isset($data->job_type))
                 $temp_data['job_type'] = $data->job_type;
             else
                 return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-job-type')),'data'=>[]];
@@ -58,9 +69,13 @@ class SeekerRepository
             $model->insert($temp_data);
             $seeker = SeekerModel::find($data->seeker_id);
             $seeker_profile = $seeker->seekerProfile;
+            $returndata = $seeker->toArray();
+            $profile = $returndata['seeker_profile']['avtar'];
+            $resume = $returndata['seeker_profile']['resume'];
+            $returndata['seeker_profile']['avtar'] =asset('storage/'.$profile);
+            $returndata['seeker_profile']['resume'] =asset('storage/'.$resume);
 
-
-            return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully','data'=>$seeker->toArray()];
+            return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully','data'=>$returndata];
 
         }
         catch (\Exception $exception){

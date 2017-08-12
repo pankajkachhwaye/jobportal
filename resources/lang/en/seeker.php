@@ -11,6 +11,7 @@ return [
     'seeker-profile-job-type' => 'Please Select Your Job Type',
     'seeker-profile-work-experience' => 'Please Select Your Work Experience',
     'seeker-profile-resume' => 'Please Upload Your Resume',
+    'seeker-profile-picture' => 'Please Upload Your Profile Picture',
     'apply-success' => 'Job Application Posted Successfully',
     'already-apply' => 'You Already Apply on the Job',
 ];

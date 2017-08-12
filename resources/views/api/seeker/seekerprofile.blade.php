@@ -28,6 +28,11 @@
 
     Gender(gender) :: <input type="radio" value="male" name="gender">Male
     <input type="radio" value="female" name="gender">Female
+
+    <br />
+    <br />
+
+    Profile Picture(avtar) :: <input type="file" name="avtar">
     <br>
     <br>
 
