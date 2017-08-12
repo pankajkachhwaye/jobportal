@@ -16,24 +16,20 @@ class SeekerRepository
         try{
             $temp_data = $data->all();
 
-            $seeker = SeekerModel::find($data->seeker_id);
-            $seeker->profile_update = 1;
-            $seeker->save();
-
             if(isset($data->gender))
                 $temp_data['gender']= $data->gender;
             else
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-gender'))];
+                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-gender')),'data'=>[]];
 
             if(isset($data->job_type))
                 $temp_data['job_type'] = $data->job_type;
             else
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-job-type'))];
+                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-job-type')),'data'=>[]];
 
             if(isset($data->work_experience))
                 $temp_data['work_experience'] = $data->work_experience;
             else
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-work-experience'))];
+                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-work-experience')),'data'=>[]];
 
             if($data->specialization == '')
                 $temp_data['specialization'] = $data->specialization;
@@ -52,16 +48,23 @@ class SeekerRepository
                 $temp_data['resume'] = $path;
             }
             else{
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-resume'))];
+                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-resume')),'data'=>[]];
             }
 
             $temp_data['created_at'] = Carbon::now();
+            $temp_seeker = SeekerModel::find($data->seeker_id);
+            $temp_seeker->profile_update = 1;
+            $temp_seeker->save();
             $model->insert($temp_data);
-            return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully'];
+            $seeker = SeekerModel::find($data->seeker_id);
+            $seeker_profile = $seeker->seekerProfile;
+
+
+            return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully','data'=>$seeker->toArray()];
 
         }
         catch (\Exception $exception){
-            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
+            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage(),'data'=>[]];
         }
     }
 

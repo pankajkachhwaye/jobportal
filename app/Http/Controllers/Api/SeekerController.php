@@ -93,13 +93,13 @@ class SeekerController extends Controller
 
         $save = $repository->fillSeekerProfile($request, new SeekerProfile());
         if ($save['code'] == 400)
-            return Response::json(['code' => 400, 'status' => false, 'message' => $save['message']]);
+            return Response::json(['code' => 400, 'status' => false, 'message' => $save['message'],'data'=>$save['data']]);
 
         if($save['code'] == 101)
-            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
+            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message'],'data'=>$save['data']]);
 
         if($save['code'] == 500)
-            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
+            return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message'],'data'=>$save['data']]);
     }
 
     public function activeJobs(Request $request){

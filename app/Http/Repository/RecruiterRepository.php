@@ -47,7 +47,9 @@ class RecruiterRepository
             }
 
             $temp_data['created_at'] = Carbon::now();
-
+            $seeker = SeekerModel::find($data->seeker_id);
+            $seeker->profile_update = 1;
+            $seeker->save();
             $model->insert($temp_data);
             return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully'];
 
