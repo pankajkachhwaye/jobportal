@@ -72,15 +72,15 @@ class SeekerController extends Controller
         try {
             $seeker = SeekerModel::GetSeekerByMobOrEmail($request->value)->first();
             if ($seeker == null) {
-                return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-not-register'))]);
+                return Response::json(['code' => 400, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-not-register'))]);
             }
             if ($seeker->verified == false) {
-                return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-not-verified'))]);
+                return Response::json(['code' => 400, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-not-verified'))]);
             }
             if (Hash::check($request->password, $seeker->password)) {
-                return Response::json(['code' => 200, 'status' => true, 'data' => $seeker]);
+                return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $seeker]);
             } else {
-                return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-password'))]);
+                return Response::json(['code' => 400, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-password'))]);
             }
         } catch (\Exception $exception) {
             return Response::json(['code' => 500, 'status' => false, 'message' => $exception->getMessage()]);

@@ -67,7 +67,7 @@ class RecruiterController extends Controller
                 return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('recruiter.recruiter-not-verified'))]);
             }
             if (Hash::check($request->password, $recruiter->password)) {
-                return Response::json(['code' => 200, 'status' => true, 'data' => $recruiter]);
+                return Response::json(['code' => 200, 'status' => true,'message'=> 'Login successfully', 'data' => $recruiter]);
             } else {
                 return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('recruiter.recruiter-password'))]);
             }

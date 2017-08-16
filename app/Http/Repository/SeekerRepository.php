@@ -14,27 +14,25 @@ class SeekerRepository
 
     public function fillSeekerProfile($data = [], $model){
         try{
-            $temp_data = $data->all();
 
+
+            $temp_data = $data->all();
+//        dd($temp_data);
             if(isset($data->gender))
                 $temp_data['gender']= $data->gender;
             else
                 return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-gender')),'data'=>[]];
 
-//            if($data->hasFile('avtar')) {
-//                $ext = $data->avtar->getClientOriginalExtension();
-//
-//                $path = Storage::putFileAs('seeker_pic', $data->avtar,time().$data->seeker_id .".".$ext);
-//                $temp_data['avtar'] = $path;
-//            }
-//            else{
-//                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-picture')),'data'=>[]];
-//            }
+            if($data->hasFile('avtar')) {
+                $ext = $data->avtar->getClientOriginalExtension();
 
-            if(isset($data->avtar))
-                $temp_data['avtar'] = $data->avtar;
-            else
+                $path = Storage::putFileAs('seeker_pic', $data->avtar,time().$data->seeker_id .".".$ext);
+                $temp_data['avtar'] = $path;
+            }
+            else{
                 return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-picture')),'data'=>[]];
+            }
+
 
            if(isset($data->job_type))
                 $temp_data['job_type'] = $data->job_type;
@@ -56,20 +54,15 @@ class SeekerRepository
             else
                 $temp_data['role_type'] = null;
 
-//            if($data->hasFile('resume')) {
-//                $ext = $data->resume->getClientOriginalExtension();
-//
-//                $path = Storage::putFileAs('resumes', $data->resume,time().$data->seeker_id .".".$ext);
-//                $temp_data['resume'] = $path;
-//            }
-//            else{
-//                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-resume')),'data'=>[]];
-//            }
+            if($data->hasFile('resume')) {
+                $ext = $data->resume->getClientOriginalExtension();
 
-            if(isset($data->resume))
-                $temp_data['resume'] = $data->resume;
-            else
+                $path = Storage::putFileAs('resumes', $data->resume,time().$data->seeker_id .".".$ext);
+                $temp_data['resume'] = $path;
+            }
+            else{
                 return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-resume')),'data'=>[]];
+            }
 
             $temp_data['created_at'] = Carbon::now();
             $temp_seeker = SeekerModel::find($data->seeker_id);
