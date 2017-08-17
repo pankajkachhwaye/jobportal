@@ -45,6 +45,17 @@ class SeekerModel extends Model
             ->orWhere('mobile_no', $value);
     }
 
+    public function scopeGetSeekerByMob($query,$mobile){
+        return $query->where('mobile_no', $mobile);
+
+    }
+
+    public function scopeGetSeekerByEmail($query,$email){
+
+        return $query->where('email', $email);
+
+    }
+
     public function seekerProfile(){
         return $this->hasOne('App\Models\SeekerProfile','seeker_id');
     }

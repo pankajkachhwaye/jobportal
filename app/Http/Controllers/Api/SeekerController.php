@@ -39,6 +39,17 @@ class SeekerController extends Controller
     {
 
         try {
+            $seeker_email = SeekerModel::GetSeekerByEmail($request->email)->first();
+            $seeker_mob = SeekerModel::GetSeekerByMob($request->mobile_no)->first();
+
+            if ($seeker_email != null) {
+                return Response::json(['code' => 400, 'status' => false, 'message' => 'User email already register with us.']);
+            }
+
+            if ($seeker_mob != null) {
+                return Response::json(['code' => 400, 'status' => false, 'message' => 'User mobile number already register with us.']);
+            }
+
             $user = $this->createSeeker($request->all());
 
             Mail::to($user->email)->send(new JobPortalConfirmationEmail($user));
