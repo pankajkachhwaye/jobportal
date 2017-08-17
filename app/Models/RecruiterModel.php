@@ -42,10 +42,10 @@ class RecruiterModel extends Model
             ->orWhere('recruiter_mobile_no', $value);
     }
 
-    public function GetRecruiterByEmail($query,$email){
+    public function scopeGetRecruiterByEmail($query,$email){
         return $query->where('recruiter_email', $email);
     }
-    public function GetRecruiterByMob($query,$mobile){
+    public function scopeGetRecruiterByMob($query,$mobile){
         return $query->where('recruiter_mobile_no', $mobile);
     }
 
