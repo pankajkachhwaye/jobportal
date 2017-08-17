@@ -32,6 +32,18 @@ class RecruiterController extends Controller
     {
 
         try {
+            $recruiter_email = RecruiterModel::GetRecruiterByEmail($request->recruiter_email)->first();
+            $recruiter_mob = RecruiterModel::GetRecruiterByMob($request->recruiter_mobile_no)->first();
+
+
+            if ($recruiter_email != null) {
+                return Response::json(['code' => 400, 'status' => false, 'message' => 'Recruiter email already register with us.']);
+            }
+
+            if ($recruiter_mob != null) {
+                return Response::json(['code' => 400, 'status' => false, 'message' => 'Recruiter mobile number already register with us.']);
+            }
+
 
             $user = $this->createRecruiter($request->all());
 

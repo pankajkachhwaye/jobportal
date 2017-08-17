@@ -42,6 +42,13 @@ class RecruiterModel extends Model
             ->orWhere('recruiter_mobile_no', $value);
     }
 
+    public function GetRecruiterByEmail($query,$email){
+        return $query->where('recruiter_email', $email);
+    }
+    public function GetRecruiterByMob($query,$mobile){
+        return $query->where('recruiter_mobile_no', $mobile);
+    }
+
     public function recruiterProfile(){
 
         return $this->hasOne('App\Models\RecruiterProfile','recruiter_id');
