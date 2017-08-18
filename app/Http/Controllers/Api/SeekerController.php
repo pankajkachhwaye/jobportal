@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Response;
+use Illuminate\Support\Facades\DB;
+
 
 
 class SeekerController extends Controller
@@ -133,36 +135,33 @@ class SeekerController extends Controller
 
     public function seekerChangePassword(Request $request){
         $data = $request->all();
-        $old = $data['oldpss'];
-        $new = $data['newpss'];
-        $con = $data['confirm'];
-        $users = DB::table('users')
-            ->select('password')
-            ->where('id', '=', $data['id'])->get();
-        $dbpass = $users[0]->password;
+        $old = $data['old_password'];
+        $new = $data['new_password'];
+
+        if ($old == '')
+            return Response::json(['code' => 400, 'status' => false, 'message' =>'Please enter your old password' ]);
+
+        if ($new == '')
+            return Response::json(['code' => 400, 'status' => false, 'message' =>'Please enter your new password' ]);
+
+         $users = SeekerModel::find($data['seeker_id'])->first();
+          // dd($users);
+        $dbpass = $users->password;
 
         if (Hash::check($old, $dbpass)) {
-
-            if ($new != '') {
-                if ($new == $con) {
-                    $new = bcrypt($new);
+                  $new = bcrypt($new);
                     $info = ['password' => $new];
-                    $query = DB::table('users')->where('id', $data['id'])->update($info);
+                    $query = DB::table('seeker')->where('id', $data['seeker_id'])->update($info);
                     if ($query) {
-
-                        return $message = 'Your Password has been updated';
+                     return Response::json(['code' => 200, 'status' => true, 'message' =>'Your password has been updated' ]);
                     } else {
-                        return $message = 'Something went wrong. Please try again.';
+                        return Response::json(['code' => 500, 'status' => false, 'message' =>'Internal Server error' ]);
                     }
                 } else {
-                    return $message = 'Your New password and Confirm password doesnt match ';
+            return Response::json(['code' => 400, 'status' => false, 'message' =>'Your old password is not match' ]);
                 }
-            } else {
-                return $message = 'Please insert your new password';
-            }
-        } else {
-            return $message = 'Your Old Password is different';
-        }
+
+
     }
 
 }
