@@ -34,7 +34,7 @@ class SeekerModel extends Model
     public function hasVerified() {
 
         $this->verified = true;
-        $this->token = null;
+        $this->token = '0';
 
         $this->save();
     }

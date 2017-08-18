@@ -32,7 +32,7 @@ class RecruiterModel extends Model
     public function hasVerified() {
 
         $this->recruiter_verified = true;
-        $this->token = null;
+        $this->token = '0';
 
         $this->save();
     }

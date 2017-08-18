@@ -131,4 +131,38 @@ class SeekerController extends Controller
             return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
     }
 
+    public function seekerChangePassword(Request $request){
+        $data = $request->all();
+        $old = $data['oldpss'];
+        $new = $data['newpss'];
+        $con = $data['confirm'];
+        $users = DB::table('users')
+            ->select('password')
+            ->where('id', '=', $data['id'])->get();
+        $dbpass = $users[0]->password;
+
+        if (Hash::check($old, $dbpass)) {
+
+            if ($new != '') {
+                if ($new == $con) {
+                    $new = bcrypt($new);
+                    $info = ['password' => $new];
+                    $query = DB::table('users')->where('id', $data['id'])->update($info);
+                    if ($query) {
+
+                        return $message = 'Your Password has been updated';
+                    } else {
+                        return $message = 'Something went wrong. Please try again.';
+                    }
+                } else {
+                    return $message = 'Your New password and Confirm password doesnt match ';
+                }
+            } else {
+                return $message = 'Please insert your new password';
+            }
+        } else {
+            return $message = 'Your Old Password is different';
+        }
+    }
+
 }

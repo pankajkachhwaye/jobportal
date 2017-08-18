@@ -84,4 +84,14 @@ class ApiController extends Controller
     }
 
 
+
+    public function showChangePasswordForm(){
+        $seeker = SeekerModel::all()->toArray();
+
+
+
+        return view('api.seeker.seekerchangepass' , compact('seeker'));
+    }
+
+
 }
