@@ -4,6 +4,7 @@ namespace App\Http\Repository;
 
 
 use App\Models\JobsModel;
+use App\Models\RecruiterModel;
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -47,9 +48,9 @@ class RecruiterRepository
             }
 
             $temp_data['created_at'] = Carbon::now();
-            $seeker = SeekerModel::find($data->seeker_id);
-            $seeker->profile_update = 1;
-            $seeker->save();
+            $recruiter = RecruiterModel::find($data->recruiter_id);
+            $recruiter->profile_update = 1;
+            $recruiter->save();
             $model->insert($temp_data);
             return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully'];
 
