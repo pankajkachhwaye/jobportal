@@ -17,7 +17,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Response;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\JobsModel;
 
 
 class SeekerController extends Controller
@@ -116,10 +116,54 @@ class SeekerController extends Controller
     }
 
     public function activeJobs(Request $request){
-      $seeker =  SeekerModel::find($request->seeker_id);
-      $jobs = General::matchjob($seeker);
+//      $seeker =  SeekerModel::find($request->seeker_id);
+//      $jobs = General::matchjob($seeker);
+        $tem_jobs =   JobsModel::all();
+        $jobs = [];
+        foreach ($tem_jobs as $key_job => $value_job){
+            $recruiter = $value_job->postedRecruiter;
+            $profile = $recruiter->recruiterProfile;
+            $x = $value_job->toArray();
+            $x['process'] = json_decode($x['process']);
+            $job_type = $value_job->jobType->toArray();
+            $x['job_type'] = $job_type['job_type'];
+            $x['job_type_id'] = $job_type['id'];
+            $job_by_roles = $value_job->jobRole->toArray();
+            $x['job_by_roles'] =$job_by_roles['job_by_role'];
+            $x['job_by_roles_id'] =$job_by_roles['id'];
+            $qualification = $value_job->jobQualification->toArray();
+            $x['qualification'] = $qualification['qualification'];
+            $x['qualification_id'] = $qualification['id'];
+            $location = $value_job->jobLocation->toArray();
+            $x['job_location'] = $location['location_name'];
+            $x['job_location_id'] = $location['id'];
+            $specialization = $value_job->jobSpecialization->toArray();
+            $x['specialization'] = $specialization['specialization'];
+            $x['specialization_id'] = $specialization['id'];
+//               $x['recruiter'] = $recruiter;
+//               $x['recruiter']['profile'] = $profile;
 
-      return Response::json($jobs);
+            array_push($jobs,$x);
+        }
+        if(count($jobs) > 0){
+            $tempdata =[
+                'code' => 200,
+                'status' => true,
+                'message' => 'Job found',
+                'data' => $jobs
+            ];
+
+        }
+        else{
+            $tempdata =[
+                'code' => 400,
+                'status' => false,
+                'message' => 'No Matching Jobs Are found For this Profile',
+                'data' => []
+            ];
+
+        }
+      return Response::json($tempdata);
     }
 
     public function applyOnJob(Request $request,SeekerRepository $repository){

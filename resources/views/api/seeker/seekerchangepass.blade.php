@@ -8,6 +8,7 @@
     <!-- Jquery Core Js -->
     <script src="{{URL::asset('public/plugins/jquery/jquery.min.js')}}"></script>
 
+
 </head>
 <body>
 
