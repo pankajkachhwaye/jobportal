@@ -52,7 +52,14 @@ class RecruiterRepository
             $recruiter->recruiter_profile_update = 1;
             $recruiter->save();
             $model->insert($temp_data);
-            return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully'];
+            $recruiter = RecruiterModel::find($data->recruiter_id);
+            $recruiter_profile = $recruiter->recruiterProfile;
+            $returndata = $recruiter->toArray();
+            $logo = $returndata['recruiter_profile']['org_logo'];
+            $returndata['recruiter_profile']['org_logo'] =asset('storage/'.$logo);
+
+
+            return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully','data'=>$returndata];
 
         }
         catch (\Exception $exception){
