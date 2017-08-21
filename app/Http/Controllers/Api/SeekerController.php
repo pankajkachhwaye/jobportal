@@ -188,7 +188,7 @@ class SeekerController extends Controller
         if ($new == '')
             return Response::json(['code' => 400, 'status' => false, 'message' =>'Please enter your new password' ]);
 
-         $users = SeekerModel::find($data['seeker_id'])->first();
+         $users = SeekerModel::find($data['seeker_id']);
           // dd($users);
         $dbpass = $users->password;
 

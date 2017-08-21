@@ -76,6 +76,7 @@ Route::group(['namespace' => 'Api'],function (){
    Route::get('active-jobs','ApiController@showActiveJobsForm');
    Route::get('apply-for-job','ApiController@showApplyForJobForm');
    Route::get('seeker-change-pass-form','ApiController@showChangePasswordForm');
+   Route::get('recruiter-change-pass-form','ApiController@showChangePasswordFormRecruiter');
 
 });
 

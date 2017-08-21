@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Hash;
 use App\Http\Repository\RecruiterRepository;
 use App\Mail\JobPortalRecruiterConfirmationEmail;
 use App\Models\JobsModel;
@@ -12,9 +13,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Hash;
-use Response;
 
+use Response;
+use Illuminate\Support\Facades\DB;
 
 class RecruiterController extends Controller
 {
@@ -143,7 +144,37 @@ class RecruiterController extends Controller
         }
 
 
+    public function recruiterChangePassword(Request $request){
+        $data = $request->all();
+        $old = $data['old_password'];
+        $new = $data['new_password'];
 
+
+        if ($old == '')
+            return Response::json(['code' => 400, 'status' => false, 'message' =>'Please enter your old password' ]);
+
+        if ($new == '')
+            return Response::json(['code' => 400, 'status' => false, 'message' =>'Please enter your new password' ]);
+
+        $users = RecruiterModel::find($data['recruiter_id']);
+
+        $dbpass = $users->password;
+
+        if (Hash::check($old,trim($dbpass))) {
+            $new = bcrypt($new);
+            $info = ['password' => $new];
+            $query = DB::table('recruiter')->where('id', $data['recruiter_id'])->update($info);
+            if ($query) {
+                return Response::json(['code' => 200, 'status' => true, 'message' =>'Your password has been updated' ]);
+            } else {
+                return Response::json(['code' => 500, 'status' => false, 'message' =>'Internal Server error' ]);
+            }
+        } else {
+            return Response::json(['code' => 400, 'status' => false, 'message' =>'Your old password is not match' ]);
+        }
+
+
+    }
 
 
 }
