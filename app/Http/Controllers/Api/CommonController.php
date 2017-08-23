@@ -15,6 +15,9 @@ use Response;
 class CommonController extends Controller
 {
 
+    /**
+     * @return mixed
+     */
     public function basicInformation(){
         $general =  General::basicInfo();
         if(count($general) > 0){
@@ -37,6 +40,10 @@ class CommonController extends Controller
        return Response::json($tempdata);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function forgotPassword(Request $request){
             if($request->role == '0'){
                 $seeker = SeekerModel::GetSeekerByEmail($request->email)->first();

@@ -61,7 +61,8 @@ class SeekerRepository
                 $temp_data['resume'] = $path;
             }
             else{
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-resume')),'data'=>[]];
+//                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-resume')),'data'=>[]];
+                $temp_data['resume'] = 'blank _resume';
             }
 
             $temp_data['created_at'] = Carbon::now();
