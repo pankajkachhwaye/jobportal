@@ -5,6 +5,7 @@ namespace App\Http\Repository;
 
 use App\Models\ApplyOnJobModel;
 use App\Models\SeekerModel;
+use App\Models\SeekerProfile;
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class SeekerRepository
 {
 
-    public function fillSeekerProfile($data = [], $model){
+    public function fillSeekerProfile($data = []){
         try{
 
 
@@ -30,7 +31,9 @@ class SeekerRepository
                 $temp_data['avtar'] = $path;
             }
             else{
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-picture')),'data'=>[]];
+
+                $temp_data['avtar'] = 'seeker_pic/dummy_user.png';
+
             }
 
 
@@ -65,11 +68,20 @@ class SeekerRepository
                 $temp_data['resume'] = 'blank _resume';
             }
 
-            $temp_data['created_at'] = Carbon::now();
+
             $temp_seeker = SeekerModel::find($data->seeker_id);
             $temp_seeker->profile_update = 1;
             $temp_seeker->save();
-            $model->insert($temp_data);
+//            $model->insert($temp_data);
+            $check = SeekerProfile::where('seeker_id')->first();
+            if($check ==null){
+                $temp_data['created_at'] = Carbon::now();
+                SeekerProfile::insert($temp_data);
+            }
+            else{
+                $temp_data['updated_at'] = Carbon::now();
+                SeekerProfile::where('seeker_id')->update($temp_data);
+            }
             $seeker = SeekerModel::find($data->seeker_id);
             $seeker_profile = $seeker->seekerProfile;
             $returndata = $seeker->toArray();

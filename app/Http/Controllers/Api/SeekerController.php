@@ -104,7 +104,7 @@ class SeekerController extends Controller
 
     public function fillSeekerProfile(Request $request ,SeekerRepository $repository){
 
-        $save = $repository->fillSeekerProfile($request, new SeekerProfile());
+        $save = $repository->fillSeekerProfile($request);
         if ($save['code'] == 400)
             return Response::json(['code' => 400, 'status' => false, 'message' => $save['message'],'data'=>$save['data']]);
 
