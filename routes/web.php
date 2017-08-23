@@ -66,17 +66,25 @@ Route::group(['namespace' => 'Admin','prefix'=>'recruiter'], function () {
 
 Route::group(['namespace' => 'Api'],function (){
    Route::get('api-details','ApiController@index');
+
+    /*************** Seeker Routes ****************/
    Route::get('seeker-register','ApiController@seekerregister');
    Route::get('seeker-login','ApiController@showSeekerLogin');
    Route::get('seeker-profile','ApiController@showSeekerProfileForm');
+   Route::get('active-jobs','ApiController@showActiveJobsForm');
+   Route::get('apply-for-job','ApiController@showApplyForJobForm');
+   Route::get('seeker-change-pass-form','ApiController@showChangePasswordForm');
+
+    /*************** Recruiter Routes ****************/
    Route::get('recruiter-register','ApiController@recruiterRegister');
    Route::get('recruiter-login','ApiController@showRecruiterLogin');
    Route::get('recruiter-profile','ApiController@showRecruiterProfileForm');
    Route::get('post-new-job','ApiController@showPostJobForm');
-   Route::get('active-jobs','ApiController@showActiveJobsForm');
-   Route::get('apply-for-job','ApiController@showApplyForJobForm');
-   Route::get('seeker-change-pass-form','ApiController@showChangePasswordForm');
+   Route::get('job-applications-form','ApiController@showJobApplicationForm');
    Route::get('recruiter-change-pass-form','ApiController@showChangePasswordFormRecruiter');
+
+
+    /*************** Common Routes ****************/
    Route::get('forgot-password-form','ApiController@showForgotPasswordForm');
 
 });

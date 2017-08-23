@@ -41,6 +41,7 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/recruiter-change-password', 'RecruiterController@recruiterChangePassword');
 
 
+    /*************** Common Routes ****************/
     Route::get('/general','CommonController@basicInformation');
     Route::post('/forgot-password','CommonController@forgotPassword');
 
