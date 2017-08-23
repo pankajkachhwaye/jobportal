@@ -124,7 +124,7 @@ class SeekerController extends Controller
             $recruiter = $value_job->postedRecruiter;
             $profile = $recruiter->recruiterProfile;
             $x = $value_job->toArray();
-//            $x['process'] = json_decode($x['process']);
+             $x['process'] = json_decode($x['process']);
             $job_type = $value_job->jobType->toArray();
             $x['job_type'] = $job_type['job_type'];
             $x['job_type_id'] = $job_type['id'];
