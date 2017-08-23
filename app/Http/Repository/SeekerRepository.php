@@ -73,7 +73,7 @@ class SeekerRepository
             $temp_seeker->profile_update = 1;
             $temp_seeker->save();
 //            $model->insert($temp_data);
-            $check = SeekerProfile::where('seeker_id')->first();
+            $check = SeekerProfile::where('seeker_id',$data->seeker_id)->first();
             if($check ==null){
                 $temp_data['created_at'] = Carbon::now();
                 SeekerProfile::insert($temp_data);

@@ -90,7 +90,7 @@ class RecruiterController extends Controller
     }
 
     public function fillRecruiterProfile(Request $request,RecruiterRepository $repository){
-        $save = $repository->fillRecruiterProfile($request, new RecruiterProfile());
+        $save = $repository->fillRecruiterProfile($request);
         if ($save['code'] == 400)
             return Response::json(['code' => 400, 'status' => false, 'message' => $save['message'],'data' => array()]);
 

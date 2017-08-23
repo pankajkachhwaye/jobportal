@@ -5,6 +5,7 @@ namespace App\Http\Repository;
 
 use App\Models\JobsModel;
 use App\Models\RecruiterModel;
+use App\Models\RecruiterProfile;
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class RecruiterRepository
 {
 
-    public function fillRecruiterProfile($data = [], $model){
+    public function fillRecruiterProfile($data = []){
         try{
             $temp_data = $data->all();
 
@@ -44,14 +45,23 @@ class RecruiterRepository
                 $temp_data['org_logo'] = $path;
             }
             else{
-                $temp_data['org_logo'] = null;
+                $temp_data['org_logo'] = 'organisationlogo/company_dummy.jpg';
             }
 
-            $temp_data['created_at'] = Carbon::now();
+
             $recruiter = RecruiterModel::find($data->recruiter_id);
             $recruiter->recruiter_profile_update = 1;
             $recruiter->save();
-            $model->insert($temp_data);
+//            $model->insert($temp_data);
+            $check = RecruiterProfile::where('recruiter_id',$data->recruiter_id)->first();
+            if($check == null){
+                $temp_data['created_at'] = Carbon::now();
+                RecruiterProfile::insert($temp_data);
+            }
+            else{
+                $temp_data['updated_at'] = Carbon::now();
+                RecruiterProfile::where('recruiter_id',$data->recruiter_id)->update($temp_data);
+            }
             $recruiter = RecruiterModel::find($data->recruiter_id);
             $recruiter_profile = $recruiter->recruiterProfile;
             $returndata = $recruiter->toArray();
