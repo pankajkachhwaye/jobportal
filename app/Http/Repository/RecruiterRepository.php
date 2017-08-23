@@ -139,7 +139,7 @@ class RecruiterRepository
                 return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.last-date-app'))];
 
             if(isset($data->process))
-                $temp_data['process']= json_encode($data->process);
+                $temp_data['process']= $data->process;
             else
                 return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.process'))];
 
