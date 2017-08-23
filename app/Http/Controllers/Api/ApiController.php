@@ -96,5 +96,8 @@ class ApiController extends Controller
         return view('api.recruiter.recruiterchangepass',compact('recruiter'));
     }
 
+    public function showForgotPasswordForm(){
+        return view('api.common.forgotpassword');
+    }
 
 }

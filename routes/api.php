@@ -42,6 +42,7 @@ Route::group(['namespace'=>'Api'],function(){
 
 
     Route::get('/general','CommonController@basicInformation');
-    
+    Route::post('/forgot-password','CommonController@forgotPassword');
+
 
 });

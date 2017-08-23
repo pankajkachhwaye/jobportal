@@ -44,6 +44,7 @@
     <h3>Common</h3>
     <div>
         <p><a href="{{url('/api/general')}}">General Information</a></p>
+        <p><a href="{{url('/forgot-password-form')}}">Forgot Password</a></p>
 
 
     </div>
