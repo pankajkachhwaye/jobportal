@@ -18,7 +18,7 @@ class SeekerRepository
 
 
             $temp_data = $data->all();
-//        dd($temp_data);
+//       dd($temp_data);
             if(isset($data->gender))
                 $temp_data['gender']= $data->gender;
             else
@@ -47,15 +47,15 @@ class SeekerRepository
             else
                 return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-work-experience')),'data'=>[]];
 
-            if($data->specialization == '')
-                $temp_data['specialization'] = $data->specialization;
-            else
-                $temp_data['specialization'] = null;
-
-            if($data->role_type == '')
-                $temp_data['role_type'] = $data->role_type;
-            else
-                $temp_data['role_type'] = null;
+//            if($data->specialization == '')
+//                $temp_data['specialization'] = $data->specialization;
+//            else
+//                $temp_data['specialization'] = null;
+//
+//            if($data->role_type == '')
+//                $temp_data['role_type'] = $data->role_type;
+//            else
+//                $temp_data['role_type'] = null;
 
             if($data->hasFile('resume')) {
                 $ext = $data->resume->getClientOriginalExtension();
@@ -68,11 +68,10 @@ class SeekerRepository
                 $temp_data['resume'] = 'blank _resume';
             }
 
-
+                dd($temp_data);
             $temp_seeker = SeekerModel::find($data->seeker_id);
             $temp_seeker->profile_update = 1;
             $temp_seeker->save();
-//            $model->insert($temp_data);
             $check = SeekerProfile::where('seeker_id',$data->seeker_id)->first();
             if($check ==null){
 //                dd('not-exist');
