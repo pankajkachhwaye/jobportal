@@ -91,7 +91,15 @@ class SeekerController extends Controller
                 return Response::json(['code' => 400, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-not-verified'))]);
             }
             if (Hash::check($request->password, $seeker->password)) {
-                return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $seeker]);
+                if($seeker->profile_update == 1){
+                    $permnnt_seeker = $seeker->toArray();
+                   $profile = $seeker->seekerProfile;
+                    return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $permnnt_seeker ,'profile' => $profile] );
+                }
+                else{
+                    return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $seeker]);
+                }
+
             } else {
                 return Response::json(['code' => 400, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-password'))]);
             }
