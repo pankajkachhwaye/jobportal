@@ -47,7 +47,6 @@
 </form>
 <script type="text/javascript">
     $(document).ready(function () {
-console.log(APP_URL +'get-recruiter-job');
         $(document).on('change','#recruiterID' ,function () {
             var x = $(this).val();
             $('#jobID').not(':first-child').empty();

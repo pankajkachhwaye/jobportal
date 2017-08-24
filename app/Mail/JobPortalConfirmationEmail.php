@@ -30,6 +30,6 @@ class JobPortalConfirmationEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('pankaj@samyotech.com' , 'Pankaj Kachhwaye')->view('vendor.emails.verifyseeker');
+        return $this->from('samyotech@gmail.com' , 'Samyotech')->view('vendor.emails.verifyseeker');
     }
 }

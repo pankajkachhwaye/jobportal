@@ -58,7 +58,7 @@
     <br />
 
     <div class="qualification">
-  Highest Qualification(qualification) :: <select name="seeker_qualification">
+  Highest Qualification(seeker_qualification) :: <select name="seeker_qualification">
         <option >Please select</option>
         @foreach($basicInfo['qualifications'] as $key_qual => $value_qual)
            <option value="{{$value_qual['id']}}">{{$value_qual['qualification']}}</option>
