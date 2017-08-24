@@ -68,10 +68,8 @@ class SeekerRepository
                 $temp_data['resume'] = 'blank _resume';
             }
 
-                dd($temp_data);
-            $temp_seeker = SeekerModel::find($data->seeker_id);
-            $temp_seeker->profile_update = 1;
-            $temp_seeker->save();
+
+
             $check = SeekerProfile::where('seeker_id',$data->seeker_id)->first();
             if($check ==null){
 //                dd('not-exist');
@@ -84,6 +82,8 @@ class SeekerRepository
                 SeekerProfile::where('seeker_id',$data->seeker_id)->update($temp_data);
             }
             $seeker = SeekerModel::find($data->seeker_id);
+            $seeker->profile_update = 1;
+            $seeker->save();
             $seeker_profile = $seeker->seekerProfile;
             $returndata = $seeker->toArray();
             $profile = $returndata['seeker_profile']['avtar'];

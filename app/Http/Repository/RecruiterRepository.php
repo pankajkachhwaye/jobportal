@@ -48,11 +48,7 @@ class RecruiterRepository
                 $temp_data['org_logo'] = 'organisationlogo/company_dummy.jpg';
             }
 
-
-            $recruiter = RecruiterModel::find($data->recruiter_id);
-            $recruiter->recruiter_profile_update = 1;
-            $recruiter->save();
-//            $model->insert($temp_data);
+//              $model->insert($temp_data);
             $check = RecruiterProfile::where('recruiter_id',$data->recruiter_id)->first();
             if($check == null){
                 $temp_data['created_at'] = Carbon::now();
@@ -63,6 +59,8 @@ class RecruiterRepository
                 RecruiterProfile::where('recruiter_id',$data->recruiter_id)->update($temp_data);
             }
             $recruiter = RecruiterModel::find($data->recruiter_id);
+            $recruiter->recruiter_profile_update = 1;
+            $recruiter->save();
             $recruiter_profile = $recruiter->recruiterProfile;
             $returndata = $recruiter->toArray();
             $logo = $returndata['recruiter_profile']['org_logo'];
