@@ -75,12 +75,14 @@ class SeekerRepository
 //            $model->insert($temp_data);
             $check = SeekerProfile::where('seeker_id',$data->seeker_id)->first();
             if($check ==null){
+//                dd('not-exist');
                 $temp_data['created_at'] = Carbon::now();
                 SeekerProfile::insert($temp_data);
             }
             else{
+//                dd('exist');
                 $temp_data['updated_at'] = Carbon::now();
-                SeekerProfile::where('seeker_id')->update($temp_data);
+                SeekerProfile::where('seeker_id',$data->seeker_id)->update($temp_data);
             }
             $seeker = SeekerModel::find($data->seeker_id);
             $seeker_profile = $seeker->seekerProfile;
