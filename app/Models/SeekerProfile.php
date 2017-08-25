@@ -16,5 +16,30 @@ class SeekerProfile extends Model
         return $this->hasOne('App\Models\JobTypesModel','job_type');
     }
 
+    public function getSpecializationAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+    public function getExperienceInYearAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+    public function getExperienceInMonthsAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+    public function getRoleTypeAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+
+    public function getCertificationAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
 
 }

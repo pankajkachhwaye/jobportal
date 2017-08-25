@@ -18,11 +18,12 @@ class SeekerRepository
 
 
             $temp_data = $data->all();
+
 //       dd($temp_data);
-            if(isset($data->gender))
-                $temp_data['gender']= $data->gender;
-            else
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-gender')),'data'=>[]];
+//            if(isset($data->gender))
+//                $temp_data['gender']= $data->gender;
+//            else
+//                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-gender')),'data'=>[]];
 
             if($data->hasFile('avtar')) {
                 $ext = $data->avtar->getClientOriginalExtension();
@@ -37,15 +38,15 @@ class SeekerRepository
             }
 
 
-           if(isset($data->job_type))
-                $temp_data['job_type'] = $data->job_type;
-            else
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-job-type')),'data'=>[]];
-
-            if(isset($data->work_experience))
-                $temp_data['work_experience'] = $data->work_experience;
-            else
-                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-work-experience')),'data'=>[]];
+//           if(isset($data->job_type))
+//                $temp_data['job_type'] = $data->job_type;
+//            else
+//                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-job-type')),'data'=>[]];
+//
+//            if(isset($data->work_experience))
+//                $temp_data['work_experience'] = $data->work_experience;
+//            else
+//                return ['code' => 400, 'message' => trim(Lang::get('seeker.seeker-profile-work-experience')),'data'=>[]];
 
 //            if($data->specialization == '')
 //                $temp_data['specialization'] = $data->specialization;
@@ -72,12 +73,10 @@ class SeekerRepository
 
             $check = SeekerProfile::where('seeker_id',$data->seeker_id)->first();
             if($check ==null){
-//                dd('not-exist');
                 $temp_data['created_at'] = Carbon::now();
                 SeekerProfile::insert($temp_data);
             }
             else{
-//                dd('exist');
                 $temp_data['updated_at'] = Carbon::now();
                 SeekerProfile::where('seeker_id',$data->seeker_id)->update($temp_data);
             }
