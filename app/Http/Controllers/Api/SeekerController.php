@@ -94,7 +94,7 @@ class SeekerController extends Controller
                 if($seeker->profile_update == 1){
                     $permnnt_seeker = $seeker->toArray();
                    $profile = $seeker->seekerProfile;
-                    return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $permnnt_seeker ,'profile' => $profile] );
+                    return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $permnnt_seeker ,'profile' => $profile,'role'=>'seeker'] );
                 }
                 else{
                     return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $seeker]);
