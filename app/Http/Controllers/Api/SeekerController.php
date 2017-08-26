@@ -98,6 +98,7 @@ class SeekerController extends Controller
                     return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $permnnt_seeker ,'profile' => $profile] );
                 }
                 else{
+                    $seeker->role = 'seeker';
                     return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $seeker]);
                 }
 

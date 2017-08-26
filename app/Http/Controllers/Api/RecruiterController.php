@@ -83,10 +83,14 @@ class RecruiterController extends Controller
                 if($recruiter->recruiter_profile_update == 1){
                     $perm_recruiter = $recruiter->toArray();
                     $profile =  $recruiter->recruiterProfile;
+                    $logo = $profile->org_logo;
+                    $profile->org_logo =asset('storage/'.$logo);
                     $perm_recruiter['role'] = 'recruiter';
+
                     return Response::json(['code' => 200, 'status' => true,'message'=> 'Login successfully', 'data' => $perm_recruiter,'profile' => $profile]);
                 }
                 else{
+                    $recruiter->role = 'recruiter';
                     return Response::json(['code' => 200, 'status' => true,'message'=> 'Login successfully', 'data' => $recruiter]);
                 }
 

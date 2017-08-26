@@ -64,6 +64,7 @@ class RecruiterRepository
             $recruiter_profile = $recruiter->recruiterProfile;
             $returndata = $recruiter->toArray();
             $logo = $returndata['recruiter_profile']['org_logo'];
+
             $returndata['recruiter_profile']['org_logo'] =asset('storage/'.$logo);
 
 
