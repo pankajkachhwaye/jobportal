@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\ApplyOnJobModel;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Repository\RecruiterRepository;
 use App\Mail\JobPortalRecruiterConfirmationEmail;
@@ -137,6 +138,8 @@ class RecruiterController extends Controller
                 $x['specialization'] = $specialization['specialization'];
                 $x['specialization_id'] = $specialization['id'];
 
+                $count = ApplyOnJobModel::where('job_id',$value_job->id)->count();
+                $x['no_applied_by'] = $count;
                 array_push($jobs,$x);
             }
             if(count($jobs) > 0){
