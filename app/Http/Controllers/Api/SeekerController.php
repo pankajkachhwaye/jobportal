@@ -150,7 +150,14 @@ class SeekerController extends Controller
             $specialization = $value_job->jobSpecialization->toArray();
             $x['specialization'] = $specialization['specialization'];
             $x['specialization_id'] = $specialization['id'];
+            $check = ApplyOnJobModel::GetJobApplication($value_job->id,$request->seeker_id)->first();
 
+            if($check == null){
+                $x['is_applied'] = false;
+             }
+            else{
+                $x['is_applied'] = true;
+            }
 
 //               $x['recruiter'] = $recruiter;
 //               $x['recruiter']['profile'] = $profile;
