@@ -60,9 +60,10 @@
                 $.ajax({
                     type:'POST',
                     url: APP_URL +'/api/get-recruiter-jobs',
-                    data:{id:x},
+                    data:{recruiter_id:x},
                     success:function(data){
-                        $.each(data, function(index, valueOption) {
+
+                        $.each(data.data, function(index, valueOption) {
                           console.log(valueOption);
                           var option = "<option value="+valueOption.id + ">"+valueOption.specialization+"</option>"
                             //var option = "<option  value=" + valueOption.id + "> + valueOption.specialization + '</option>";

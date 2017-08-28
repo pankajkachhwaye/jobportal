@@ -100,4 +100,9 @@ class ApiController extends Controller
         return view('api.common.forgotpassword');
     }
 
+    public function showRecruiterPostedJobForm(){
+        $recruiter = RecruiterModel::all()->toArray();
+        return view('api.recruiter.recruiterpostedjobs',compact('recruiter'));
+    }
+
 }

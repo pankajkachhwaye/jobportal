@@ -82,7 +82,7 @@ Route::group(['namespace' => 'Api'],function (){
    Route::get('post-new-job','ApiController@showPostJobForm');
    Route::get('job-applications-form','ApiController@showJobApplicationForm');
    Route::get('recruiter-change-pass-form','ApiController@showChangePasswordFormRecruiter');
-
+    Route::get('recruiter-posted-job-form','ApiController@showRecruiterPostedJobForm');
 
     /*************** Common Routes ****************/
    Route::get('forgot-password-form','ApiController@showForgotPasswordForm');

@@ -128,7 +128,8 @@ class RecruiterController extends Controller
 
 
         public function getRecruiterJobs(Request $request){
-            $tem_jobs = JobsModel::where('recruiter_id',$request->id)->get();
+//        dd($request->all());
+            $tem_jobs = JobsModel::where('recruiter_id',$request->recruiter_id)->get();
             $jobs = [];
             foreach ($tem_jobs as $key_job => $value_job){
                 $x = $value_job->toArray();
@@ -138,8 +139,15 @@ class RecruiterController extends Controller
 
                 array_push($jobs,$x);
             }
+            if(count($jobs) > 0){
+                return Response::json( ['code' => 101,'status'=>true, 'message' => 'Job Application Found','data' => $jobs]);
+            }
+            else{
+                return Response::json( ['code' => 400,'status'=>false, 'message' => 'No job posted yet','data' => $jobs]);
+            }
 
-            return Response::json($jobs);
+
+
         }
 
         public function getJobApplications(Request $request,RecruiterRepository $repository){
