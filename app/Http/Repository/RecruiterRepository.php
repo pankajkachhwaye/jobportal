@@ -202,7 +202,8 @@ class RecruiterRepository
                 else{
                     $x['profile']['seeker_role_type'] = '';
                 }
-                $prefered_location = LocationModel::find($profile->preferred_location)->first(['location_name']);
+//                dd($profile->preferred_location);
+                $prefered_location = LocationModel::find($profile->preferred_location);
                 $x['profile']['seeker_prefered_location'] = $prefered_location->location_name;
 
 //                $x['profile']['seeker_qualification'] = $temp_x->seekerProfile->seekerQualification->qualification;
