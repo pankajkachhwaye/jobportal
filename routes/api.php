@@ -39,6 +39,7 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/get-recruiter-jobs','RecruiterController@getRecruiterJobs');
     Route::post('/job-application','RecruiterController@getJobApplications');
     Route::post('/recruiter-change-password', 'RecruiterController@recruiterChangePassword');
+    Route::post('/seeker-profile-detail-on-job', 'RecruiterController@seekerProfileDetailOnJob');
 
 
     /*************** Common Routes ****************/

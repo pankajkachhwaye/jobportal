@@ -167,6 +167,19 @@ class RecruiterController extends Controller
                 return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
         }
 
+        public function seekerProfileDetailOnJob(Request $request,RecruiterRepository $repository){
+            $response = $repository->getProfileDataOnJob($request->all());
+            if ($response['code'] == 400)
+                return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
+
+            if($response['code'] == 101)
+                return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
+
+            if($response['code'] == 500)
+
+                return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
+        }
+
 
     public function recruiterChangePassword(Request $request){
         $data = $request->all();

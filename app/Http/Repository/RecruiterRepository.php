@@ -168,6 +168,7 @@ class RecruiterRepository
 
     public function checkJobApplication($data){
         try{
+
             if($data['recruiter_id'] == null)
                 return ['code' => 400, 'message' => trim(Lang::get('recruiter.check-application.invalid-recruiter'))];
 
@@ -180,39 +181,10 @@ class RecruiterRepository
             $seeker = [];
             foreach ($application as $key_app => $value_app){
                 $temp_x = $value_app->seekerOnJob;
-                $x = $temp_x->toArray();
-                $profile = $temp_x->seekerProfile;
-                $x['profile'] = $profile->toArray();
-                $area_of_sector = $profile->seekerAreaOfSector->area_of_sector;
-                $x['profile']['seeker_area_of_sector'] = $area_of_sector;
-                $job_type = $profile->jobType->job_type;
-                $x['profile']['seeker_job_type'] = $job_type;
-                $qualification = $profile->seekerQualification->qualification;
-                $x['profile']['seeker_qulification'] = $qualification ;
-                if($x['profile']['specialization'] != null){
-                    $specialization = $profile->seekerSpecialization->specialization;
-                    $x['profile']['seeker_specialization'] = $specialization;
-                }
-                else{
-                    $x['profile']['seeker_specialization'] = '';
-                }
-                if($x['profile']['role_type'] != null){
-                    $role_type = $profile->seekerRoleType->job_by_role;
-                    $x['profile']['seeker_role_type'] = $role_type;
-                }
-                else{
-                    $x['profile']['seeker_role_type'] = '';
-                }
-//                dd($profile->preferred_location);
-                $prefered_location = LocationModel::find($profile->preferred_location);
-                $x['profile']['seeker_prefered_location'] = $prefered_location->location_name;
+               $temp_seeker= $temp_x->toArray();
 
-//                $x['profile']['seeker_qualification'] = $temp_x->seekerProfile->seekerQualification->qualification;
-//                dd($x['profile']['seeker_area_of_sector']);
-                $resume = $x['profile']['resume'];
-                $x['profile']['resume'] = asset('storage/'.$resume);
-                $apply_date = $value_app->toArray();
-                $x['profile']['seeker_apply_date']= $apply_date['created_at'];
+                $x['full_name'] =$temp_seeker['full_name'];
+                $x['seeker_id'] =$temp_seeker['id'];
                 array_push($seeker,$x);
             }
 
@@ -228,5 +200,54 @@ class RecruiterRepository
 
     }
 
+
+    public function getProfileDataOnJob($data){
+        try {
+
+            if($data['seeker_id'] == null)
+                return ['code' => 400, 'message' => 'Please provide seeker'];
+
+            if($data['job_id'] == null)
+                return ['code' => 400, 'message' => 'Please provide Job'];
+
+            $job_application = ApplyOnJobModel::GetJobApplication($data['job_id'], $data['seeker_id'])->first();
+            $temp_x = $job_application->seekerOnJob;
+            $x = $temp_x->toArray();
+            $profile = $temp_x->seekerProfile;
+            $x['profile'] = $profile->toArray();
+            $area_of_sector = $profile->seekerAreaOfSector->area_of_sector;
+            $x['profile']['seeker_area_of_sector'] = $area_of_sector;
+            $job_type = $profile->jobType->job_type;
+            $x['profile']['seeker_job_type'] = $job_type;
+            $qualification = $profile->seekerQualification->qualification;
+            $x['profile']['seeker_qulification'] = $qualification;
+            if ($x['profile']['specialization'] != null) {
+                $specialization = $profile->seekerSpecialization->specialization;
+                $x['profile']['seeker_specialization'] = $specialization;
+            } else {
+                $x['profile']['seeker_specialization'] = '';
+            }
+            if ($x['profile']['role_type'] != null) {
+                $role_type = $profile->seekerRoleType->job_by_role;
+                $x['profile']['seeker_role_type'] = $role_type;
+            } else {
+                $x['profile']['seeker_role_type'] = '';
+            }
+//                dd($profile->preferred_location);
+            $prefered_location = LocationModel::find($profile->preferred_location);
+            $x['profile']['seeker_prefered_location'] = $prefered_location->location_name;
+
+//                $x['profile']['seeker_qualification'] = $temp_x->seekerProfile->seekerQualification->qualification;
+//                dd($x['profile']['seeker_area_of_sector']);
+            $resume = $x['profile']['resume'];
+            $x['profile']['resume'] = asset('storage/' . $resume);
+            $apply_date = $job_application->toArray();
+            $x['profile']['seeker_apply_date'] = $apply_date['created_at'];
+            return ['code' => 101, 'status' => true, 'message' => 'Sekeer details Found', 'data' => $x];
+        }
+        catch (\Exception $exception){
+            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
+        }
+    }
 
 }
