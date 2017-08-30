@@ -4,6 +4,7 @@ namespace App\Http\Repository;
 
 
 use App\Models\JobsModel;
+use App\Models\LocationModel;
 use App\Models\RecruiterModel;
 use App\Models\RecruiterProfile;
 use Illuminate\Support\Facades\Lang;
@@ -201,7 +202,8 @@ class RecruiterRepository
                 else{
                     $x['profile']['seeker_role_type'] = '';
                 }
-
+                $prefered_location = LocationModel::find($profile->preferred_location)->first(['location_name']);
+                $x['profile']['seeker_prefered_location'] = $prefered_location->location_name;
 
 //                $x['profile']['seeker_qualification'] = $temp_x->seekerProfile->seekerQualification->qualification;
 //                dd($x['profile']['seeker_area_of_sector']);
