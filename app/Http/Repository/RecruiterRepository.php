@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 
+use App\Models\ApplyOnJobModel;
 use App\Models\JobsModel;
 use App\Models\LocationModel;
 use App\Models\RecruiterModel;
@@ -166,7 +167,7 @@ class RecruiterRepository
     }
 
     public function checkJobApplication($data){
-//        try{
+        try{
             if($data['recruiter_id'] == null)
                 return ['code' => 400, 'message' => trim(Lang::get('recruiter.check-application.invalid-recruiter'))];
 
@@ -210,8 +211,8 @@ class RecruiterRepository
 //                dd($x['profile']['seeker_area_of_sector']);
                 $resume = $x['profile']['resume'];
                 $x['profile']['resume'] = asset('storage/'.$resume);
-//                unset();
-
+                $apply_date = $value_app->toArray();
+                $x['profile']['seeker_apply_date']= $apply_date['created_at'];
                 array_push($seeker,$x);
             }
 
@@ -219,10 +220,10 @@ class RecruiterRepository
                 return ['code' => 101,'status'=>true, 'message' => 'Job Application Found','data' => $seeker];
             else
                 return ['code' => 400, 'message' => trim(Lang::get('recruiter.check-application.no-application'))];
-//        }
-//        catch (\Exception $exception){
-//            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
-//        }
+        }
+        catch (\Exception $exception){
+            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
+        }
 
 
     }
