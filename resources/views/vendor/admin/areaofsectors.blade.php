@@ -65,7 +65,7 @@
 
                                                         <td>
                                                             <a href="{{ url('edit-area-of-sector').'/'.$value_sector['id'] }}"><button type="submit" id="editdelivery" class="btn btn-primary m-t-15 waves-effect">Edit</button></a>
-                                                            <button type="submit" class="btn btn-info m-t-15 waves-effect">Delete</button>
+                                                            <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{ url('delete-area-of-sector').'/'.$value_sector['id'] }}"> <button type="submit" class="btn btn-info m-t-15 waves-effect">Delete</button></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

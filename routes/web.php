@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/location','AdminController@location');
      Route::post('/add-new-location','AdminController@postLocation');
     Route::get('/edit-location/{id}','AdminController@editLocation');
-    Route::post('/update-location','AdminController@updateLocation');
+    Route::get('/delete-location/{id}','AdminController@deleteLocation');
 
 
     /********** Area Of Sectors ***********/
@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::post('/add-new-area-of-sector','AdminController@postAreaOfSectors');
     Route::get('/edit-area-of-sector/{id}','AdminController@editAreaOfSector');
     Route::post('/update-area-of-sector','AdminController@updateAreaOfSectors');
+    Route::get('/delete-area-of-sector/{id}','AdminController@deleteAreaOfSector');
 
     /********** Specialization ***********/
     Route::get('/specialization','AdminController@specialization');
@@ -62,6 +63,7 @@ Route::group(['namespace' => 'Admin'], function () {
 Route::group(['namespace' => 'Admin','prefix'=>'recruiter'], function () {
     Route::get('/all-recruiter','ManageRecruiterController@getAllRecruiter');
     Route::get('/view-details/{id}','ManageRecruiterController@recruiterViewDetails');
+    Route::get('/posted-jobs/{id}','ManageRecruiterController@recruiterPostedJobs');
 });
 
 Route::group(['namespace' => 'Api'],function (){

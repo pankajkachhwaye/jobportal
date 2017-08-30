@@ -8,13 +8,29 @@ class SeekerProfile extends Model
 {
    protected $table = 'seeker_profile';
 
-   public function areaOfSector(){
-       return $this->hasOne('App\Models\AreaOfSectorsModel','area_of_sector');
+   public function seekerAreaOfSector(){
+       return $this->belongsTo('App\Models\AreaOfSectorsModel','area_of_sector');
    }
 
     public function jobType(){
-        return $this->hasOne('App\Models\JobTypesModel','job_type');
+        return $this->belongsTo('App\Models\JobTypesModel','job_type');
     }
+
+
+    public function seekerQualification(){
+        return $this->belongsTo('App\Models\QualificationModel','seeker_qualification');
+    }
+
+    public function seekerSpecialization(){
+        return $this->belongsTo('App\Models\SpecializationModel','specialization');
+    }
+
+    public function seekerRoleType(){
+        return $this->belongsTo('App\Models\JobByRolesModel','role_type');
+    }
+
+
+
 
     public function getSpecializationAttribute($value)
     {

@@ -43,4 +43,17 @@ class ManageRecruiterController extends Controller
 
     }
 
+    public function recruiterPostedJobs($id){
+        $page = 'recruiter';
+        $sub_page = 'all-recruiter';
+        $recruiter = RecruiterModel::find($id);
+        $posted_jobs = $recruiter->postedJobs()->get();
+        if($posted_jobs->count() == 0){
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'currently no job posted by recruiter');
+        }
+        else{
+            return view('vendor.recruiter.postedjobs',compact('page','sub_page','posted_jobs','recruiter'));
+        }
+    }
+
 }

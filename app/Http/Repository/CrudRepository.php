@@ -39,4 +39,14 @@ class CrudRepository
             return ['code' => 503, 'message' => $exception->getMessage()];
         }
     }
+
+    public function deleteModelById($id, $modal){
+//        try {
+            $itm= $modal->find($id);
+            $delete = $itm->delete();
+            return ['code' => 101, 'message' => 'success'];
+        /*} catch (\Exception $exception) {
+            return ['code' => 503, 'message' => $exception->getMessage()];
+        }*/
+    }
 }

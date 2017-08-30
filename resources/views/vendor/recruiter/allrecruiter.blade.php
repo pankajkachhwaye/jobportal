@@ -20,6 +20,7 @@
                                         <th>Organization Name</th>
                                         <th>Email</th>
                                         <th>Mobile No.</th>
+                                        <th>Action</th>
                                         {{--<th>Posted Jobs</th>--}}
 
                                     </tr>
@@ -37,10 +38,10 @@
                                             <td>
                                                 {{$value_recruiter['recruiter_mobile_no']}}
                                             </td>
-                                            {{--<td>--}}
-                                                {{--<a href="{{ url('/recruiter/view-details').'/'.$value_recruiter['id'] }} "> <button type="button" class="btn bg-brown waves-effect">View Details</button></a>--}}
+                                            <td>
+                                                <a href="{{ url('/recruiter/posted-jobs').'/'.$value_recruiter['id'] }} "> <button type="button" class="btn bg-brown waves-effect">See Posted Jobs</button></a>
 
-                                            {{--</td>--}}
+                                            </td>
 
                                         </tr>
                                     @endforeach
