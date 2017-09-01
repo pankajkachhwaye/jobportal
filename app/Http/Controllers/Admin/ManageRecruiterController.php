@@ -68,25 +68,30 @@ class ManageRecruiterController extends Controller
         }
     }
 
-    public function recruiterPostedJobsDetail($id){
+    public function recruiterPostedJobsDetail($id,$recruiter_id){
         $temp_job = JobsModel::find($id);
         $x = $temp_job->toArray();
         $x['process'] = json_decode($x['process']);
         $job_type = $temp_job->jobType->toArray();
+
         $x['job_type'] = $job_type['job_type'];
-        $x['job_type_id'] = $job_type['id'];
+//        $x['job_type_id'] = $job_type['id'];
         $job_by_roles = $temp_job->jobRole->toArray();
         $x['job_by_roles'] =$job_by_roles['job_by_role'];
         $x['job_by_roles_id'] =$job_by_roles['id'];
         $qualification = $temp_job->jobQualification->toArray();
         $x['qualification'] = $qualification['qualification'];
-        $x['qualification_id'] = $qualification['id'];
+//        $x['qualification_id'] = $qualification['id'];
         $location = $temp_job->jobLocation->toArray();
         $x['job_location'] = $location['location_name'];
-        $x['job_location_id'] = $location['id'];
+//        $x['job_location_id'] = $location['id'];
         $specialization = $temp_job->jobSpecialization->toArray();
         $x['specialization'] = $specialization['specialization'];
-        $x['specialization_id'] = $specialization['id'];
+//        $x['specialization_id'] = $specialization['id'];
+        $recruiter = RecruiterModel::find($recruiter_id);
+        $profile = $recruiter->recruiterProfile;
+        $x['recruiter']  = $recruiter;
+
 
        return Response::json($x);
     }
