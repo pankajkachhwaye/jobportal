@@ -121,7 +121,7 @@
                                             </li>
                                             <li class="list-group-item">
                                                 <span >Job Discription :</span>
-                                                <span id="job_discription" style="margin-left: 15px"></span>
+                                                <span id="job_discription" style="margin-left: 15px;word-wrap:break-word;"></span>
                                             </li>
                                             </ul>
                                         </div>
