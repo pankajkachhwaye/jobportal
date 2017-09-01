@@ -2,16 +2,16 @@
 
 return [
 
-    'register-succees' => 'User registered successfully In Order To Complete Registration Process Verification email is send to register email address.',
+    'register-succees' => 'Verification link has been send to your registered email id, please click on link for successful registration.',
     'register-confirm' => 'Now you are confirmed You can login from to Job Portal.',
-    'seeker-not-register' => 'User Is Not Register With Us.',
-    'seeker-not-verified' => 'User Is Not Verified Please Verify Your Email Address.',
-    'seeker-password' => 'User Entered the Wrong Password.',
+    'seeker-not-register' => 'Seeker not registered.',
+    'seeker-not-verified' => 'Seeker not verified, please verify from the link sent to your email id',
+    'seeker-password' => 'You entered wrong password.',
     'seeker-profile-gender' => 'Please Select Your Gender',
     'seeker-profile-job-type' => 'Please Select Your Job Type',
     'seeker-profile-work-experience' => 'Please Select Your Work Experience',
     'seeker-profile-resume' => 'Please Upload Your Resume',
     'seeker-profile-picture' => 'Please Upload Your Profile Picture',
-    'apply-success' => 'Job Application Posted Successfully',
-    'already-apply' => 'You Already Apply on the Job',
+    'apply-success' => 'You have successfully applied for this job.',
+    'already-apply' => 'You have already applied for this job.',
 ];

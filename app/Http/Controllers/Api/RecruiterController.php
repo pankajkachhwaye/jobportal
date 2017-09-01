@@ -88,11 +88,11 @@ class RecruiterController extends Controller
                     $profile->org_logo =asset('storage/'.$logo);
                     $perm_recruiter['role'] = 'recruiter';
 
-                    return Response::json(['code' => 200, 'status' => true,'message'=> 'Login successfully', 'data' => $perm_recruiter,'profile' => $profile]);
+                    return Response::json(['code' => 200, 'status' => true,'message'=> 'You successfully logged in.', 'data' => $perm_recruiter,'profile' => $profile]);
                 }
                 else{
                     $recruiter->role = 'recruiter';
-                    return Response::json(['code' => 200, 'status' => true,'message'=> 'Login successfully', 'data' => $recruiter]);
+                    return Response::json(['code' => 200, 'status' => true,'message'=> 'You successfully logged in.', 'data' => $recruiter]);
                 }
 
             } else {

@@ -95,11 +95,11 @@ class SeekerController extends Controller
                     $permnnt_seeker = $seeker->toArray();
                    $profile = $seeker->seekerProfile;
                     $permnnt_seeker['role'] = 'seeker';
-                    return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $permnnt_seeker ,'profile' => $profile] );
+                    return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $permnnt_seeker ,'profile' => $profile] );
                 }
                 else{
                     $seeker->role = 'seeker';
-                    return Response::json(['code' => 200, 'status' => true, 'message' => 'Login successfully', 'data' => $seeker]);
+                    return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $seeker]);
                 }
 
             } else {
@@ -176,7 +176,7 @@ class SeekerController extends Controller
             $tempdata =[
                 'code' => 400,
                 'status' => false,
-                'message' => 'No Matching Jobs Are found For this Profile',
+                'message' => 'Jobs not found for this profile.',
                 'data' => []
             ];
 

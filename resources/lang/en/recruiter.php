@@ -2,11 +2,11 @@
 
 return [
 
-    'register-succees' => 'Recruiter registered Successfully In Order To Complete Registration Process Verification email is send to register email address.',
+    'register-succees' => 'Your registration has been successful. In order to complete registration process, verification mail has been send to in your registered email address, please verify.',
     'register-confirm' => 'Now you are confirmed You can login from to Job Portal.',
-    'recruiter-not-register' => 'Recruiter Is Not Register With Us.',
-    'recruiter-not-verified' => 'Recruiter Is Not Verified Please Verify Your Email Address.',
-    'recruiter-password' => 'Recruiter Entered the Wrong Password.',
+    'recruiter-not-register' => 'Recruiter not registered.',
+    'recruiter-not-verified' => 'Recruiter not verified, please verify from the link sent to your email id.',
+    'recruiter-password' => 'You entered wrong password.',
     'recruiter-identity' => 'Please provide your identity.',
     'recruiter-location' => 'Please provide your Organisation Location.',
     'recruiter-address' => 'Please provide your Organisation Address.',
@@ -33,9 +33,9 @@ return [
 
     'check-application' => [
 
-                    'invalid-recruiter' => 'Not a Valid Recruiter',
-                    'invalid-job' => 'Not a Valid Job',
-                    'no-application' => 'No Application found on this job',
+                    'invalid-recruiter' => 'Please enter valid recruiter.',
+                    'invalid-job' => 'Please enter valid job.',
+                    'no-application' => 'Application not found.',
 
 
         ]

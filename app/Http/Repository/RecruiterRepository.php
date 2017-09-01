@@ -70,7 +70,7 @@ class RecruiterRepository
             $returndata['recruiter_profile']['org_logo'] =asset('storage/'.$logo);
 
 
-            return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully','data'=>$returndata];
+            return ['code' => 101,'status'=>true, 'message' => 'Profile has been updated successfully.','data'=>$returndata];
 
         }
         catch (\Exception $exception){

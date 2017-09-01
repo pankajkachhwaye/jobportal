@@ -90,7 +90,7 @@ class SeekerRepository
             $returndata['seeker_profile']['avtar'] =asset('storage/'.$profile);
             $returndata['seeker_profile']['resume'] =asset('storage/'.$resume);
 
-            return ['code' => 101,'status'=>true, 'message' => 'Profile Update Successfully','data'=>$returndata];
+            return ['code' => 101,'status'=>true, 'message' => 'Profile has been updated successfully.','data'=>$returndata];
 
         }
         catch (\Exception $exception){
