@@ -2,7 +2,7 @@
 
 return [
 
-    'register-succees' => 'User Registered Successfully In Order To Complete Registration Process Verification email is send to register email address.',
+    'register-succees' => 'User registered successfully In Order To Complete Registration Process Verification email is send to register email address.',
     'register-confirm' => 'Now you are confirmed You can login from to Job Portal.',
     'seeker-not-register' => 'User Is Not Register With Us.',
     'seeker-not-verified' => 'User Is Not Verified Please Verify Your Email Address.',

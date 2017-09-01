@@ -65,10 +65,16 @@ $(document).ready(function () {
                 $('#min_sal').text(data.min_sal+' '+ data.per);
                 $('#max_sal').text(data.max_sal+' '+ data.per);
                 $('#job_type').text(data.job_type+' '+ data.job_type);
-               var process =  data.process.toString();
+                if(data.process == null){
+                    var process =  '';
+
+
+                }
+                else{
+                    var process =  data.process.toString();
+                }
+
                 $('#process').text(process);
-
-
                 $('#job_discription').text(data.job_discription);
                 $('#organisation_name').text(data.recruiter.organisation_name);
                 $('#recruiter_email').text(data.recruiter.recruiter_email);
