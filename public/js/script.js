@@ -46,6 +46,20 @@ $(document).ready(function () {
         });
     };
 
+    $(document).on('click','.getdetails',function () {
+        console.log(APP_URL);
+        var id = $(this).attr('data-react');
+        $.ajax({
+            type: "GET",
+            url: APP_URL + '/recruiter/posted-jobs-details/' + id,
+            data: {'id':id},
+            success: function (data){
+               console.log(data);
+            }
+        });
+    });
+
+
 
 
 });

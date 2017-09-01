@@ -243,6 +243,8 @@ class RecruiterRepository
             $x['profile']['resume'] = asset('storage/' . $resume);
             $apply_date = $job_application->toArray();
             $x['profile']['seeker_apply_date'] = $apply_date['created_at'];
+            $x['job_detail'] = $job_application->particularJob()->first(['last_date','job_discription']);
+
             return ['code' => 101, 'status' => true, 'message' => 'Sekeer details Found', 'data' => $x];
         }
         catch (\Exception $exception){

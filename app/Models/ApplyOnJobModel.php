@@ -12,6 +12,10 @@ class ApplyOnJobModel extends Model
         return $this->belongsTo('App\Models\SeekerModel','seeker_id');
     }
 
+    public function particularJob(){
+        return $this->belongsTo('App\Models\JobsModel','job_id');
+    }
+
     public function scopeGetJobApplication($query,$job_id,$seeker_id){
         return $query->where('job_id',$job_id)->where('seeker_id',$seeker_id);
     }

@@ -64,6 +64,7 @@ Route::group(['namespace' => 'Admin','prefix'=>'recruiter'], function () {
     Route::get('/all-recruiter','ManageRecruiterController@getAllRecruiter');
     Route::get('/view-details/{id}','ManageRecruiterController@recruiterViewDetails');
     Route::get('/posted-jobs/{id}','ManageRecruiterController@recruiterPostedJobs');
+    Route::get('/posted-jobs-details/{id}','ManageRecruiterController@recruiterPostedJobsDetail');
 });
 
 Route::group(['namespace' => 'Api'],function (){
@@ -84,8 +85,8 @@ Route::group(['namespace' => 'Api'],function (){
    Route::get('post-new-job','ApiController@showPostJobForm');
    Route::get('job-applications-form','ApiController@showJobApplicationForm');
    Route::get('recruiter-change-pass-form','ApiController@showChangePasswordFormRecruiter');
-    Route::get('recruiter-posted-job-form','ApiController@showRecruiterPostedJobForm');
-    Route::get('seeker-profile-job-form','ApiController@showSeekerProfileOnJobForm');
+   Route::get('recruiter-posted-job-form','ApiController@showRecruiterPostedJobForm');
+   Route::get('seeker-profile-job-form','ApiController@showSeekerProfileOnJobForm');
 
     /*************** Common Routes ****************/
    Route::get('forgot-password-form','ApiController@showForgotPasswordForm');
