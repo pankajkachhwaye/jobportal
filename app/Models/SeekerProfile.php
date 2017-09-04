@@ -58,4 +58,8 @@ class SeekerProfile extends Model
         return ($value == null ? '':$value);
     }
 
+    public function getUpdatedAtAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
 }
