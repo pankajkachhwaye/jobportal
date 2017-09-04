@@ -8,6 +8,10 @@ class JobsModel extends Model
 {
     protected $table = 'jobs';
 
+    public function scopeGetRecuiterJobById($query,$recruiter_id,$job_id){
+        return $query->where('id',$job_id)->where('recruiter_id',$recruiter_id);
+    }
+
     public function scopeProfileMatchedJobs($query,$qualification,$location,$specilization,$role_type){
         return $query->where('qualification',$qualification)
              ->orWhere('job_location', $location)

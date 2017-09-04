@@ -34,6 +34,7 @@
         <p><a href="{{url('/recruiter-profile')}}">Recruiter Fill-Profile</a></p>
         <p><a href="{{url('/post-new-job')}}">Post New Job</a></p>
         <p><a href="{{url('/update-job-form')}}">Update Job</a></p>
+        <p><a href="{{url('/delete-job-form')}}">Delete Job</a></p>
         <p><a href="{{url('/job-applications-form')}}">Job Application Applied By</a></p>
         <p><a href="{{url('/recruiter-change-pass-form')}}">Change Password</a></p>
         <p><a href="{{url('/recruiter-posted-job-form')}}">Recruiter Posted jobs</a></p>

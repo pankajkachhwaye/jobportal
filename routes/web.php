@@ -84,6 +84,7 @@ Route::group(['namespace' => 'Api'],function (){
    Route::get('recruiter-profile','ApiController@showRecruiterProfileForm');
    Route::get('post-new-job','ApiController@showPostJobForm');
    Route::get('update-job-form','ApiController@showUpdateJobForm');
+   Route::get('delete-job-form','ApiController@showDeleteJobForm');
    Route::get('job-applications-form','ApiController@showJobApplicationForm');
    Route::get('recruiter-change-pass-form','ApiController@showChangePasswordFormRecruiter');
    Route::get('recruiter-posted-job-form','ApiController@showRecruiterPostedJobForm');
