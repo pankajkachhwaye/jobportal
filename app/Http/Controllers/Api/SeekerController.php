@@ -110,15 +110,18 @@ class SeekerController extends Controller
                     $profile->resume =  asset('storage/'.$resume);
                     $permnnt_seeker['role'] = 'seeker';
                     $permnnt_seeker['jwt_token'] = $token;
-                    return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $permnnt_seeker ,'profile' => $profile] );
+                    $permnnt_seeker['profile'] = $profile;
+
+                    return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $permnnt_seeker ] );
                 }
                 else{
-//                   dd($seeker);
+
 
                     $token = JWTAuth::fromUser($seeker);
                     $seeker->jwt_token = $token;
                     $seeker->role = 'seeker';
-                    return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $seeker,'profile' => new \stdClass()]);
+                    $seeker->profile = new \stdClass();
+                    return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $seeker]);
                 }
 
             } else {
