@@ -104,6 +104,10 @@ class SeekerController extends Controller
                     $token = JWTAuth::fromUser($seeker);
                     $permnnt_seeker = $seeker->toArray();
                    $profile = $seeker->seekerProfile;
+                   $avtar = $profile->avtar;
+                    $resume = $profile->resume;
+                    $profile->avtar =  asset('storage/'.$avtar);
+                    $profile->resume =  asset('storage/'.$resume);
                     $permnnt_seeker['role'] = 'seeker';
                     $permnnt_seeker['jwt_token'] = $token;
                     return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $permnnt_seeker ,'profile' => $profile] );
