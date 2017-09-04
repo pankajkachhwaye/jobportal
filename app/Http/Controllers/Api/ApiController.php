@@ -53,6 +53,12 @@ class ApiController extends Controller
         return view('api.recruiter.postjob',compact('recruiter','basicInfo'));
     }
 
+    public function showUpdateJobForm(){
+        $recruiter = RecruiterModel::all()->toArray();
+        $basicInfo = General::basicInfo();
+        return view('api.recruiter.updatejob',compact('recruiter','basicInfo'));
+    }
+
     public function showActiveJobsForm(){
         $seeker = SeekerModel::all()->toArray();
         return view('api.seeker.activejob' , compact('seeker'));

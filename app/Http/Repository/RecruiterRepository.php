@@ -80,10 +80,10 @@ class RecruiterRepository
 
 
     public function saveNewJob($data = [], $model){
-        try{
+//        try{
 
             $temp_data = $data->all();
-
+//            dd($temp_data);
             if(isset($data->job_type))
                 $temp_data['job_type']= $data->job_type;
             else
@@ -154,16 +154,30 @@ class RecruiterRepository
             else
                 return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.process'))];
 
-            $temp_data['created_at'] = Carbon::now();
-            //dd($temp_data);
 
-            $model->insert($temp_data);
-            return ['code' => 101,'status'=>true, 'message' => 'Job Added Successfully'];
 
-        }
-        catch (\Exception $exception){
-            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
-        }
+            if(isset($temp_data['job_id'])){
+             $job_id = $temp_data['job_id'];
+                unset($temp_data['job_id']);
+                $temp_data['updated_at'] = Carbon::now();
+                    $model->where('id',$job_id)->update($temp_data);
+                return ['code' => 101,'status'=>true, 'message' => 'Job update Successfully'];
+
+            }
+            else{
+//                dd($temp_data);
+                $temp_data['created_at'] = Carbon::now();
+                $model->insert($temp_data);
+                return ['code' => 101,'status'=>true, 'message' => 'Job Added Successfully'];
+
+            }
+
+
+
+//        }
+//        catch (\Exception $exception){
+//            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
+//        }
     }
 
     public function checkJobApplication($data){
