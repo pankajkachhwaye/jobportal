@@ -109,6 +109,8 @@ class SeekerController extends Controller
                     return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $permnnt_seeker ,'profile' => $profile] );
                 }
                 else{
+//                   dd($seeker);
+
                     $token = JWTAuth::fromUser($seeker);
                     $seeker->jwt_token = $token;
                     $seeker->role = 'seeker';

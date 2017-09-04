@@ -65,7 +65,13 @@ class SeekerModel extends Model
         return $this->hasMany('App\Models\ApplyOnJobModel','seeker_id');
     }
 
-    public function getProfileUpdateAttribute($value)
+//    public function getProfileUpdateAttribute($value)
+//    {
+//        return ($value == null ? '':$value);
+//    }
+
+
+    public function getUpdatedAtAttribute($value)
     {
         return ($value == null ? '':$value);
     }

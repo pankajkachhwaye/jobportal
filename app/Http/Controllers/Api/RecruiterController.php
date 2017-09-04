@@ -110,6 +110,7 @@ class RecruiterController extends Controller
                 }
 
             } else {
+
                 return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('recruiter.recruiter-password'))]);
             }
         } catch (\Exception $exception) {
