@@ -98,7 +98,7 @@ class RecruiterController extends Controller
                     $perm_recruiter['role'] = 'recruiter';
                    $token = JWTAuth::fromUser($recruiter);
                    $perm_recruiter['jwt_token'] = $token;
-                   $perm_recruiter['profile'] = $profile;
+                   $perm_recruiter['recruiter_profile'] = $profile;
 
                     return Response::json(['code' => 200, 'status' => true,'message'=> 'You successfully logged in.', 'data' => $perm_recruiter]);
                 }
@@ -107,7 +107,7 @@ class RecruiterController extends Controller
                     $token = JWTAuth::fromUser($recruiter);
                     $recruiter->jwt_token = $token;
                     $recruiter->role = 'recruiter';
-                    $recruiter->profile = new \stdClass();
+                    $recruiter->recruiter_profile = new \stdClass();
                     return Response::json(['code' => 200, 'status' => true,'message'=> 'You successfully logged in.', 'data' => $recruiter]);
                 }
 
