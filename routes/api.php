@@ -45,6 +45,10 @@ Route::group(['namespace'=>'Api'],function(){
     /*************** Common Routes ****************/
     Route::get('/general','CommonController@basicInformation');
     Route::post('/forgot-password','CommonController@forgotPassword');
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        Route::get('user', 'RecruiterController@getAuthUser');
+        Route::get('seeker', 'SeekerController@getAuthSeeker');
 
+    });
 
 });

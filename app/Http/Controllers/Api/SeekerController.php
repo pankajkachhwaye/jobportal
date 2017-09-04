@@ -18,10 +18,19 @@ use Illuminate\Support\Facades\Mail;
 use Response;
 use Illuminate\Support\Facades\DB;
 use App\Models\JobsModel;
+use Illuminate\Support\Facades\Config;
+use JWTAuth;
+
+use JWTAuthException;
 
 
 class SeekerController extends Controller
 {
+
+    public function __construct()
+    {
+        Config::set('jwt.user', 'App\Models\SeekerModel');
+    }
 
     public function generalInfo(){
         dd(General::basicInfo());
@@ -92,14 +101,18 @@ class SeekerController extends Controller
             }
             if (Hash::check($request->password, $seeker->password)) {
                 if($seeker->profile_update == 1){
+                    $token = JWTAuth::fromUser($seeker);
                     $permnnt_seeker = $seeker->toArray();
                    $profile = $seeker->seekerProfile;
                     $permnnt_seeker['role'] = 'seeker';
+                    $permnnt_seeker['jwt_token'] = $token;
                     return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $permnnt_seeker ,'profile' => $profile] );
                 }
                 else{
+                    $token = JWTAuth::fromUser($seeker);
+                    $seeker->jwt_token = $token;
                     $seeker->role = 'seeker';
-                    return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $seeker]);
+                    return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $seeker,'profile' => new \stdClass()]);
                 }
 
             } else {
@@ -225,5 +238,9 @@ class SeekerController extends Controller
 
 
     }
+    public function getAuthSeeker(Request $request){
+        $user = JWTAuth::toUser($request->token);
 
+        return response()->json(['result' => $user]);
+    }
 }

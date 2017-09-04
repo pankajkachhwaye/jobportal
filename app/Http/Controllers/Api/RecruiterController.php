@@ -17,9 +17,18 @@ use Illuminate\Support\Facades\Lang;
 
 use Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
+use JWTAuth;
 
+use JWTAuthException;
 class RecruiterController extends Controller
 {
+
+    public function __construct()
+    {
+        Config::set('jwt.user', 'App\Models\RecruiterModel');
+    }
+
     protected function createRecruiter(array $data)
     {
         return RecruiterModel::create([
@@ -87,12 +96,17 @@ class RecruiterController extends Controller
                     $logo = $profile->org_logo;
                     $profile->org_logo =asset('storage/'.$logo);
                     $perm_recruiter['role'] = 'recruiter';
+                   $token = JWTAuth::fromUser($recruiter);
+                   $perm_recruiter['jwt_token'] = $token;
 
                     return Response::json(['code' => 200, 'status' => true,'message'=> 'You successfully logged in.', 'data' => $perm_recruiter,'profile' => $profile]);
                 }
                 else{
+//                    dd($recruiter);
+                    $token = JWTAuth::fromUser($recruiter);
+                    $recruiter->jwt_token = $token;
                     $recruiter->role = 'recruiter';
-                    return Response::json(['code' => 200, 'status' => true,'message'=> 'You successfully logged in.', 'data' => $recruiter]);
+                    return Response::json(['code' => 200, 'status' => true,'message'=> 'You successfully logged in.', 'data' => $recruiter,'profile' => new \stdClass()]);
                 }
 
             } else {
@@ -202,16 +216,21 @@ class RecruiterController extends Controller
             $info = ['password' => $new];
             $query = DB::table('recruiter')->where('id', $data['recruiter_id'])->update($info);
             if ($query) {
-                return Response::json(['code' => 200, 'status' => true, 'message' =>'Your password has been updated' ]);
+                return Response::json(['code' => 200, 'status' => true, 'message' =>'Password has been updated successfully.' ]);
             } else {
                 return Response::json(['code' => 500, 'status' => false, 'message' =>'Internal Server error' ]);
             }
         } else {
-            return Response::json(['code' => 400, 'status' => false, 'message' =>'Your old password is not match' ]);
+            return Response::json(['code' => 400, 'status' => false, 'message' =>'Please enter valid old password.' ]);
         }
 
 
     }
 
+    public function getAuthUser(Request $request){
+        $user = JWTAuth::toUser($request->token);
+
+        return response()->json(['result' => $user]);
+    }
 
 }
