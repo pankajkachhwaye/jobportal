@@ -237,7 +237,7 @@ class RecruiterController extends Controller
     }
 
     public function deleteJob(Request $request){
-        $job = JobsModel::GetRecuiterJobById($request->job_id,$request->recruiter_id)->first();
+        $job = JobsModel::find($request->job_id);
         $job->delete();
         return Response::json(['code' => 200, 'status' => true, 'message' =>'job deleted successfully.' ]);
     }
