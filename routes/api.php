@@ -39,6 +39,7 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/delete-job','RecruiterController@deleteJob');
     Route::post('/get-recruiter-jobs','RecruiterController@getRecruiterJobs');
     Route::post('/job-application','RecruiterController@getJobApplications');
+    Route::post('/get-recruiter-job-detail','RecruiterController@getRecruiterJobDetail');
     Route::post('/recruiter-change-password', 'RecruiterController@recruiterChangePassword');
     Route::post('/seeker-profile-detail-on-job', 'RecruiterController@seekerProfileDetailOnJob');
 

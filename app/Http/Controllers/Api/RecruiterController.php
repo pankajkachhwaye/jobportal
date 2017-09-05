@@ -147,7 +147,7 @@ class RecruiterController extends Controller
 
         public function getRecruiterJobs(Request $request){
 //        dd($request->all());
-            $tem_jobs = JobsModel::where('recruiter_id',$request->recruiter_id)->get();
+            $tem_jobs = JobsModel::where('recruiter_id',$request->recruiter_id)->get(['id','specialization','job_discription']);
             $jobs = [];
             foreach ($tem_jobs as $key_job => $value_job){
                 $x = $value_job->toArray();
@@ -167,6 +167,29 @@ class RecruiterController extends Controller
             }
 
 
+
+        }
+
+        public function getRecruiterJobDetail(Request $request){
+            $value_job = JobsModel::find($request->job_id);
+            $x = $value_job->toArray();
+            $x['process'] = json_decode($x['process']);
+            $job_type = $value_job->jobType->toArray();
+            $x['job_type'] = $job_type['job_type'];
+            $x['job_type_id'] = $job_type['id'];
+            $job_by_roles = $value_job->jobRole->toArray();
+            $x['job_by_roles'] =$job_by_roles['job_by_role'];
+            $x['job_by_roles_id'] =$job_by_roles['id'];
+            $qualification = $value_job->jobQualification->toArray();
+            $x['qualification'] = $qualification['qualification'];
+            $x['qualification_id'] = $qualification['id'];
+            $location = $value_job->jobLocation->toArray();
+            $x['job_location'] = $location['location_name'];
+            $x['job_location_id'] = $location['id'];
+            $specialization = $value_job->jobSpecialization->toArray();
+            $x['specialization'] = $specialization['specialization'];
+            $x['specialization_id'] = $specialization['id'];
+            return Response::json( ['code' => 101,'status'=>true, 'message' => 'Job details found','data' => $x]);
 
         }
 

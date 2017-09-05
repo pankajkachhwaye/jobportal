@@ -39,6 +39,7 @@
         <p><a href="{{url('/recruiter-change-pass-form')}}">Change Password</a></p>
         <p><a href="{{url('/recruiter-posted-job-form')}}">Recruiter Posted jobs</a></p>
         <p><a href="{{url('/seeker-profile-job-form')}}">Seeker Profile On Job</a></p>
+        <p><a href="{{url('/recruiter-job-detail-form')}}">Recruiter Job Detail </a></p>
 
         {{--<p><a href="{{url('/seeker-profile')}}">Update-Profile </a></p>--}}
 
