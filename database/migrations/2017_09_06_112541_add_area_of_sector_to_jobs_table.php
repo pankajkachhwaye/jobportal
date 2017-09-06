@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSkillsToJobsTable extends Migration
+class AddAreaOfSectorToJobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddSkillsToJobsTable extends Migration
     public function up()
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->text('skills_required')->after('specialization');
+            $table->integer('area_of_sector')->nullable()->unsigned();
+            $table->foreign('area_of_sector')->references('id')->on('area_of_sectors');
         });
     }
 
@@ -26,7 +27,7 @@ class AddSkillsToJobsTable extends Migration
     public function down()
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->dropColumn('skills_required');
+            //
         });
     }
 }

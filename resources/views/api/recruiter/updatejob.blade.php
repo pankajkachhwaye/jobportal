@@ -52,6 +52,15 @@
     @endforeach
     <br />
     <br />
+    Area Of Sector(area_of_sector) :: <select name="area_of_sector">
+        <option >Please select</option>
+        @foreach($basicInfo['area_of_sectors'] as $key_sector => $value_sector)
+            <option value="{{$value_sector['id']}}">{{$value_sector['area_of_sector']}}</option>
+        @endforeach
+    </select>
+    <br />
+    <br />
+
     Designation(job_by_roles)<span style="color: red">*</span> :: <select name="job_by_roles">
         <option value="">Please select</option>
         @foreach($basicInfo['job_by_roles'] as $key_role => $value_role)
