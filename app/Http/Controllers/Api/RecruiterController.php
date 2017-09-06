@@ -174,6 +174,15 @@ class RecruiterController extends Controller
             $value_job = JobsModel::find($request->job_id);
             $x = $value_job->toArray();
             $x['process'] = json_decode($x['process']);
+            if($value_job->area_of_sector != null){
+                $area_of_sector = $value_job->areaOfSector->toArray();
+                $x['area_of_sector'] = $area_of_sector['area_of_sector'];
+                $x['area_of_sector_id'] = $area_of_sector['id'];
+            }
+            else{
+                $x['area_of_sector'] = '';
+                $x['area_of_sector_id'] = '';
+            }
             $job_type = $value_job->jobType->toArray();
             $x['job_type'] = $job_type['job_type'];
             $x['job_type_id'] = $job_type['id'];

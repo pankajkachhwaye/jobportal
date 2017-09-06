@@ -28,6 +28,10 @@ class JobsModel extends Model
         return $this->belongsTo('App\Models\JobTypesModel','job_type');
     }
 
+    public function areaOfSector(){
+        return $this->belongsTo('App\Models\AreaOfSectorsModel','area_of_sector');
+    }
+
     public function jobRole(){
         return $this->belongsTo('App\Models\JobByRolesModel','job_by_roles');
     }
@@ -46,5 +50,10 @@ class JobsModel extends Model
 
     public function postedRecruiter(){
         return $this->belongsTo('App\Models\RecruiterModel','recruiter_id');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return ($value == null ? '':$value);
     }
 }

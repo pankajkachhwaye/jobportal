@@ -16,4 +16,8 @@ class AreaOfSectorsModel extends Model
     protected $fillable = [
         'area_of_sector'
     ];
+
+    public function jobsAreaOfSector(){
+        return $this->hasMany('App\Models\AreaOfSectorsModel','area_of_sector');
+    }
 }

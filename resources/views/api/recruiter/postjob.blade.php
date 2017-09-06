@@ -34,6 +34,9 @@
     </select>
     <br />
     <br />
+   Job(job_id) ::   <input type="text" name="job_id">
+    <br />
+    <br />
 
     Job Type (job_type)<span style="color: red">*</span> :: @foreach($basicInfo['job_types'] as $key_job_type => $value_job_type)
         <input type="radio" value="{{$value_job_type['id']}}" name="job_type">{{$value_job_type['job_type']}}

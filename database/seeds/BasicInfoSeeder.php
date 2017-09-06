@@ -74,21 +74,21 @@ class BasicInfoSeeder extends Seeder
             $mem->save();
         }
 
-//        $job_role = [
-//            'category_01' => ['job_by_role'=>'Senior Developer', 'created_at' => \Carbon\Carbon::now()],
-//            'category_06' => ['job_by_role'=>'HR Manager', 'created_at' => \Carbon\Carbon::now()],
-//            'category_07' => ['job_by_role'=>'Project Manager', 'created_at' => \Carbon\Carbon::now()],
-//            'category_08' => ['job_by_role'=>'CEO', 'created_at' => \Carbon\Carbon::now()],
-//
-//
-//        ];
-//
-//        foreach ($job_role as $code => $sys) {
-//            $mem = new \App\Models\JobByRolesModel();
-//            $mem->job_by_role = $sys['job_by_role'];
-//            $mem->created_at = $sys['created_at'];
-//            $mem->save();
-//        }
+        $job_role = [
+            'category_01' => ['job_by_role'=>'Senior Developer', 'created_at' => \Carbon\Carbon::now()],
+            'category_06' => ['job_by_role'=>'HR Manager', 'created_at' => \Carbon\Carbon::now()],
+            'category_07' => ['job_by_role'=>'Project Manager', 'created_at' => \Carbon\Carbon::now()],
+            'category_08' => ['job_by_role'=>'CEO', 'created_at' => \Carbon\Carbon::now()],
+
+
+        ];
+
+        foreach ($job_role as $code => $sys) {
+            $mem = new \App\Models\JobByRolesModel();
+            $mem->job_by_role = $sys['job_by_role'];
+            $mem->created_at = $sys['created_at'];
+            $mem->save();
+        }
 
         $job_type = [
             'category_01' => ['job_type'=>'Full Time', 'created_at' => \Carbon\Carbon::now()],
