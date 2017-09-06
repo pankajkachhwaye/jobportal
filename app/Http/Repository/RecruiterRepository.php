@@ -79,7 +79,7 @@ class RecruiterRepository
 
     public function saveNewJob($data = [], $model)
     {
-//        try{
+       try{
 
         $temp_data = $data->all();
 //            dd($temp_data);
@@ -172,10 +172,10 @@ class RecruiterRepository
         }
 
 
-//        }
-//        catch (\Exception $exception){
-//            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
-//        }
+       }
+        catch (\Exception $exception){
+            return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
+        }
     }
 
     public function checkJobApplication($data)
