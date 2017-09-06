@@ -156,19 +156,21 @@ class RecruiterRepository
 
 
 
-            if(isset($temp_data['job_id'])){
-             $job_id = $temp_data['job_id'];
-                unset($temp_data['job_id']);
-                $temp_data['updated_at'] = Carbon::now();
-                    $model->where('id',$job_id)->update($temp_data);
-                return ['code' => 101,'status'=>true, 'message' => 'Job update Successfully'];
+            if($temp_data['job_id'] == 0){
+                $temp_data['created_at'] = Carbon::now();
+                $model->insert($temp_data);
+                return ['code' => 101,'status'=>true, 'message' => 'Job Added Successfully'];
 
             }
             else{
 //                dd($temp_data);
-                $temp_data['created_at'] = Carbon::now();
-                $model->insert($temp_data);
-                return ['code' => 101,'status'=>true, 'message' => 'Job Added Successfully'];
+                $job_id = $temp_data['job_id'];
+                unset($temp_data['job_id']);
+                $temp_data['updated_at'] = Carbon::now();
+                $model->where('id',$job_id)->update($temp_data);
+                return ['code' => 101,'status'=>true, 'message' => 'Job update Successfully'];
+
+
 
             }
 
