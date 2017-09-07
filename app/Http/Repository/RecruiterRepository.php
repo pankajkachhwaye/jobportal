@@ -194,10 +194,22 @@ class RecruiterRepository
             $seeker = [];
             foreach ($application as $key_app => $value_app) {
                 $temp_x = $value_app->seekerOnJob;
+                $profile = $temp_x->seekerProfile;
+                $temp_role_type = $profile->seekerRoleType;
+                if($temp_role_type == null){
+                    $role_type = $profile->work_experience;
+                }
+                else{
+                    $role_type = $temp_role_type->job_by_role;
+                }
+
                 $temp_seeker = $temp_x->toArray();
 
                 $x['full_name'] = $temp_seeker['full_name'];
+                $x['mobile_no'] = $temp_seeker['mobile_no'];
+                $x['email'] = $temp_seeker['email'];
                 $x['seeker_id'] = $temp_seeker['id'];
+                $x['role_type'] = $role_type;
                 array_push($seeker, $x);
             }
 
