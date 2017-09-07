@@ -206,6 +206,63 @@ class SeekerController extends Controller
       return Response::json($tempdata);
     }
 
+    public function searchJob(Request $request){
+        $tem_jobs = JobsModel::where('skills_required','like',$request->value)->orWhere('job_discription','like',$request->value)->get();
+        $jobs = [];
+        foreach ($tem_jobs as $key_job => $value_job){
+            $recruiter = $value_job->postedRecruiter;
+            $profile = $recruiter->recruiterProfile;
+            $x = $value_job->toArray();
+            $x['process'] = json_decode($x['process']);
+            $job_type = $value_job->jobType->toArray();
+            $x['job_type'] = $job_type['job_type'];
+            $x['job_type_id'] = $job_type['id'];
+            $job_by_roles = $value_job->jobRole->toArray();
+            $x['job_by_roles'] =$job_by_roles['job_by_role'];
+            $x['job_by_roles_id'] =$job_by_roles['id'];
+            $qualification = $value_job->jobQualification->toArray();
+            $x['qualification'] = $qualification['qualification'];
+            $x['qualification_id'] = $qualification['id'];
+            $location = $value_job->jobLocation->toArray();
+            $x['job_location'] = $location['location_name'];
+            $x['job_location_id'] = $location['id'];
+            $specialization = $value_job->jobSpecialization->toArray();
+            $x['specialization'] = $specialization['specialization'];
+            $x['specialization_id'] = $specialization['id'];
+            $check = ApplyOnJobModel::GetJobApplication($value_job->id,$request->seeker_id)->first();
+            if($check == null){
+                $x['is_applied'] = false;
+            }
+            else{
+                $x['is_applied'] = true;
+            }
+
+//               $x['recruiter'] = $recruiter;
+//               $x['recruiter']['profile'] = $profile;
+
+            array_push($jobs,$x);
+        }
+        if(count($jobs) > 0){
+            $tempdata =[
+                'code' => 200,
+                'status' => true,
+                'message' => 'Job found',
+                'data' => $jobs
+            ];
+
+        }
+        else{
+            $tempdata =[
+                'code' => 400,
+                'status' => false,
+                'message' => 'Jobs not found for this profile.',
+                'data' => []
+            ];
+
+        }
+        return Response::json($tempdata);
+    }
+
     public function applyOnJob(Request $request,SeekerRepository $repository){
         $save = $repository->applyjob($request->all(), new ApplyOnJobModel());
         if($save['code'] == 101)

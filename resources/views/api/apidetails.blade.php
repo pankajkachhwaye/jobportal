@@ -25,6 +25,7 @@
         <p><a href="{{url('/seeker-profile')}}">Seeker Fill-Profile</a></p>
         <p><a href="{{url('/apply-for-job')}}">Apply on Job</a></p>
         <p><a href="{{url('/seeker-change-pass-form')}}">Change Password</a></p>
+        <p><a href="{{url('/seeker-search-job-form')}}">Search Jobs</a></p>
 
     </div>
     <h3>Recruiter</h3>

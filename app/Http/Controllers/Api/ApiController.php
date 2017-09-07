@@ -137,4 +137,8 @@ class ApiController extends Controller
 
         return view('api.recruiter.sekeerprofileonjob' , compact('seeker','jobs'));
     }
+
+    public function showSearchJobForm(){
+        return view('api.seeker.searchjobs');
+    }
 }

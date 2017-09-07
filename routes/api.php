@@ -29,6 +29,7 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/active-jobs', 'SeekerController@activeJobs');
     Route::post('/apply-on-job', 'SeekerController@applyOnJob');
     Route::post('/seeker-change-password', 'SeekerController@seekerChangePassword');
+    Route::post('/search-job', 'SeekerController@searchJob');
 
     /*************** Recruiter Routes ****************/
     Route::post('/register-new-recruiter','RecruiterController@registerRecruiter');
