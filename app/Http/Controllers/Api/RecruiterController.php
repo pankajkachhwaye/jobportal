@@ -147,7 +147,7 @@ class RecruiterController extends Controller
 
         public function getRecruiterJobs(Request $request){
 //        dd($request->all());
-            $tem_jobs = JobsModel::where('recruiter_id',$request->recruiter_id)->get(['id','specialization','job_discription']);
+            $tem_jobs = JobsModel::where('recruiter_id',$request->recruiter_id)->orderByDesc('created_at')->get(['id','specialization','job_discription']);
             $jobs = [];
             foreach ($tem_jobs as $key_job => $value_job){
                 $x = $value_job->toArray();

@@ -150,7 +150,7 @@ class SeekerController extends Controller
     public function activeJobs(Request $request){
 //      $seeker =  SeekerModel::find($request->seeker_id);
 //      $jobs = General::matchjob($seeker);
-        $tem_jobs =   JobsModel::all();
+        $tem_jobs =   JobsModel::orderBy('created_at' ,'desc')->get();
         $jobs = [];
         foreach ($tem_jobs as $key_job => $value_job){
             $recruiter = $value_job->postedRecruiter;
