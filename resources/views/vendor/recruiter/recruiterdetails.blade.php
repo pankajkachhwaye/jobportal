@@ -13,8 +13,6 @@
                     <div class="card">
                         <div class="body">
                             <div class="body">
-
-
                             </div>
                         </div>
                     </div>

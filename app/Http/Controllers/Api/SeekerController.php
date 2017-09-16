@@ -103,8 +103,8 @@ class SeekerController extends Controller
                 if($seeker->profile_update == 1){
                     $token = JWTAuth::fromUser($seeker);
                     $permnnt_seeker = $seeker->toArray();
-                   $profile = $seeker->seekerProfile;
-                   $avtar = $profile->avtar;
+                    $profile = $seeker->seekerProfile;
+                    $avtar = $profile->avtar;
                     $resume = $profile->resume;
                     $profile->avtar =  asset('storage/'.$avtar);
                     $profile->resume =  asset('storage/'.$resume);
@@ -163,7 +163,7 @@ class SeekerController extends Controller
             $recruiter = $value_job->postedRecruiter;
             $profile = $recruiter->recruiterProfile;
             $x = $value_job->toArray();
-             $x['process'] = json_decode($x['process']);
+            $x['process'] = json_decode($x['process']);
             $job_type = $value_job->jobType->toArray();
             $x['job_type'] = $job_type['job_type'];
             $x['job_type_id'] = $job_type['id'];
@@ -182,7 +182,7 @@ class SeekerController extends Controller
             $check = ApplyOnJobModel::GetJobApplication($value_job->id,$request->seeker_id)->first();
             if($check == null){
                 $x['is_applied'] = false;
-             }
+            }
             else{
                 $x['is_applied'] = true;
             }
@@ -210,11 +210,11 @@ class SeekerController extends Controller
             ];
 
         }
-      return Response::json($tempdata);
+        return Response::json($tempdata);
     }
 
     public function searchJob(Request $request){
-        $tem_jobs = JobsModel::where('skills_required','like',$request->value)->orWhere('job_discription','like',$request->value)->get();
+        $tem_jobs = JobsModel::where('skills_required','like','%'.$request->value.'%')->orWhere('job_discription','like','%'.$request->value.'%')->get();
         $jobs = [];
         foreach ($tem_jobs as $key_job => $value_job){
             $recruiter = $value_job->postedRecruiter;
@@ -292,22 +292,22 @@ class SeekerController extends Controller
         if ($new == '')
             return Response::json(['code' => 400, 'status' => false, 'message' =>'Please enter your new password' ]);
 
-         $users = SeekerModel::find($data['seeker_id']);
-          // dd($users);
+        $users = SeekerModel::find($data['seeker_id']);
+        // dd($users);
         $dbpass = $users->password;
 
         if (Hash::check($old, $dbpass)) {
-                  $new = bcrypt($new);
-                    $info = ['password' => $new];
-                    $query = DB::table('seeker')->where('id', $data['seeker_id'])->update($info);
-                    if ($query) {
-                     return Response::json(['code' => 200, 'status' => true, 'message' =>'Your password has been updated' ]);
-                    } else {
-                        return Response::json(['code' => 500, 'status' => false, 'message' =>'Internal Server error' ]);
-                    }
-                } else {
+            $new = bcrypt($new);
+            $info = ['password' => $new];
+            $query = DB::table('seeker')->where('id', $data['seeker_id'])->update($info);
+            if ($query) {
+                return Response::json(['code' => 200, 'status' => true, 'message' =>'Your password has been updated' ]);
+            } else {
+                return Response::json(['code' => 500, 'status' => false, 'message' =>'Internal Server error' ]);
+            }
+        } else {
             return Response::json(['code' => 400, 'status' => false, 'message' =>'Your old password is not match' ]);
-                }
+        }
 
 
     }

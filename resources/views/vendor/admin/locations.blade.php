@@ -4,10 +4,6 @@
 
     <section class="content">
         <div class="container-fluid">
-            <div class="block-header">
-                <h2>LOCATIONS</h2>
-            </div>
-
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -47,17 +43,18 @@
                                                 <thead>
                                                 <tr>
 
-                                                    <th>ID</th>
-                                                    <th>Loaction Name</th>
+                                                    <th>S. No.</th>
+                                                    <th>Location Name</th>
                                                     <th>Action</th>
                                                 </tr>
                                                 </thead>
 
                                                 <tbody>
+                                                <?php $i=0; ?>
                                                 @foreach($locations as $key_location => $value_location)
                                                     <tr>
                                                         <td>
-                                                            {{$value_location['id']}}
+                                                            <?php $i++; echo $i; ?>
                                                         </td>
                                                         <td>
                                                             {{$value_location['location_name']}}

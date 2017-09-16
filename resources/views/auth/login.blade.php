@@ -63,7 +63,7 @@
         <form id="sign_in" class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 
-              <div class="msg">Sign in to start your session</div>
+              <div class="msg">Sign In</div>
 
             <div class="input-group">
                         <span class="input-group-addon">

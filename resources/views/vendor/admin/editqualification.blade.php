@@ -4,10 +4,6 @@
 
     <section class="content">
         <div class="container-fluid">
-            <div class="block-header">
-                <h2>QUALIFICATIONS</h2>
-            </div>
-
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -31,7 +27,7 @@
 
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Add Qualification</button>
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Update Qualification</button>
                                     </form>
                                 </div>
                             </div>

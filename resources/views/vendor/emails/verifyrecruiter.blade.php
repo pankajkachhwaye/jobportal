@@ -116,7 +116,7 @@ $style = [
 
                                     <!-- Salutation -->
                                     <p style="{{ $style['paragraph'] }}">
-                                        Regards,<br>{{ config('app.name') }}
+                                        Regards,<br>Support Team
                                     </p>
                                 </td>
                             </tr>

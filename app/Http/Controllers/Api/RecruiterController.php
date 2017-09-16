@@ -66,8 +66,6 @@ class RecruiterController extends Controller
         } catch (\Exception $exception) {
             return Response::json(['code' => 500, 'status' => false, 'message' => $exception->getMessage()]);
         }
-
-
     }
 
     public function recruiterConfirmEmail($token){
@@ -96,14 +94,14 @@ class RecruiterController extends Controller
                     $logo = $profile->org_logo;
                     $profile->org_logo =asset('storage/'.$logo);
                     $perm_recruiter['role'] = 'recruiter';
-                   $token = JWTAuth::fromUser($recruiter);
-                   $perm_recruiter['jwt_token'] = $token;
-                   $perm_recruiter['recruiter_profile'] = $profile;
+                    $token = JWTAuth::fromUser($recruiter);
+                    $perm_recruiter['jwt_token'] = $token;
+                    $perm_recruiter['recruiter_profile'] = $profile;
 
                     return Response::json(['code' => 200, 'status' => true,'message'=> 'You successfully logged in.', 'data' => $perm_recruiter]);
                 }
                 else{
-//                    dd($recruiter);
+                    //dd($recruiter);
                     $token = JWTAuth::fromUser($recruiter);
                     $recruiter->jwt_token = $token;
                     $recruiter->role = 'recruiter';
@@ -145,89 +143,90 @@ class RecruiterController extends Controller
     }
 
 
-        public function getRecruiterJobs(Request $request){
+    public function getRecruiterJobs(Request $request){
 //        dd($request->all());
-            $tem_jobs = JobsModel::where('recruiter_id',$request->recruiter_id)->orderByDesc('created_at')->get(['id','specialization','job_discription']);
-            $jobs = [];
-            foreach ($tem_jobs as $key_job => $value_job){
-                $x = $value_job->toArray();
-                $specialization = $value_job->jobSpecialization->toArray();
-                $x['specialization'] = $specialization['specialization'];
-                $x['specialization_id'] = $specialization['id'];
-
-                $count = ApplyOnJobModel::where('job_id',$value_job->id)->count();
-                $x['no_applied_by'] = $count;
-                array_push($jobs,$x);
-            }
-            if(count($jobs) > 0){
-                return Response::json( ['code' => 101,'status'=>true, 'message' => 'Job Application Found','data' => $jobs]);
-            }
-            else{
-                return Response::json( ['code' => 400,'status'=>false, 'message' => 'No job posted yet','data' => $jobs]);
-            }
-
-
-
-        }
-
-        public function getRecruiterJobDetail(Request $request){
-            $value_job = JobsModel::find($request->job_id);
+        $tem_jobs = JobsModel::where('recruiter_id',$request->recruiter_id)->orderByDesc('created_at')->get(['id','specialization','job_discription']);
+        $jobs = [];
+        foreach ($tem_jobs as $key_job => $value_job){
             $x = $value_job->toArray();
-            $x['process'] = json_decode($x['process']);
-            if($value_job->area_of_sector != null){
-                $area_of_sector = $value_job->areaOfSector->toArray();
-                $x['area_of_sector'] = $area_of_sector['area_of_sector'];
-                $x['area_of_sector_id'] = $area_of_sector['id'];
-            }
-            else{
-                $x['area_of_sector'] = '';
-                $x['area_of_sector_id'] = '';
-            }
-            $job_type = $value_job->jobType->toArray();
-            $x['job_type'] = $job_type['job_type'];
-            $x['job_type_id'] = $job_type['id'];
-            $job_by_roles = $value_job->jobRole->toArray();
-            $x['job_by_roles'] =$job_by_roles['job_by_role'];
-            $x['job_by_roles_id'] =$job_by_roles['id'];
-            $qualification = $value_job->jobQualification->toArray();
-            $x['qualification'] = $qualification['qualification'];
-            $x['qualification_id'] = $qualification['id'];
-            $location = $value_job->jobLocation->toArray();
-            $x['job_location'] = $location['location_name'];
-            $x['job_location_id'] = $location['id'];
             $specialization = $value_job->jobSpecialization->toArray();
             $x['specialization'] = $specialization['specialization'];
             $x['specialization_id'] = $specialization['id'];
-            return Response::json( ['code' => 101,'status'=>true, 'message' => 'Job details found','data' => $x]);
-
+            $count = ApplyOnJobModel::where('job_id',$value_job->id)->count();
+            $x['no_applied_by'] = $count;
+            array_push($jobs,$x);
         }
-
-        public function getJobApplications(Request $request,RecruiterRepository $repository){
-
-            $response = $repository->checkJobApplication($request->all());
-            if ($response['code'] == 400)
-                return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
-
-            if($response['code'] == 101)
-                return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
-
-            if($response['code'] == 500)
-
-                return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
+        if(count($jobs) > 0){
+            return Response::json( ['code' => 101,'status'=>true, 'message' => 'Job Application Found','data' => $jobs]);
         }
-
-        public function seekerProfileDetailOnJob(Request $request,RecruiterRepository $repository){
-            $response = $repository->getProfileDataOnJob($request->all());
-            if ($response['code'] == 400)
-                return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
-
-            if($response['code'] == 101)
-                return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
-
-            if($response['code'] == 500)
-
-                return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
+        else{
+            return Response::json( ['code' => 400,'status'=>false, 'message' => 'No job posted yet','data' => $jobs]);
         }
+    }
+
+    public function getRecruiterJobDetail(Request $request){
+        $value_job = JobsModel::find($request->job_id);
+        $x = $value_job->toArray();
+        $x['process'] = json_decode($x['process']);
+        if($value_job->area_of_sector != null){
+            $area_of_sector = $value_job->areaOfSector->toArray();
+            $x['area_of_sector'] = $area_of_sector['area_of_sector'];
+            $x['area_of_sector_id'] = $area_of_sector['id'];
+        }
+        else
+        {
+            $x['area_of_sector'] = '';
+            $x['area_of_sector_id'] = '';
+        }
+        $job_type = $value_job->jobType->toArray();
+        $x['job_type'] = $job_type['job_type'];
+        $x['job_type_id'] = $job_type['id'];
+        $created_at= $job_type['created_at'];
+        $time = strtotime($created_at);
+        $newformat = date('Y M d',$time);
+        $x['created_at'] =$newformat;
+        $job_by_roles = $value_job->jobRole->toArray();
+        $x['job_by_roles'] =$job_by_roles['job_by_role'];
+        $x['job_by_roles_id'] =$job_by_roles['id'];
+        $qualification = $value_job->jobQualification->toArray();
+        $x['qualification'] = $qualification['qualification'];
+        $x['qualification_id'] = $qualification['id'];
+        $location = $value_job->jobLocation->toArray();
+        $x['job_location'] = $location['location_name'];
+        $x['job_location_id'] = $location['id'];
+        $specialization = $value_job->jobSpecialization->toArray();
+        $x['specialization'] = $specialization['specialization'];
+        $x['specialization_id'] = $specialization['id'];
+        return Response::json( ['code' => 101,'status'=>true, 'message' => JOB_DETAILS,'data' => $x]);
+
+    }
+
+    public function getJobApplications(Request $request,RecruiterRepository $repository){
+
+        $response = $repository->checkJobApplication($request->all());
+        if ($response['code'] == 400)
+            return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
+
+        if($response['code'] == 101)
+            return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
+
+        if($response['code'] == 500)
+
+            return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
+    }
+
+    public function seekerProfileDetailOnJob(Request $request,RecruiterRepository $repository){
+        $response = $repository->getProfileDataOnJob($request->all());
+        if ($response['code'] == 400)
+            return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
+
+        if($response['code'] == 101)
+            return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
+
+        if($response['code'] == 500)
+
+            return Response::json(['code' => $response['code'], 'status' => $response['status'], 'message' => $response['message']]);
+    }
 
 
     public function recruiterChangePassword(Request $request){

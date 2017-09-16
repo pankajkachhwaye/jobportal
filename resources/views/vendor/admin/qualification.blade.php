@@ -4,10 +4,6 @@
 
     <section class="content">
         <div class="container-fluid">
-            <div class="block-header">
-                <h2>QUALIFICATIONS</h2>
-            </div>
-
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -40,7 +36,7 @@
                                     <div class="card">
                                         <div class="header">
                                             <h2>
-                                                All Locations
+                                                All Qualification
                                             </h2>
                                         </div>
                                         <div class="body">
@@ -48,17 +44,18 @@
                                                 <thead>
                                                 <tr>
 
-                                                    <th>ID</th>
+                                                    <th>S. No.</th>
                                                     <th>Qualification Name</th>
                                                     <th>Action</th>
                                                 </tr>
                                                 </thead>
 
                                                 <tbody>
+                                                <?php $i=0; ?>
                                                 @foreach($qualifications as $key_qualification => $value_qualification)
                                                     <tr>
                                                         <td>
-                                                            {{$value_qualification['id']}}
+                                                            <?php $i++; echo $i; ?>
                                                         </td>
                                                         <td>
                                                             {{$value_qualification['qualification']}}
@@ -66,7 +63,7 @@
 
                                                         <td>
                                                             <a href="{{ url('edit-qualification').'/'.$value_qualification['id'] }}"><button type="submit" id="editdelivery" class="btn btn-primary m-t-15 waves-effect">Edit</button></a>
-                                                            <button type="submit" class="btn btn-info m-t-15 waves-effect">Delete</button>
+                                                            <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{ url('delete-qualification').'/'.$value_qualification['id'] }}"  ><button type="submit" class="btn btn-info m-t-15 waves-effect">Delete</button></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

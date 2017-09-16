@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
 
     $.validator.addMethod("valueNotEquals", function(value, element, arg){
@@ -29,26 +28,27 @@ $(document).ready(function () {
 
     if(status == 101){
         $.notify({
-            message: message
-        },
+                message: message
+            },
             {
                 allow_dismiss: true,
                 newest_on_top: true,
-            timer: 1000,
-            placement:{
+                timer: 1000,
+                placement:{
                     from: 'top',
-                align: 'right'
-            },
+                    align: 'right'
+                },
                 animate: {
                     enter: 'animated fadeInDown',
                     exit: 'animated fadeOutUp'
                 }
-        });
+            });
     };
 
     $(document).on('click','.getdetails',function () {
         console.log(APP_URL);
         var id = $(this).attr('data-react');
+        // $('#max_sal').text(data.max_sal+' / '+ data.per);
         var recruiter_id = $(this).attr('data-recruiter');
         $.ajax({
             type: "GET",
@@ -62,9 +62,9 @@ $(document).ready(function () {
                 $('#year_of_passing').text(data.year_of_passing);
                 $('#percentage_or_cgpa').text(data.percentage_or_cgpa);
                 $('#skills_required').text(data.skills_required);
-                $('#min_sal').text(data.min_sal+' '+ data.per);
-                $('#max_sal').text(data.max_sal+' '+ data.per);
-                $('#job_type').text(data.job_type+' '+ data.job_type);
+                $('#min_sal').text(data.min_sal+' / '+ data.per);
+                $('#max_sal').text(data.max_sal+' / '+ data.per);
+                $('#job_type').text(data.job_type);
                 if(data.process == null){
                     var process =  '';
 
@@ -84,10 +84,7 @@ $(document).ready(function () {
                 $('#org_location').text(data.recruiter.recruiter_profile.org_location);
                 $('#org_website').text(data.recruiter.recruiter_profile.org_website);
                 // $('#org_website').text(data.recruiter_profile.org_website);
-               $('#job-detail').modal('show');
-
-
-
+                $('#job-detail').modal('show');
             }
         });
     });
@@ -96,7 +93,6 @@ $(document).ready(function () {
 
 
 });
-
 
 
 

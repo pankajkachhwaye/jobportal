@@ -4,9 +4,6 @@
 
     <section class="content">
         <div class="container-fluid">
-            <div class="block-header">
-                <h2>RECRUITER POSTED JOBS</h2>
-            </div>
 
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -45,13 +42,10 @@
                                     </div>
                                     <!-- #END# Badges -->
                                 </div>
-
                             </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="modal" id="job-detail" tabindex="-1" role="dialog">
@@ -65,17 +59,17 @@
                             <div class="card">
                                 <div class="header">
                                     <div class="row clearfix">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <h3>Recruiter Details with posted job</h3>
+                                        <div class="col-xs-12 col-sm-12">
+                                            <h3>Recruiter details with posted job</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="body">
                                     <div class="row clearfix">
                                         <div class="col-md-12 clearfix">
-                                            <h4>Job Detail</h4>
+                                            <h4>Job Details</h4>
                                             <li class="list-group-item">
-                                                <span >Job Role </span>
+                                                <span >Job Role : </span>
                                                 <input type="hidden" value="" id="orderId">
                                                 <span id="job_by_roles" style="margin-left: 15px"></span>
                                             </li>
@@ -92,11 +86,11 @@
                                                 <span id="qualification" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">
-                                                <span >Passout Criteria:</span>
+                                                <span >Year of Passing :</span>
                                                 <span id="year_of_passing" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">
-                                                <span >Qualification Criteria :</span>
+                                                <span >Percentage :</span>
                                                 <span id="percentage_or_cgpa" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">
@@ -104,11 +98,11 @@
                                                 <span id="skills_required" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">
-                                                <span >Minimum salary:</span>
+                                                <span >Minimum Salary :</span>
                                                 <span id="min_sal" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">
-                                                <span >Minimum salary :</span>
+                                                <span >Maximum Salary :</span>
                                                 <span id="max_sal" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">
@@ -120,7 +114,7 @@
                                                 <span id="process" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">
-                                                <span >Job Discription :</span>
+                                                <span >Job Description :</span>
                                                 <span id="job_discription" style="margin-left: 15px;word-wrap:break-word;"></span>
                                             </li>
                                             </ul>
@@ -129,7 +123,7 @@
                                     </div>
                                     <div class="row clearfix">
                                         <div class="col-md-12 clearfix">
-                                            <h4>Recruiter Detail</h4>
+                                            <h4>Recruiter Details</h4>
                                             <li class="list-group-item">
                                                 <span >Organisation Name : </span>
                                                 <input type="hidden" value="" id="orderId">
@@ -144,7 +138,7 @@
                                                 <span id="recruiter_email" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">
-                                                <span >Recruiter identity :</span>
+                                                <span >Recruiter Identity :</span>
                                                 <span id="i_am" style="margin-left: 15px"></span>
                                             </li>
                                             <li class="list-group-item">

@@ -30,7 +30,6 @@ class ManageRecruiterController extends Controller
         $recruiter = RecruiterModel::all()->toArray();
 
         return view('vendor.recruiter.allrecruiter',compact('page','sub_page','recruiter'));
-
     }
 
     public function recruiterViewDetails($id){
@@ -42,8 +41,6 @@ class ManageRecruiterController extends Controller
         $recruiter['postedjobs'] = $temp->postedJobs()->get()->toArray();
 
         return view('vendor.recruiter.recruiterdetails',compact('page','sub_page','recruiter'));
-
-
     }
 
     public function recruiterPostedJobs($id){
@@ -92,8 +89,6 @@ class ManageRecruiterController extends Controller
         $profile = $recruiter->recruiterProfile;
         $x['recruiter']  = $recruiter;
 
-
-       return Response::json($x);
+        return Response::json($x);
     }
-
 }

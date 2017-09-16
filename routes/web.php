@@ -18,13 +18,17 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Admin'], function () {
     Route::get('/dashboard','AdminController@index');
     Route::get('/all-user','AdminController@getAllUser');
+    Route::get('/delete-user/{id}','AdminController@deleteUser');
+
+    /*Recruiter delete form panel side*/
+    Route::get('/delete-recruiter/{id}','AdminController@deleteRecruiter');
 
     /********** Location Module ***********/
     Route::get('/location','AdminController@location');
-     Route::post('/add-new-location','AdminController@postLocation');
+    Route::post('/add-new-location','AdminController@postLocation');
     Route::get('/edit-location/{id}','AdminController@editLocation');
     Route::get('/delete-location/{id}','AdminController@deleteLocation');
-
+    Route::post('/update-location','AdminController@updateLocation');
 
     /********** Area Of Sectors ***********/
     Route::get('/area-of-sectors','AdminController@areaOfSectors');
@@ -37,26 +41,29 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::get('/specialization','AdminController@specialization');
     Route::post('/add-new-specialization','AdminController@postSpecialization');
     Route::get('/edit-specialization/{id}','AdminController@editSpecialization');
+    Route::get('/delete-specialization/{id}','AdminController@deleteSpecialization');
     Route::post('/update-specialization','AdminController@updateSpecialization');
 
     /********** Qualifications ***********/
     Route::get('/qualification','AdminController@qualification');
     Route::post('/add-new-qualification','AdminController@postQualification');
     Route::get('/edit-qualification/{id}','AdminController@editQualification');
+    Route::get('/delete-qualification/{id}','AdminController@deleteQualification');
     Route::post('/update-qualification','AdminController@updateQualification');
 
     /********** Job By Roles ***********/
     Route::get('/job-by-role','AdminController@jobByRoles');
     Route::post('/add-new-job-role','AdminController@postJobByRoles');
     Route::get('/edit-job-by-role/{id}','AdminController@editJobByRoles');
+    Route::get('/delete-job-by-role/{id}','AdminController@deleteJobByRoles');
     Route::post('/update-job-role','AdminController@updateJobByRoles');
 
     /********** Job Types ***********/
     Route::get('/job-types','AdminController@jobTypes');
     Route::post('/add-new-job-type','AdminController@postJobType');
     Route::get('/edit-job-type/{id}','AdminController@editJobTypes');
+    Route::get('/delete-job-type/{id}','AdminController@deleteJobTypes');
     Route::post('/update-job-type','AdminController@updateJobType');
-
 });
 
 
@@ -68,40 +75,35 @@ Route::group(['namespace' => 'Admin','prefix'=>'recruiter'], function () {
 });
 
 Route::group(['namespace' => 'Api'],function (){
-   Route::get('api-details','ApiController@index');
+    Route::get('api-details','ApiController@index');
 
     /*************** Seeker Routes ****************/
-   Route::get('seeker-register','ApiController@seekerregister');
-   Route::get('seeker-login','ApiController@showSeekerLogin');
-   Route::get('seeker-profile','ApiController@showSeekerProfileForm');
-   Route::get('active-jobs','ApiController@showActiveJobsForm');
-   Route::get('apply-for-job','ApiController@showApplyForJobForm');
-   Route::get('seeker-change-pass-form','ApiController@showChangePasswordForm');
-   Route::get('seeker-search-job-form','ApiController@showSearchJobForm');
+    Route::get('seeker-register','ApiController@seekerregister');
+    Route::get('seeker-login','ApiController@showSeekerLogin');
+    Route::get('seeker-profile','ApiController@showSeekerProfileForm');
+    Route::get('active-jobs','ApiController@showActiveJobsForm');
+    Route::get('apply-for-job','ApiController@showApplyForJobForm');
+    Route::get('seeker-change-pass-form','ApiController@showChangePasswordForm');
+    Route::get('seeker-search-job-form','ApiController@showSearchJobForm');
 
     /*************** Recruiter Routes ****************/
-   Route::get('recruiter-register','ApiController@recruiterRegister');
-   Route::get('recruiter-login','ApiController@showRecruiterLogin');
-   Route::get('recruiter-profile','ApiController@showRecruiterProfileForm');
-   Route::get('post-new-job','ApiController@showPostJobForm');
-   Route::get('update-job-form','ApiController@showUpdateJobForm');
-   Route::get('delete-job-form','ApiController@showDeleteJobForm');
-   Route::get('job-applications-form','ApiController@showJobApplicationForm');
-   Route::get('recruiter-change-pass-form','ApiController@showChangePasswordFormRecruiter');
-   Route::get('recruiter-posted-job-form','ApiController@showRecruiterPostedJobForm');
-   Route::get('seeker-profile-job-form','ApiController@showSeekerProfileOnJobForm');
-   Route::get('recruiter-job-detail-form','ApiController@showRecruiterJobDetailForm');
+    Route::get('recruiter-register','ApiController@recruiterRegister');
+    Route::get('recruiter-login','ApiController@showRecruiterLogin');
+    Route::get('recruiter-profile','ApiController@showRecruiterProfileForm');
+    Route::get('post-new-job','ApiController@showPostJobForm');
+    Route::get('update-job-form','ApiController@showUpdateJobForm');
+    Route::get('delete-job-form','ApiController@showDeleteJobForm');
+    Route::get('job-applications-form','ApiController@showJobApplicationForm');
+    Route::get('recruiter-change-pass-form','ApiController@showChangePasswordFormRecruiter');
+    Route::get('recruiter-posted-job-form','ApiController@showRecruiterPostedJobForm');
+    Route::get('seeker-profile-job-form','ApiController@showSeekerProfileOnJobForm');
+    Route::get('recruiter-job-detail-form','ApiController@showRecruiterJobDetailForm');
 
     /*************** Common Routes ****************/
-   Route::get('forgot-password-form','ApiController@showForgotPasswordForm');
-
+    Route::get('forgot-password-form','ApiController@showForgotPasswordForm');
 });
 
 //
 
 
 Auth::routes();
-
-
-
-

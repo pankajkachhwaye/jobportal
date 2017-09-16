@@ -11,6 +11,7 @@ use App\Models\QualificationModel;
 use App\Models\RecruiterModel;
 use App\Models\SeekerModel;
 use App\Models\SpecializationModel;
+use App\Models\ApplyOnJobModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -31,8 +32,25 @@ class AdminController extends Controller
     public function index()
     {
         $locations = LocationModel::all()->toArray();
+        $location = LocationModel::all()->count();
+        $area = AreaOfSectorsModel::all()->count();
+        $role = JobByRolesModel::all()->count();
+        $type = JobTypesModel::all()->count();
+        $specialization = SpecializationModel::all()->count();
+        $qualification = QualificationModel::all()->count();
+        $recruiter = RecruiterModel::all()->count();
+        $apply_on_job = ApplyOnJobModel::all()->count();
+        $job_today = ApplyOnJobModel::whereDay('created_at', '=', date('d'))->count();
+        $yesterday = date("d", strtotime( '-1 days' ) );
+        $job_yesterday = ApplyOnJobModel::whereDay('created_at', '=', $yesterday)->count();
+        $job_month = ApplyOnJobModel::whereMonth('created_at', '=', date('m'))->count();
+        $job_year = ApplyOnJobModel::whereYear('created_at', '=', date('Y'))->count();
+        $seeker = SeekerModel::all()->count();
+        $job_by_roles = \DB::table('job_by_roles')->offset(0)
+            ->limit(5)->get();
         $page = "dashboard";
-        return view('vendor.admin.dashboard', compact('page', 'locations'));
+        //$area = AreaOfSectorsModel::where("area_of_sector", 'IT Service')->count();
+        return view('vendor.admin.dashboard', compact('page', 'locations', 'location', 'area','role','type','specialization','qualification','recruiter','seeker','job_by_roles','apply_on_job','job_today','job_year','job_month','job_yesterday'));
     }
 
 
@@ -117,7 +135,6 @@ class AdminController extends Controller
         $page = 'specialization';
         return view('vendor.admin.specialization', compact('page', 'specializations'));
     }
-
 
     public function postSpecialization(Request $req, CrudRepository $repo)
     {
@@ -297,6 +314,99 @@ class AdminController extends Controller
         return view('vendor.seeker.allseeker', compact('users', 'page', 'sub_page'));
     }
 
+    /**
+     * @param $id
+     * @param CrudRepository $repo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteUser($id, CrudRepository $repo)
+    {
+        // for seeker
+        $whereArray = array('seeker_id'=>$id);
+        $deleteseeker = \DB::table('seeker_profile')->where($whereArray)->delete();
+
+        $delete = $repo->deleteModelById($id, new SeekerModel());
+        if ($delete['code'] == 101) {
+            $locations = SeekerModel::all()->toArray();
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'User deleted Successfully')->with($locations);
+        } else {
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $delete['message']);
+        }
+
+    }
+
+    /**
+     * @param $id
+     * @param CrudRepository $repo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteRecruiter($id, CrudRepository $repo)
+    {
+        // for jobs
+        $whereArray = array('recruiter_id'=>$id);
+        $deletejobs = \DB::table('jobs')->where($whereArray)->delete();
+        // for seeker
+        $whereArray = array('recruiter_id'=>$id);
+        $deleteseeker = \DB::table('recruiter_profile')->where($whereArray)->delete();
+
+        $delete = $repo->deleteModelById($id, new RecruiterModel());
+        if ($delete['code'] == 101) {
+            $locations = JobTypesModel::all()->toArray();
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Recruiter Deleted Successfully')->with($locations);
+        } else {
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $delete['message']);
+        }
+
+    }
+
+    /**
+     * @param $id
+     * @param CrudRepository $repo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteJobTypes($id, CrudRepository $repo)
+    {
+        // for jobs
+        $whereArray = array('job_type'=>$id);
+        $deletejobs = \DB::table('jobs')->where($whereArray)->delete();
+        // for seeker
+        $whereArray = array('job_type'=>$id);
+        $deleteseeker = \DB::table('seeker_profile')->where($whereArray)->delete();
+
+        $delete = $repo->deleteModelById($id, new JobTypesModel());
+        if ($delete['code'] == 101) {
+            $locations = JobTypesModel::all()->toArray();
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Job Deleted Successfully')->with($locations);
+        } else {
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $delete['message']);
+        }
+
+    }
+
+    /**
+     * @param $id
+     * @param CrudRepository $repo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteJobByRoles($id, CrudRepository $repo)
+    {
+        // for jobs
+        $whereArray = array('job_by_roles'=>$id);
+        $deletejobs = \DB::table('jobs')->where($whereArray)->delete();
+        // for seeker
+        $whereArray = array('role_type'=>$id);
+        $deleteseeker = \DB::table('seeker_profile')->where($whereArray)->delete();
+
+        $delete = $repo->deleteModelById($id, new JobByRolesModel());
+
+        if ($delete['code'] == 101) {
+            $locations = JobByRolesModel::all()->toArray();
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Job Deleted Successfully')->with($locations);
+        } else {
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $delete['message']);
+        }
+
+    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -309,7 +419,6 @@ class AdminController extends Controller
         return view('vendor.recruiter.addrecruiter', compact('page', 'sub_page'));
     }
 
-
     /**
      * @param $id
      * @param CrudRepository $repo
@@ -317,6 +426,9 @@ class AdminController extends Controller
      */
     public function deleteLocation($id, CrudRepository $repo)
     {
+        $whereArray = array('job_location'=>$id);
+        $deletejobs = \DB::table('jobs')->where($whereArray)->delete();
+
         $delete = $repo->deleteModelById($id, new LocationModel());
         if ($delete['code'] == 101) {
             $locations = LocationModel::all()->toArray();
@@ -327,12 +439,53 @@ class AdminController extends Controller
 
     }
 
+    public function deleteSpecialization($id, CrudRepository $repo)
+    {
+        $whereArray = array('specialization'=>$id);
+        $deletejobs = \DB::table('jobs')->where($whereArray)->delete();
+
+        $whereArray = array('specialization'=>$id);
+        $deleteseeker = \DB::table('seeker_profile')->where($whereArray)->delete();
+
+        $delete = $repo->deleteModelById($id, new SpecializationModel());
+        if ($delete['code'] == 101) {
+            $locations = SpecializationModel::all()->toArray();
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Specialization deleted Successfully')->with($locations);
+        } else {
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $delete['message']);
+        }
+    }
+
+    public function deleteQualification($id, CrudRepository $repo)
+    {
+        $whereArray = array('qualification'=>$id);
+        $deletejobs = \DB::table('jobs')->where($whereArray)->delete();
+
+        $whereArray = array('seeker_qualification'=>$id);
+        $deleteseeker = \DB::table('seeker_profile')->where($whereArray)->delete();
+
+        $delete = $repo->deleteModelById($id, new QualificationModel());
+        if ($delete['code'] == 101) {
+            $locations = QualificationModel::all()->toArray();
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Qualification deleted Successfully')->with($locations);
+        } else {
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', $delete['message']);
+        }
+    }
+
     /**
      * @param $id
      * @param CrudRepository $repo
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteAreaOfSector($id, CrudRepository $repo){
+
+        $whereArray = array('area_of_sector'=>$id);
+        $deletejobs = \DB::table('jobs')->where($whereArray)->delete();
+
+        $whereArray = array('area_of_sector'=>$id);
+        $deleteseeker = \DB::table('seeker_profile')->where($whereArray)->delete();
+
         $delete = $repo->deleteModelById($id, new AreaOfSectorsModel());
         if ($delete['code'] == 101) {
             $area_of_sectors = LocationModel::all()->toArray();
