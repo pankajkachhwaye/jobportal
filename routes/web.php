@@ -72,6 +72,8 @@ Route::group(['namespace' => 'Admin','prefix'=>'recruiter'], function () {
     Route::get('/view-details/{id}','ManageRecruiterController@recruiterViewDetails');
     Route::get('/posted-jobs/{id}','ManageRecruiterController@recruiterPostedJobs');
     Route::get('/posted-jobs-details/{id}/recruiter/{recruiter_id}','ManageRecruiterController@recruiterPostedJobsDetail');
+    Route::get('/send-notification','ManageRecruiterController@recruiterSendNotification');
+    Route::post('/notify-selected-reruiters','ManageRecruiterController@notifSelectedReruiters');
 });
 
 Route::group(['namespace' => 'Api'],function (){

@@ -7,8 +7,9 @@ use App\Models\JobsModel;
 use Illuminate\Http\Request;
 use App\Models\RecruiterModel;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Lang;
 use Response;
-
+use App\Notifications\GenralNotification;
 
 class ManageRecruiterController extends Controller
 {
@@ -90,5 +91,70 @@ class ManageRecruiterController extends Controller
         $x['recruiter']  = $recruiter;
 
         return Response::json($x);
+    }
+
+    public function recruiterSendNotification(){
+        $page = 'notification';
+        $sub_page = 'send-notification-recruiter';
+        $recruiter = RecruiterModel::all()->toArray();
+        return view('vendor.recruiter.notifyrecruiter',compact('page','sub_page','recruiter'));
+    }
+
+    public function notifSelectedReruiters(Request $request){
+        foreach ($request->recruiter as $key_recruiter => $value_recruiter){
+            $temp_user = RecruiterModel::find($value_recruiter);
+            $user_device = $temp_user->device_type;
+            if($user_device != null){
+                $temp_user->notify(new GenralNotification($request->notification_title, $request->notification_body));
+                $notify =  $this->firebase_notification($temp_user->device_token,$request->notification_title, $request->notification_body);
+               }
+        }
+        return Response::json(['code' => 200, 'status' => true, 'message' => 'notification send successfully to selected users']);
+    }
+
+    public function firebase_notification($device_token,$title,$body){
+        $ch = curl_init("https://fcm.googleapis.com/fcm/send");
+
+        //The device token.
+        /*$token = "eA-RyGHUo38:APA91bE_Giwf5lGGH87syUFLy__NS8g_YYR8W2LWp9hvss_gnTlDCkrHZekz44pI_6LZU0G1dJ4JUO5bDm6J_U6TsOgQqd4MzsUN37EP-JKA2NdonXIvjCrAPNz3Ui6xwPPbt608jltI";*/
+        $token = $device_token;
+
+        //Title of the Notification.
+        $title = $title;
+
+        //Body of the Notification.
+        $body = $body;
+
+        //Creating the notification array.
+        $notification = array('title' =>$title , 'text' => $body);
+
+        //This array contains, the token and the notification. The 'to' attribute stores the token.
+        $arrayToSend = array('to' => $token, 'notification' => $notification);
+        //Generating JSON encoded string form the above array.
+        $json = json_encode($arrayToSend);
+
+        //Setup headers:
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+
+        //behindbar
+        //$headers[] = 'Authorization: key= AAAANYa3Tpo:APA91bFFgq6p2EqPi2OPhNFYdHChomOILYJr4mqbPGQANq5w6axeEZwojxfkL0Iyknsvte825OgjfhyJ7dnIMVOzS7uRMqE502y0amwipgpw6GM5yeQAilUUgiCASrvkYpc8vwNj9EQk'; //server key here
+
+
+        //poochplay
+        $headers[] = 'Authorization: key= '.Lang::get('constant.firebase-key'); //server key here
+
+        //Setup curl, add headers and post parameters.
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,$headers);
+
+        //Send the request
+        $response = curl_exec($ch);
+
+        //Close request
+        curl_close($ch);
+        return $response;
+
     }
 }

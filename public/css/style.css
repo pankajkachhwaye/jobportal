@@ -8067,3 +8067,32 @@ html.ie11 .bs-searchbox .form-control {
 .custom-badge:hover{
   cursor: pointer;
 }
+
+#basic_checkbox_select_all_recruiter:after{
+  margin-top: 14px;
+}
+
+[type="checkbox"].filled-in:not(:checked) + label:after {
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border: 2px solid #5a5a5a;
+  top: 0px;
+  z-index: 0;
+}
+
+
+[type="checkbox"].basic_checkbox_select_all_recruiter + label:before, [type="checkbox"].basic_checkbox_select_all_recruiter + label:after {
+  margin-top: 14px;
+}
+
+[type="checkbox"]#basic_checkbox_select_all_recruiter + label:after {
+  margin-top: 14px;
+}
+
+[type="checkbox"]#basic_checkbox_select_all_recruiter:checked + label:before{
+  top: 14px;
+}
+.custom-badge:hover{
+  cursor: pointer;
+}

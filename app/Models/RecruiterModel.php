@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class RecruiterModel extends Model
 {
+    use Notifiable;
     protected $table = 'recruiter';
 
     protected $fillable = [
@@ -68,4 +70,9 @@ class RecruiterModel extends Model
     {
         return ($value == null ? '':$value);
     }
+//
+//    public function getUpdatedAtAttribute($value)
+//    {
+//        return ($value == null ? '':$value);
+//    }
 }
