@@ -70,6 +70,26 @@
                         <span>Job Types</span>
                     </a>
                 </li>
+                <li class="{{(isset($page) && $page && $page=='notification')?'active':''}}">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">vpn_lock</i>
+                        <span>Notifications</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='send-notification-recruiter')?'active':''}}">
+                            <a href="{{ url('/recruiter/send-notification') }}">
+                               To Recruiter
+                            </a>
+
+                        </li>
+                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='send-notification-recruiter')?'active':''}}">
+                            <a href="{{ url('/recruiter/send-notification') }}">
+                                To Seeker
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
                 <li>
                 <a href="{{ url('/logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

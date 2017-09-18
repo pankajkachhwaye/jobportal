@@ -35,7 +35,10 @@ class RecruiterController extends Controller
             'organisation_name' => $data['organisation_name'],
             'recruiter_email' => $data['recruiter_email'],
             'recruiter_mobile_no' => $data['recruiter_mobile_no'],
-            'password' => bcrypt($data['password'])
+            'password' => bcrypt($data['password']),
+            'device_id' => null,
+            'device_token' => null,
+            'device_type' => null
         ]);
     }
 
@@ -88,6 +91,13 @@ class RecruiterController extends Controller
                 return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('recruiter.recruiter-not-verified'))]);
             }
             if (Hash::check($request->password, $recruiter->password)) {
+                if($request->device_type != 'web'){
+                    $recruiter->device_id = $request->device_id;
+                    $recruiter->device_token = $request->device_token;
+                    $recruiter->device_type = $request->device_type;
+                    $recruiter->save();
+                }
+
                 if($recruiter->recruiter_profile_update == 1){
                     $perm_recruiter = $recruiter->toArray();
                     $profile =  $recruiter->recruiterProfile;

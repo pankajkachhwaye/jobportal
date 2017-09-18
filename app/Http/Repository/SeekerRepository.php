@@ -100,19 +100,76 @@ class SeekerRepository
 
 
     public function applyjob($data = [], $model){
-
-        try {
+         try {
             $check = ApplyOnJobModel::GetJobApplication($data['job_id'], $data['seeker_id'])->get()->toArray();
             if (count($check) > 0) {
                 return ['code' => 400, 'message' => trim(Lang::get('seeker.already-apply'))];
             } else {
                 $data['created_at'] = Carbon::now();
                 $model->insert($data);
+
+
                 return ['code' => 101, 'status' => true, 'message' => trim(Lang::get('seeker.apply-success'))];
             }
        }
         catch (\Exception $exception){
             return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
         }
+    }
+
+    public function sendNotificationRegisteredUser(){
+
+        $page = 'notification';
+        $sub_page = 'notify-registered-users';
+        $app_users = AppUser::all();
+//        dd($app_users);
+        return view('admin.notifyregisterd',compact('page','sub_page','app_users'));
+    }
+
+
+    public function firebase_notification($device_token,$title,$body){
+        $ch = curl_init("https://fcm.googleapis.com/fcm/send");
+
+        //The device token.
+        /*$token = "eA-RyGHUo38:APA91bE_Giwf5lGGH87syUFLy__NS8g_YYR8W2LWp9hvss_gnTlDCkrHZekz44pI_6LZU0G1dJ4JUO5bDm6J_U6TsOgQqd4MzsUN37EP-JKA2NdonXIvjCrAPNz3Ui6xwPPbt608jltI";*/
+        $token = $device_token;
+
+        //Title of the Notification.
+        $title = $title;
+
+        //Body of the Notification.
+        $body = $body;
+
+        //Creating the notification array.
+        $notification = array('title' =>$title , 'text' => $body);
+
+        //This array contains, the token and the notification. The 'to' attribute stores the token.
+        $arrayToSend = array('to' => $token, 'notification' => $notification);
+        //Generating JSON encoded string form the above array.
+        $json = json_encode($arrayToSend);
+
+        //Setup headers:
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+
+        //behindbar
+        //$headers[] = 'Authorization: key= AAAANYa3Tpo:APA91bFFgq6p2EqPi2OPhNFYdHChomOILYJr4mqbPGQANq5w6axeEZwojxfkL0Iyknsvte825OgjfhyJ7dnIMVOzS7uRMqE502y0amwipgpw6GM5yeQAilUUgiCASrvkYpc8vwNj9EQk'; //server key here
+
+
+        //poochplay
+        $headers[] = 'Authorization: key= AAAAN1pXap0:APA91bGolaXhXdz-gH74YVIGtM5lryB67HxZpKtayOmfD7JFSv2dnaGjLdJJJ2ezzeLBN1hWCww23dQIxlsPT-YX9fytENzNrLBLUip4hNgrPMYcxwGK5quYL2TDggzv_FvoUPAiA2gU'; //server key here
+
+        //Setup curl, add headers and post parameters.
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,$headers);
+
+        //Send the request
+        $response = curl_exec($ch);
+
+        //Close request
+        curl_close($ch);
+        return $response;
+
     }
 }

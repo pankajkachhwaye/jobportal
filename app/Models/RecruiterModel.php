@@ -9,7 +9,7 @@ class RecruiterModel extends Model
     protected $table = 'recruiter';
 
     protected $fillable = [
-        'organisation_name', 'recruiter_email', 'recruiter_mobile_no', 'password'
+        'organisation_name', 'recruiter_email', 'recruiter_mobile_no', 'password','device_id','device_token','device_type'
     ];
 
     /**

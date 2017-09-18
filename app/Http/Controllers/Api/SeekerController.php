@@ -44,7 +44,10 @@ class SeekerController extends Controller
             'full_name' => $data['full_name'],
             'email' => $data['email'],
             'mobile_no' => $data['mobile_no'],
-            'password' => bcrypt($data['password'])
+            'password' => bcrypt($data['password']),
+            'device_id' => null,
+            'device_token' => null,
+            'device_type' => null
         ]);
     }
 
@@ -102,6 +105,14 @@ class SeekerController extends Controller
                 return Response::json(['code' => 400, 'status' => false, 'message' => trim(Lang::get('seeker.seeker-not-verified'))]);
             }
             if (Hash::check($request->password, $seeker->password)) {
+                if($request->device_type != 'web'){
+                    $seeker->device_id = $request->device_id;
+                    $seeker->device_token = $request->device_token;
+                    $seeker->device_type = $request->device_type;
+                    $seeker->save();
+                }
+
+
                 if($seeker->profile_update == 1){
                     $token = JWTAuth::fromUser($seeker);
                     $permnnt_seeker = $seeker->toArray();

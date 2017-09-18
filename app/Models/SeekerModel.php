@@ -10,7 +10,7 @@ class SeekerModel extends Model
     protected $table = 'seeker';
 
     protected $fillable = [
-        'full_name', 'email', 'mobile_no', 'password'
+        'full_name', 'email', 'mobile_no', 'password','device_id','device_token','device_type'
     ];
 
     /**
