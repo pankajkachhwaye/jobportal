@@ -19,7 +19,16 @@ class JobsModel extends Model
             ->orWhere('job_by_roles', $role_type);
             //->orWhere('job_type', $job_type);
     }
+    public function scopeGetSearchedJobs($query,$value){
+        return $query->where('skills_required','like','%'.$value.'%')->orWhere('job_discription','like','%'.$value.'%')->orWhere('experience','like','%'.$value.'%');
+    }
 
+    public function scopeGetSearchedJobsWithCom($query,$value,$comapny_ids){
+        return $query->where('skills_required','like','%'.$value.'%')->orWhere('job_discription','like','%'.$value.'%')->orWhere('experience','like','%'.$value.'%')->orWhere(function ($query) use ($comapny_ids) {
+            $query->whereIn('recruiter_id',$comapny_ids);
+
+        });;
+    }
     public function jobApplications(){
         return $this->hasMany('App\Models\ApplyOnJobModel','job_id');
     }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Facades\General;
 use App\Http\Repository\SeekerRepository;
 use App\Models\ApplyOnJobModel;
+use App\Models\RecruiterModel;
+use App\Models\RecruiterProfile;
 use App\Models\SeekerProfile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
@@ -214,7 +216,23 @@ class SeekerController extends Controller
     }
 
     public function searchJob(Request $request){
-        $tem_jobs = JobsModel::where('skills_required','like','%'.$request->value.'%')->orWhere('job_discription','like','%'.$request->value.'%')->get();
+        $organisation_job = RecruiterModel::where('organisation_name','like','%'.$request->value.'%')->get();
+        if($organisation_job->count() > 0){
+            $company_ids = [];
+            foreach ($organisation_job as $key_org => $val_org){
+                array_push($company_ids,$val_org->id);
+            }
+            $tem_jobs = JobsModel::GetSearchedJobsWithCom($request->value,$company_ids)->get();
+
+        }
+        else{
+            $tem_jobs = JobsModel::GetSearchedJobs($request->value)->get();
+        }
+
+
+
+
+
         $jobs = [];
         foreach ($tem_jobs as $key_job => $value_job){
             $recruiter = $value_job->postedRecruiter;
@@ -249,6 +267,12 @@ class SeekerController extends Controller
 
             array_push($jobs,$x);
         }
+
+
+
+
+
+
         if(count($jobs) > 0){
             $tempdata =[
                 'code' => 200,

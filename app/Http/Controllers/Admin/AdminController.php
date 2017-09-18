@@ -71,12 +71,19 @@ class AdminController extends Controller
 
     public function postLocation(Request $req, CrudRepository $repo)
     {
+        $check = LocationModel::where('location_name',$req->location_name)->first();
+        if($check == null){
         $save = $repo->createNew($req->all(), new LocationModel());
         if ($save['code'] == 101) {
             $locations = LocationModel::all()->toArray();
             return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Location Added Successfully')->with($locations);
         } else {
             return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+        }
+        }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Location already exist please enter unique location.');
+
         }
     }
 
@@ -101,13 +108,20 @@ class AdminController extends Controller
 
     public function postAreaOfSectors(Request $req, CrudRepository $repo)
     {
-        $save = $repo->createNew($req->all(), new AreaOfSectorsModel());
-        if ($save['code'] == 101) {
-            $area_of_sectors = AreaOfSectorsModel::all()->toArray();
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Area Of Sectors Added Successfully')->with($area_of_sectors);
-        } else {
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+        $check = AreaOfSectorsModel::where('area_of_sector',$req->area_of_sector)->first();
+        if($check == null){
+            $save = $repo->createNew($req->all(), new AreaOfSectorsModel());
+            if ($save['code'] == 101) {
+                $area_of_sectors = AreaOfSectorsModel::all()->toArray();
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Area Of Sectors Added Successfully')->with($area_of_sectors);
+            } else {
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+            }
         }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Area of sector already exist please enter unique area of sector.');
+        }
+
     }
 
     public function editAreaOfSector($id)
@@ -138,13 +152,21 @@ class AdminController extends Controller
 
     public function postSpecialization(Request $req, CrudRepository $repo)
     {
-        $save = $repo->createNew($req->all(), new SpecializationModel());
-        if ($save['code'] == 101) {
-            $specializations = SpecializationModel::all()->toArray();
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Specialization Added Successfully')->with($specializations);
-        } else {
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+        $check = SpecializationModel::where('specialization',$req->specialization)->first();
+        if($check == null){
+            $save = $repo->createNew($req->all(), new SpecializationModel());
+            if ($save['code'] == 101) {
+                $specializations = SpecializationModel::all()->toArray();
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Specialization Added Successfully')->with($specializations);
+            } else {
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+            }
         }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Specialization already exist please enter unique specialization.');
+        }
+
+
     }
 
     public function editSpecialization($id)
@@ -174,13 +196,20 @@ class AdminController extends Controller
 
     public function postQualification(Request $req, CrudRepository $repo)
     {
-        $save = $repo->createNew($req->all(), new QualificationModel());
-        if ($save['code'] == 101) {
-            $qualifications = QualificationModel::all()->toArray();
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Qualification Added Successfully')->with($qualifications);
-        } else {
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+        $check = QualificationModel::where('qualification',$req->qualification)->first();
+        if($check == null){
+            $save = $repo->createNew($req->all(), new QualificationModel());
+            if ($save['code'] == 101) {
+                $qualifications = QualificationModel::all()->toArray();
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Qualification Added Successfully')->with($qualifications);
+            } else {
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+            }
         }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Qualification already exist please enter unique qualification.');
+        }
+
     }
 
     public function editQualification($id)
@@ -211,13 +240,20 @@ class AdminController extends Controller
 
     public function postJobByRoles(Request $req, CrudRepository $repo)
     {
-        $save = $repo->createNew($req->all(), new JobByRolesModel());
-        if ($save['code'] == 101) {
-            $job_by_roles = JobByRolesModel::all()->toArray();
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Job Role Added Successfully')->with($job_by_roles);
-        } else {
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+        $check = JobByRolesModel::where('job_by_role',$req->job_by_role)->first();
+        if($check == null){
+            $save = $repo->createNew($req->all(), new JobByRolesModel());
+            if ($save['code'] == 101) {
+                $job_by_roles = JobByRolesModel::all()->toArray();
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Job Role Added Successfully')->with($job_by_roles);
+            } else {
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+            }
         }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Job Role already exist please enter unique job role.');
+        }
+
     }
 
     /**
@@ -265,13 +301,20 @@ class AdminController extends Controller
      */
     public function postJobType(Request $req, CrudRepository $repo)
     {
-        $save = $repo->createNew($req->all(), new JobTypesModel());
-        if ($save['code'] == 101) {
-            $job_types = JobTypesModel::all()->toArray();
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Job Role Added Successfully')->with($job_types);
-        } else {
-            return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+        $check = JobTypesModel::where('job_type',$req->job_type)->first();
+        if($check == null){
+            $save = $repo->createNew($req->all(), new JobTypesModel());
+            if ($save['code'] == 101) {
+                $job_types = JobTypesModel::all()->toArray();
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Job Role Added Successfully')->with($job_types);
+            } else {
+                return back()->with('returnStatus', true)->with('status', 101)->with('message', $save['message']);
+            }
         }
+        else{
+            return back()->with('returnStatus', true)->with('status', 101)->with('message', 'Job Type already exist please enter unique job type.');
+        }
+
     }
 
     /**
