@@ -38,6 +38,9 @@ return [
                     'no-application' => 'Application not found.',
 
 
-        ]
+        ],
+    'recruiter-notify' => [
+        'applied-on-job' => 'New seeker applied for job'
+    ]
 
 ];

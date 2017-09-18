@@ -4,11 +4,13 @@ namespace App\Http\Repository;
 
 
 use App\Models\ApplyOnJobModel;
+use App\Models\JobsModel;
 use App\Models\SeekerModel;
 use App\Models\SeekerProfile;
 use Illuminate\Support\Facades\Lang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Config;
 
 class SeekerRepository
 {
@@ -107,7 +109,12 @@ class SeekerRepository
             } else {
                 $data['created_at'] = Carbon::now();
                 $model->insert($data);
-
+                $recruiter = JobsModel::find($data['job_id'])->postedRecruiter;
+                    if($recruiter->device_type != null){
+                        $title = 'Job Portal';
+                        $body = trim(Lang::get('recruiter.recruiter-notify.applied-on-job'));
+                        $notify = $this->firebase_notification($recruiter->device_token,$title,$body);
+                    }
 
                 return ['code' => 101, 'status' => true, 'message' => trim(Lang::get('seeker.apply-success'))];
             }
