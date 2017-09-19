@@ -108,6 +108,7 @@ Route::group(['namespace' => 'Api'],function (){
 
     /*************** Common Routes ****************/
     Route::get('forgot-password-form','ApiController@showForgotPasswordForm');
+    Route::get('get-notifications-form','ApiController@showGetNotificationsForm');
 });
 
 //

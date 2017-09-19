@@ -51,6 +51,7 @@
     <div>
         <p><a href="{{url('/api/general')}}">General Information</a></p>
         <p><a href="{{url('/forgot-password-form')}}">Forgot Password</a></p>
+        <p><a href="{{url('/get-notifications-form')}}">Get All Notifications</a></p>
 
 
     </div>

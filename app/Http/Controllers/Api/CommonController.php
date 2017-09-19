@@ -78,4 +78,32 @@ class CommonController extends Controller
             }
     }
 
+    public function getAllNotifications(Request $request){
+//        dd($request->all());
+        if($request->role == 0){
+            //seeker
+            $seeker = SeekerModel::find($request->id);
+            $notifications = $seeker->notifications->toArray();
+
+        }
+        else{
+            //recruiter
+            $recruiter = RecruiterModel::find($request->id);
+            $notifications = $recruiter->notifications->toArray();
+        }
+
+        if(count($notifications) > 0){
+            $temp_notification = [];
+            foreach ($notifications as $key_notify => $value_notify){
+                $value_notify['data']['created_at'] = $value_notify['created_at'];
+                array_push($temp_notification,$value_notify['data']);
+            }
+
+            return Response::json(['code' => 200, 'status' => true,'message' => 'notification found','data' =>$temp_notification]);
+        }
+        else{
+            return Response::json(['code' => 200, 'status' => false,'message' => 'No notification found','data' =>array()]);
+        }
+    }
+
 }

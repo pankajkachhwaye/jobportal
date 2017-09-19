@@ -142,4 +142,8 @@ class ApiController extends Controller
         $basicInfo = General::basicInfo();
         return view('api.seeker.searchjobs',compact('basicInfo'));
     }
+
+    public function showGetNotificationsForm(){
+        return view('api.common.getnotification');
+    }
 }
