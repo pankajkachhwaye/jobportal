@@ -26,6 +26,46 @@
     <br />
     <br />
 
+    Job Type(job_type) ::
+    @foreach($basicInfo['job_types'] as $key_jobtype => $value_jobtype)
+        <input type="checkbox" value="{{$value_jobtype['id']}}" name="job_type[]"> {{$value_jobtype['job_type']}}
+    @endforeach
+    <br />
+    <br />
+    Location(job_location) ::
+    @foreach($basicInfo['locations'] as $key_loca => $value_loca)
+        <input type="checkbox" value="{{$value_loca['id']}}" name="job_location[]"> {{$value_loca['location_name']}}
+    @endforeach
+
+    <br />
+    <br />
+    Designation(specialization) ::
+    @foreach($basicInfo['specialization'] as $key_spec => $value_spec)
+        <input type="checkbox" value="{{$value_spec['id']}}" name="specialization[]"> {{$value_spec['specialization']}}
+    @endforeach
+
+    <br />
+    <br />
+    Qualification(qualification) ::
+    @foreach($basicInfo['qualifications'] as $key_qua => $value_qua)
+        <input type="checkbox" value="{{$value_qua['id']}}" name="qualification[]"> {{$value_qua['qualification']}}
+    @endforeach
+    <br />
+    <br />
+    Experience(experience) ::  <input type="checkbox" value="Fresher" name="experience[]"> Fresher
+                                <input type="checkbox" value="06 Months" name="experience[]"> 06 Months
+                                <input type="checkbox" value="1 Year" name="experience[]"> 1 Year
+                                <input type="checkbox" value="1.5 Year" name="experience[]"> 1.5 Year
+                                <input type="checkbox" value="2 Year" name="experience[]"> 2 Year
+                                <input type="checkbox" value="2.5 Year" name="experience[]"> 2.5 Year
+                                <input type="checkbox" value="3 Year" name="experience[]"> 3 Year
+                                <input type="checkbox" value="3+ Year" name="experience[]"> 3+ Year
+
+
+
+    <br />
+    <br />
+
     <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">Search</button>
 
 </form>

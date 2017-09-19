@@ -82,7 +82,7 @@
                             </a>
 
                         </li>
-                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='send-notification-recruiter')?'active':''}}">
+                        <li class="{{(isset($sub_page) && $sub_page && $sub_page=='send-notification-seeker')?'active':''}}">
                             <a href="{{ url('/seeker/send-notification') }}">
                                 To Seeker
                             </a>

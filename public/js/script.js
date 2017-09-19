@@ -171,10 +171,10 @@
                 data: {'notification_title':notification_title,'notification_body':notification_body,'seeker':all_seeker},
 
                 success: function(response) {
-                    if(response.status){
+
                         $('#notify-selected-seeker-modal').modal('hide');
                         $.notify({
-                                message: response.message
+                                message: 'notification send successfully'
                             },
                             {
                                 allow_dismiss: true,
@@ -189,7 +189,7 @@
                                     exit: 'animated rotateOutUpRight'
                                 }
                             });
-                    }
+
                 }
 
             });
@@ -267,10 +267,11 @@
                 data: {'notification_title':notification_title,'notification_body':notification_body,'recruiter':all_recruiter},
 
                 success: function(response) {
-                    if(response.status){
+                    console.log(JSON.parse(response));
+
                         $('#notify-selected-recruiter-modal').modal('hide');
                         $.notify({
-                                message: response.message
+                                message: 'notification send successfully'
                             },
                             {
                                 allow_dismiss: true,
@@ -285,7 +286,7 @@
                                     exit: 'animated rotateOutUpRight'
                                 }
                             });
-                    }
+
                 }
 
             });

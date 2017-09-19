@@ -139,6 +139,7 @@ class ApiController extends Controller
     }
 
     public function showSearchJobForm(){
-        return view('api.seeker.searchjobs');
+        $basicInfo = General::basicInfo();
+        return view('api.seeker.searchjobs',compact('basicInfo'));
     }
 }

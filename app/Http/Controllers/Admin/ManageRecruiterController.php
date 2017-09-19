@@ -109,7 +109,7 @@ class ManageRecruiterController extends Controller
                 $notify =  $this->firebase_notification($temp_user->device_token,$request->notification_title, $request->notification_body);
                }
         }
-        return Response::json(['code' => 200, 'status' => true, 'message' => 'notification send successfully to selected recruiters']);
+        return Response::json(['code' => 200, 'status' => true, 'message' => 'notification send successfully to selected recruiters','response' => $notify]);
     }
 
     public function firebase_notification($device_token,$title,$body){
@@ -154,7 +154,7 @@ class ManageRecruiterController extends Controller
 
         //Close request
         curl_close($ch);
-        return $response;
+   return $response;
 
     }
 }

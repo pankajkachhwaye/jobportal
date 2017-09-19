@@ -19,15 +19,41 @@ class JobsModel extends Model
             ->orWhere('job_by_roles', $role_type);
             //->orWhere('job_type', $job_type);
     }
-    public function scopeGetSearchedJobs($query,$value){
-        return $query->where('skills_required','like','%'.$value.'%')->orWhere('job_discription','like','%'.$value.'%')->orWhere('experience','like','%'.$value.'%');
+    public function scopeGetSearchedJobs($query,$value,$experience,$qualification,$locations,$job_type,$specialization){
+        return $query->where('skills_required','like','%'.$value.'%')
+                    ->orWhere('job_discription','like','%'.$value.'%')
+                        ->orWhere('experience','like','%'.$value.'%')
+                    ->orWhere(function ($query) use ($experience) {
+            $query->whereIn('experience',$experience);
+         })->orWhere(function ($query) use ($qualification) {
+                $query->whereIn('qualification',$qualification);
+            })->orWhere(function ($query) use ($locations) {
+                $query->whereIn('job_location',$locations);
+            })->orWhere(function ($query) use ($job_type) {
+                $query->whereIn('job_type',$job_type);
+            })
+            ->orWhere(function ($query) use ($specialization) {
+                $query->whereIn('specialization',$specialization);
+            })
+            ;
     }
 
-    public function scopeGetSearchedJobsWithCom($query,$value,$comapny_ids){
+    public function scopeGetSearchedJobsWithCom($query,$value,$comapny_ids,$experience,$qualification,$locations,$job_type,$specialization){
         return $query->where('skills_required','like','%'.$value.'%')->orWhere('job_discription','like','%'.$value.'%')->orWhere('experience','like','%'.$value.'%')->orWhere(function ($query) use ($comapny_ids) {
             $query->whereIn('recruiter_id',$comapny_ids);
 
-        });;
+        })->orWhere(function ($query) use ($experience) {
+            $query->whereIn('experience',$experience);
+        })->orWhere(function ($query) use ($qualification) {
+            $query->whereIn('qualification',$qualification);
+        })->orWhere(function ($query) use ($locations) {
+            $query->whereIn('job_location',$locations);
+        })->orWhere(function ($query) use ($job_type) {
+            $query->whereIn('job_type',$job_type);
+        })
+            ->orWhere(function ($query) use ($specialization) {
+                $query->whereIn('specialization',$specialization);
+            });
     }
     public function jobApplications(){
         return $this->hasMany('App\Models\ApplyOnJobModel','job_id');
