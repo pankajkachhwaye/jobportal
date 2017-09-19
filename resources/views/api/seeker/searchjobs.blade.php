@@ -39,7 +39,7 @@
 
     <br />
     <br />
-    Designation(specialization) ::
+    Specialization(specialization) ::
     @foreach($basicInfo['specialization'] as $key_spec => $value_spec)
         <input type="checkbox" value="{{$value_spec['id']}}" name="specialization[]"> {{$value_spec['specialization']}}
     @endforeach
@@ -49,6 +49,20 @@
     Qualification(qualification) ::
     @foreach($basicInfo['qualifications'] as $key_qua => $value_qua)
         <input type="checkbox" value="{{$value_qua['id']}}" name="qualification[]"> {{$value_qua['qualification']}}
+    @endforeach
+    <br />
+    <br />
+
+    Designation(job_by_roles) ::
+    @foreach($basicInfo['job_by_roles'] as $key_role => $value_role)
+        <input type="checkbox" value="{{$value_role['id']}}" name="job_by_roles[]"> {{$value_role['job_by_role']}}
+    @endforeach
+    <br />
+    <br />
+
+    Area of Sector(area_of_sector) ::
+    @foreach($basicInfo['area_of_sectors'] as $key_sec => $value_sec)
+        <input type="checkbox" value="{{$value_sec['id']}}" name="area_of_sector[]"> {{$value_sec['area_of_sector']}}
     @endforeach
     <br />
     <br />

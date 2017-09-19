@@ -233,11 +233,11 @@ class SeekerController extends Controller
             foreach ($organisation_job as $key_org => $val_org){
                 array_push($company_ids,$val_org->id);
             }
-            $tem_jobs = JobsModel::GetSearchedJobsWithCom($request->value,$company_ids,$request->experience,$request->qualification,$request->job_location,$request->job_type,$request->specialization)->get();
+            $tem_jobs = JobsModel::GetSearchedJobsWithCom($request->value,$company_ids,$request->experience,$request->qualification,$request->job_location,$request->job_type,$request->specialization,$request->job_by_roles,$request->area_of_sector)->get();
 
         }
         else{
-            $tem_jobs = JobsModel::GetSearchedJobs($request->value,$request->experience,$request->qualification,$request->job_location,$request->job_type,$request->specialization)->get();
+            $tem_jobs = JobsModel::GetSearchedJobs($request->value,$request->experience,$request->qualification,$request->job_location,$request->job_type,$request->specialization,$request->job_by_roles,$request->area_of_sector)->get();
         }
 
         $jobs = [];
