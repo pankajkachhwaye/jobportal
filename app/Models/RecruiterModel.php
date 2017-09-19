@@ -75,4 +75,19 @@ class RecruiterModel extends Model
 //    {
 //        return ($value == null ? '':$value);
 //    }
+
+    public function getDeviceIdAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+    public function getDeviceTokenAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+    public function getDeviceTypeAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
 }

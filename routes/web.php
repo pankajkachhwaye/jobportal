@@ -76,6 +76,11 @@ Route::group(['namespace' => 'Admin','prefix'=>'recruiter'], function () {
     Route::post('/notify-selected-reruiters','ManageRecruiterController@notifSelectedReruiters');
 });
 
+Route::group(['namespace' => 'Admin','prefix'=>'seeker'], function () {
+    Route::get('/send-notification','ManageSeekerController@seekerSendNotification');
+    Route::post('/notify-selected-seekers','ManageSeekerController@notifSelectedSeeker');
+});
+
 Route::group(['namespace' => 'Api'],function (){
     Route::get('api-details','ApiController@index');
 

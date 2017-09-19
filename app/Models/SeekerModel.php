@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 
 class SeekerModel extends Model
 {
+    use Notifiable;
     protected $table = 'seeker';
 
     protected $fillable = [
@@ -72,6 +74,21 @@ class SeekerModel extends Model
 
 
     public function getUpdatedAtAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+    public function getDeviceIdAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+    public function getDeviceTokenAttribute($value)
+    {
+        return ($value == null ? '':$value);
+    }
+
+    public function getDeviceTypeAttribute($value)
     {
         return ($value == null ? '':$value);
     }

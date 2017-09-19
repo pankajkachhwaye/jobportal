@@ -109,7 +109,7 @@ class ManageRecruiterController extends Controller
                 $notify =  $this->firebase_notification($temp_user->device_token,$request->notification_title, $request->notification_body);
                }
         }
-        return Response::json(['code' => 200, 'status' => true, 'message' => 'notification send successfully to selected users']);
+        return Response::json(['code' => 200, 'status' => true, 'message' => 'notification send successfully to selected recruiters']);
     }
 
     public function firebase_notification($device_token,$title,$body){

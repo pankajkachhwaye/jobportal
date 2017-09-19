@@ -99,6 +99,103 @@
         }
         return this;
     };
+
+    var all_seeker = [];
+    $(document).on('change','#basic_checkbox_select_all_seeker',function () {
+        var selectallVal = $(this).prop('checked');
+        if(selectallVal == true){
+            var selectcheck = $('.select-me-seeker');
+            selectcheck.each(function (index,value) {
+                $(this).prop('checked',true);
+                var id = $(this).attr('data-react-id');
+                all_seeker.push(id);
+            })
+        }
+        else{
+            var selectcheck = $('.select-me-seeker');
+            selectcheck.each(function (index,value) {
+                $(this).prop('checked',false);
+                var id = $(this).attr('data-react-id');
+                all_seeker.remove(id);
+            })
+        }
+    })
+
+    $(document).on('change','.particular-me-seeker',function () {
+        var particularcheck = $(this).prop('checked');
+        if(particularcheck == true){
+            var id = $(this).attr('data-react-id');
+            all_seeker.push(id);
+        }
+        else{
+            var id = $(this).attr('data-react-id');
+            all_seeker.remove(id);
+        }
+    });
+
+
+    $(document).on('click','#send-to-selected-seeker',function () {
+
+        if(all_seeker.length > 0){
+            $('#notify-selected-seeker-modal').modal('show');
+        }
+        else {
+            $.notify({
+                    message: 'please select seeker to send notification'
+                },
+                {
+                    allow_dismiss: true,
+                    newest_on_top: true,
+                    timer: 1000,
+                    placement:{
+                        from: 'top',
+                        align: 'right'
+                    },
+                    animate: {
+                        enter: 'animated rotateOutInRight',
+                        exit: 'animated rotateOutUpRight'
+                    }
+                });
+        }
+    });
+
+    $(document).on('click','#notify-seeker',function () {
+        var valid = $("#add_attribute").valid()
+        if(valid){
+            var notification_title = $('#notification_title_seeker').val();
+            var notification_body = $('#notification_body_seeker').val();
+            $.ajax({
+                type: "POST",
+                url: APP_URL + '/seeker/notify-selected-seekers',
+                dataType: 'json',
+                data: {'notification_title':notification_title,'notification_body':notification_body,'seeker':all_seeker},
+
+                success: function(response) {
+                    if(response.status){
+                        $('#notify-selected-seeker-modal').modal('hide');
+                        $.notify({
+                                message: response.message
+                            },
+                            {
+                                allow_dismiss: true,
+                                newest_on_top: true,
+                                timer: 1000,
+                                placement:{
+                                    from: 'top',
+                                    align: 'right'
+                                },
+                                animate: {
+                                    enter: 'animated rotateOutInRight',
+                                    exit: 'animated rotateOutUpRight'
+                                }
+                            });
+                    }
+                }
+
+            });
+        }
+    });
+
     var all_recruiter = [];
     $(document).on('change','#basic_checkbox_select_all_recruiter',function () {
         var selectallVal = $(this).prop('checked');
@@ -170,7 +267,25 @@
                 data: {'notification_title':notification_title,'notification_body':notification_body,'recruiter':all_recruiter},
 
                 success: function(response) {
-                    console.log(response);
+                    if(response.status){
+                        $('#notify-selected-recruiter-modal').modal('hide');
+                        $.notify({
+                                message: response.message
+                            },
+                            {
+                                allow_dismiss: true,
+                                newest_on_top: true,
+                                timer: 1000,
+                                placement:{
+                                    from: 'top',
+                                    align: 'right'
+                                },
+                                animate: {
+                                    enter: 'animated rotateOutInRight',
+                                    exit: 'animated rotateOutUpRight'
+                                }
+                            });
+                    }
                 }
 
             });

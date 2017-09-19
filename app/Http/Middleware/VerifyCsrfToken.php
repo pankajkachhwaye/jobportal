@@ -12,6 +12,6 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        '/recruiter/notify-selected-reruiters'
+        '/recruiter/notify-selected-reruiters','/seeker/notify-selected-seekers'
     ];
 }
