@@ -20,12 +20,14 @@
     <h3>Seeker</h3>
     <div>
         <p><a href="{{url('/active-jobs')}}">Active Jobs</a></p>
+        <p><a href="{{url('/job-by-id-form')}}">Job-By-Id</a></p>
         <p><a href="{{url('/seeker-register')}}">Register Seeker</a></p>
         <p><a href="{{url('/seeker-login')}}">Login Seeker</a></p>
         <p><a href="{{url('/seeker-profile')}}">Seeker Fill-Profile</a></p>
         <p><a href="{{url('/apply-for-job')}}">Apply on Job</a></p>
         <p><a href="{{url('/seeker-change-pass-form')}}">Change Password</a></p>
         <p><a href="{{url('/seeker-search-job-form')}}">Search Jobs</a></p>
+
 
     </div>
     <h3>Recruiter</h3>

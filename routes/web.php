@@ -89,6 +89,7 @@ Route::group(['namespace' => 'Api'],function (){
     Route::get('seeker-login','ApiController@showSeekerLogin');
     Route::get('seeker-profile','ApiController@showSeekerProfileForm');
     Route::get('active-jobs','ApiController@showActiveJobsForm');
+    Route::get('job-by-id-form','ApiController@showJobByIdForm');
     Route::get('apply-for-job','ApiController@showApplyForJobForm');
     Route::get('seeker-change-pass-form','ApiController@showChangePasswordForm');
     Route::get('seeker-search-job-form','ApiController@showSearchJobForm');

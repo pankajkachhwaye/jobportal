@@ -146,4 +146,20 @@ class ApiController extends Controller
     public function showGetNotificationsForm(){
         return view('api.common.getnotification');
     }
+
+    public function showJobByIdForm(){
+        $seeker = SeekerModel::all()->toArray();
+        $tem_jobs = JobsModel::all();
+        $jobs = [];
+        foreach ($tem_jobs as $key_job => $value_job){
+            $x = $value_job->toArray();
+            $specialization = $value_job->jobSpecialization->toArray();
+            $x['specialization'] = $specialization['specialization'];
+            $x['specialization_id'] = $specialization['id'];
+
+            array_push($jobs,$x);
+        }
+
+        return view('api.seeker.singlejobbyid' , compact('seeker','jobs'));
+    }
 }

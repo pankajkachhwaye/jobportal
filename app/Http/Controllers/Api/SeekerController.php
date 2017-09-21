@@ -32,6 +32,7 @@ class SeekerController extends Controller
     public function __construct()
     {
         Config::set('jwt.user', 'App\Models\SeekerModel');
+        $this->middleware('cors');
     }
 
     public function generalInfo(){
@@ -192,12 +193,17 @@ class SeekerController extends Controller
             $specialization = $value_job->jobSpecialization->toArray();
             $x['specialization'] = $specialization['specialization'];
             $x['specialization_id'] = $specialization['id'];
-            $check = ApplyOnJobModel::GetJobApplication($value_job->id,$request->seeker_id)->first();
-            if($check == null){
+            if($request->seeker_id == 'guest'){
                 $x['is_applied'] = false;
             }
             else{
-                $x['is_applied'] = true;
+                $check = ApplyOnJobModel::GetJobApplication($value_job->id,$data['seeker_id'])->first();
+                if($check == null){
+                    $x['is_applied'] = false;
+                }
+                else{
+                    $x['is_applied'] = true;
+                }
             }
 
 //               $x['recruiter'] = $recruiter;
@@ -224,6 +230,67 @@ class SeekerController extends Controller
 
         }
         return Response::json($tempdata);
+    }
+
+    public function singleJobDeatils(Request $request){
+//        $jobs = [];
+        $value_job =   JobsModel::find($request->job_id);
+        $recruiter = $value_job->postedRecruiter;
+        $profile = $recruiter->recruiterProfile;
+        $x = $value_job->toArray();
+        $x['process'] = json_decode($x['process']);
+        $job_type = $value_job->jobType->toArray();
+        $x['job_type'] = $job_type['job_type'];
+        $x['job_type_id'] = $job_type['id'];
+        $job_by_roles = $value_job->jobRole->toArray();
+        $x['job_by_roles'] =$job_by_roles['job_by_role'];
+        $x['job_by_roles_id'] =$job_by_roles['id'];
+        $qualification = $value_job->jobQualification->toArray();
+        $x['qualification'] = $qualification['qualification'];
+        $x['qualification_id'] = $qualification['id'];
+        $location = $value_job->jobLocation->toArray();
+        $x['job_location'] = $location['location_name'];
+        $x['job_location_id'] = $location['id'];
+        $specialization = $value_job->jobSpecialization->toArray();
+        $x['specialization'] = $specialization['specialization'];
+        $x['specialization_id'] = $specialization['id'];
+        if($request->seeker_id == 'guest'){
+            $x['is_applied'] = false;
+        }
+        else{
+            $check = ApplyOnJobModel::GetJobApplication($value_job->id,$request->seeker_id)->first();
+            if($check == null){
+                $x['is_applied'] = false;
+            }
+            else{
+                $x['is_applied'] = true;
+            }
+        }
+
+//               $x['recruiter'] = $recruiter;
+//               $x['recruiter']['profile'] = $profile;
+
+//        array_push($jobs,$x);
+        if(count($x) > 0){
+            $tempdata =[
+                'code' => 200,
+                'status' => true,
+                'message' => 'Job found',
+                'data' => $x
+            ];
+
+        }
+        else{
+            $tempdata =[
+                'code' => 400,
+                'status' => false,
+                'message' => 'Jobs not found for this profile.',
+                'data' => []
+            ];
+
+        }
+        return Response::json($tempdata);
+
     }
 
     public function searchJob(Request $request){
@@ -262,13 +329,19 @@ class SeekerController extends Controller
             $specialization = $value_job->jobSpecialization->toArray();
             $x['specialization'] = $specialization['specialization'];
             $x['specialization_id'] = $specialization['id'];
-            $check = ApplyOnJobModel::GetJobApplication($value_job->id,$data['seeker_id'])->first();
-            if($check == null){
+            if($data['seeker_id'] == 'guest'){
                 $x['is_applied'] = false;
             }
             else{
-                $x['is_applied'] = true;
+                $check = ApplyOnJobModel::GetJobApplication($value_job->id,$data['seeker_id'])->first();
+                if($check == null){
+                    $x['is_applied'] = false;
+                }
+                else{
+                    $x['is_applied'] = true;
+                }
             }
+
 
 //               $x['recruiter'] = $recruiter;
 //               $x['recruiter']['profile'] = $profile;

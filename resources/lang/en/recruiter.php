@@ -2,7 +2,7 @@
 
 return [
 
-    'register-succees' => 'Your registration has been successful. In order to complete registration process, verification mail has been send to in your registered email address, please verify.',
+    'register-succees' => 'Verification link has been send to your registered email id, please click on link for successful registration.',
     'register-confirm' => 'Now you are confirmed You can login from to Job Portal.',
     'recruiter-not-register' => 'Recruiter not registered.',
     'recruiter-not-verified' => 'Recruiter not verified, please verify from the link sent to your email id.',

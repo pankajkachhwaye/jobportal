@@ -27,6 +27,7 @@ class RecruiterController extends Controller
     public function __construct()
     {
         Config::set('jwt.user', 'App\Models\RecruiterModel');
+        $this->middleware('cors');
     }
 
     protected function createRecruiter(array $data)
