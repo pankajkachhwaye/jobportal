@@ -267,8 +267,6 @@
                 data: {'notification_title':notification_title,'notification_body':notification_body,'recruiter':all_recruiter},
 
                 success: function(response) {
-                    console.log(JSON.parse(response));
-
                         $('#notify-selected-recruiter-modal').modal('hide');
                         $.notify({
                                 message: 'notification send successfully'

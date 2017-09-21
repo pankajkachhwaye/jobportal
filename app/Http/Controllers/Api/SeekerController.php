@@ -227,17 +227,18 @@ class SeekerController extends Controller
     }
 
     public function searchJob(Request $request){
-        $organisation_job = RecruiterModel::where('organisation_name','like','%'.$request->value.'%')->get();
+        $data = $request->all();
+        $organisation_job = RecruiterModel::where('organisation_name','like','%'.$data["value"].'%')->get();
         if($organisation_job->count() > 0){
             $company_ids = [];
             foreach ($organisation_job as $key_org => $val_org){
                 array_push($company_ids,$val_org->id);
             }
-            $tem_jobs = JobsModel::GetSearchedJobsWithCom($request->value,$company_ids,$request->experience,$request->qualification,$request->job_location,$request->job_type,$request->specialization,$request->job_by_roles,$request->area_of_sector)->get();
+            $tem_jobs = JobsModel::GetSearchedJobsWithCom($data['value'],$company_ids,$data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
 
         }
         else{
-            $tem_jobs = JobsModel::GetSearchedJobs($request->value,$request->experience,$request->qualification,$request->job_location,$request->job_type,$request->specialization,$request->job_by_roles,$request->area_of_sector)->get();
+            $tem_jobs = JobsModel::GetSearchedJobs($data['value'],$data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
         }
 
         $jobs = [];
@@ -261,7 +262,7 @@ class SeekerController extends Controller
             $specialization = $value_job->jobSpecialization->toArray();
             $x['specialization'] = $specialization['specialization'];
             $x['specialization_id'] = $specialization['id'];
-            $check = ApplyOnJobModel::GetJobApplication($value_job->id,$request->seeker_id)->first();
+            $check = ApplyOnJobModel::GetJobApplication($value_job->id,$data['seeker_id'])->first();
             if($check == null){
                 $x['is_applied'] = false;
             }

@@ -14,6 +14,10 @@ use Response;
 
 class CommonController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('cors');
+    }
 
     /**
      * @return mixed
