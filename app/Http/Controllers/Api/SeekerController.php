@@ -32,7 +32,7 @@ class SeekerController extends Controller
     public function __construct()
     {
         Config::set('jwt.user', 'App\Models\SeekerModel');
-        $this->middleware('cors');
+        $this->middleware('barryvdhcors');
     }
 
     public function generalInfo(){
@@ -197,7 +197,7 @@ class SeekerController extends Controller
                 $x['is_applied'] = false;
             }
             else{
-                $check = ApplyOnJobModel::GetJobApplication($value_job->id,$data['seeker_id'])->first();
+                $check = ApplyOnJobModel::GetJobApplication($value_job->id,$request->seeker_id)->first();
                 if($check == null){
                     $x['is_applied'] = false;
                 }

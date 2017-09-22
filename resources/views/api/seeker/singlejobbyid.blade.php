@@ -18,12 +18,14 @@
 </h1>
 <form method="POST" enctype="multipart/form-data" action="{{url('/api/single-job-detail')}}" >
 
-    Seeker(seeker_id) ::<span style="color: red">*</span>  <select name="seeker_id">
-        <option value="">Please select</option>
-        @foreach($seeker as $key_seeker => $value_seeker)
-            <option value="{{$value_seeker['id']}}">{{$value_seeker['email']}}</option>
-        @endforeach
-    </select>
+    Seeker(seeker_id) ::<span style="color: red">*</span>
+    {{--<select name="seeker_id">--}}
+        {{--<option value="">Please select</option>--}}
+        {{--@foreach($seeker as $key_seeker => $value_seeker)--}}
+            {{--<option value="{{$value_seeker['id']}}">{{$value_seeker['email']}}</option>--}}
+        {{--@endforeach--}}
+    {{--</select>--}}
+    <input type="text" required name="seeker_id">
     <br />
     <br />
 

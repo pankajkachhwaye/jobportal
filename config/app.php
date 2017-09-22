@@ -179,6 +179,8 @@ return [
         App\Providers\GeneralServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+          Barryvdh\Cors\ServiceProvider::class
+
 
     ],
 
