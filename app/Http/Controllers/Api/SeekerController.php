@@ -9,6 +9,7 @@ use App\Models\RecruiterModel;
 use App\Models\RecruiterProfile;
 use App\Models\SeekerProfile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
 use App\Mail\JobPortalConfirmationEmail;
 use Mockery\Exception;
@@ -295,6 +296,89 @@ class SeekerController extends Controller
 
     public function searchJob(Request $request){
         $data = $request->all();
+        $organisation_job = RecruiterModel::where('organisation_name','like','%'.$data["value"].'%')->get();
+        if($organisation_job->count() > 0){
+            $company_ids = [];
+            foreach ($organisation_job as $key_org => $val_org){
+                array_push($company_ids,$val_org->id);
+            }
+            $tem_jobs = JobsModel::GetSearchedJobsWithCom($data['value'],$company_ids,$data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
+
+        }
+        else{
+            $tem_jobs = JobsModel::GetSearchedJobs($data['value'],$data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
+        }
+
+        $jobs = [];
+        foreach ($tem_jobs as $key_job => $value_job){
+            $recruiter = $value_job->postedRecruiter;
+            $profile = $recruiter->recruiterProfile;
+            $x = $value_job->toArray();
+            $x['process'] = json_decode($x['process']);
+            $job_type = $value_job->jobType->toArray();
+            $x['job_type'] = $job_type['job_type'];
+            $x['job_type_id'] = $job_type['id'];
+            $job_by_roles = $value_job->jobRole->toArray();
+            $x['job_by_roles'] =$job_by_roles['job_by_role'];
+            $x['job_by_roles_id'] =$job_by_roles['id'];
+            $qualification = $value_job->jobQualification->toArray();
+            $x['qualification'] = $qualification['qualification'];
+            $x['qualification_id'] = $qualification['id'];
+            $location = $value_job->jobLocation->toArray();
+            $x['job_location'] = $location['location_name'];
+            $x['job_location_id'] = $location['id'];
+            $specialization = $value_job->jobSpecialization->toArray();
+            $x['specialization'] = $specialization['specialization'];
+            $x['specialization_id'] = $specialization['id'];
+            if($data['seeker_id'] == 'guest'){
+                $x['is_applied'] = false;
+            }
+            else{
+                $check = ApplyOnJobModel::GetJobApplication($value_job->id,$data['seeker_id'])->first();
+                if($check == null){
+                    $x['is_applied'] = false;
+                }
+                else{
+                    $x['is_applied'] = true;
+                }
+            }
+
+
+//               $x['recruiter'] = $recruiter;
+//               $x['recruiter']['profile'] = $profile;
+
+            array_push($jobs,$x);
+        }
+
+
+
+
+
+
+        if(count($jobs) > 0){
+            $tempdata =[
+                'code' => 200,
+                'status' => true,
+                'message' => 'Job found',
+                'data' => $jobs
+            ];
+
+        }
+        else{
+            $tempdata =[
+                'code' => 400,
+                'status' => false,
+                'message' => 'Jobs not found for this profile.',
+                'data' => []
+            ];
+
+        }
+        return Response::json($tempdata);
+    }
+
+    public function searchwebJob(Request $request){
+        $data = Input::all();
+        dd($data);
         $organisation_job = RecruiterModel::where('organisation_name','like','%'.$data["value"].'%')->get();
         if($organisation_job->count() > 0){
             $company_ids = [];
