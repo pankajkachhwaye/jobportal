@@ -272,7 +272,7 @@ class RecruiterController extends Controller
 
     }
 
-    public function getAuthUser(Request $request){
+    public function getAuthRecruiter(Request $request){
         $user = JWTAuth::toUser($request->token);
 
         return response()->json(['result' => $user]);

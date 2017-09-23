@@ -507,7 +507,7 @@ class SeekerController extends Controller
     }
 
     public function logoutSekeer(Request $request){
-        JWTAuth::invalidate($request->jwttoken);
+        JWTAuth::invalidate($request->token);
         return Response::json(['code' => 200, 'status' => true,'message' => 'User logout successfully','data' =>array()]);
     }
 }
