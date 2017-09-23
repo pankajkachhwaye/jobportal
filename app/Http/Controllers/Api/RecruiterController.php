@@ -86,10 +86,10 @@ class RecruiterController extends Controller
             $recruiter = RecruiterModel::GetRecruiterByMobOrEmail($request->value_recruiter)->first();
 
             if ($recruiter == null) {
-                return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('recruiter.recruiter-not-register'))]);
+                return Response::json(['code' => 400, 'status' => false, 'message' => trim(Lang::get('recruiter.recruiter-not-register'))]);
             }
             if ($recruiter->recruiter_verified == false) {
-                return Response::json(['code' => 200, 'status' => false, 'message' => trim(Lang::get('recruiter.recruiter-not-verified'))]);
+                return Response::json(['code' => 400, 'status' => false, 'message' => trim(Lang::get('recruiter.recruiter-not-verified'))]);
             }
             if (Hash::check($request->password, $recruiter->password)) {
                 if($request->device_type != 'web'){
@@ -283,5 +283,6 @@ class RecruiterController extends Controller
         $job->delete();
         return Response::json(['code' => 200, 'status' => true, 'message' =>'job deleted successfully.' ]);
     }
+
 
 }

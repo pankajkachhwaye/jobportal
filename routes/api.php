@@ -32,6 +32,9 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/seeker-change-password', 'SeekerController@seekerChangePassword');
     Route::post('/search-job', 'SeekerController@searchJob');
     Route::post('/search-web-job', 'SeekerController@searchwebJob');
+    Route::post('auth-seeker', 'SeekerController@getAuthSekeer');
+    Route::post('logout-seeker', 'SeekerController@logoutSekeer');
+
 
     /*************** Recruiter Routes ****************/
     Route::post('/register-new-recruiter','RecruiterController@registerRecruiter');
@@ -53,7 +56,7 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/get-all-notifications','CommonController@getAllNotifications');
     Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('user', 'RecruiterController@getAuthUser');
-        Route::get('seeker', 'SeekerController@getAuthSeeker');
+
 
     });
 
