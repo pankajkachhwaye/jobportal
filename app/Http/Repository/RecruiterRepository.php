@@ -192,6 +192,7 @@ class RecruiterRepository
             $application = $job->jobApplications()->get();
 
             $seeker = [];
+
             foreach ($application as $key_app => $value_app) {
                 $temp_x = $value_app->seekerOnJob;
                 $profile = $temp_x->seekerProfile;
@@ -214,7 +215,7 @@ class RecruiterRepository
             }
 
             if (count($seeker) > 0)
-                return ['code' => 101, 'status' => true, 'message' => 'Job Application Found', 'data' => $seeker];
+                return ['code' => 200, 'status' => true, 'message' => 'Job Application Found', 'data' => $seeker];
             else
                 return ['code' => 400, 'message' => trim(Lang::get('recruiter.check-application.no-application'))];
         } catch (\Exception $exception) {

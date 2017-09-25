@@ -33,7 +33,7 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/search-job', 'SeekerController@searchJob');
     Route::post('/search-web-job', 'SeekerController@searchwebJob');
     Route::post('auth-seeker', 'SeekerController@getAuthSekeer')->middleware('jwt.auth');
-    Route::post('logout-seeker', 'SeekerController@logoutSekeer');
+    Route::post('logout-seeker', 'SeekerController@logoutSekeer')->middleware('jwt.auth');;
 
 
     /*************** Recruiter Routes ****************/
@@ -49,6 +49,8 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('/recruiter-change-password', 'RecruiterController@recruiterChangePassword');
     Route::post('/seeker-profile-detail-on-job', 'RecruiterController@seekerProfileDetailOnJob');
     Route::post('auth-recruiter', 'RecruiterController@getAuthRecruiter')->middleware('jwt.auth');
+    Route::post('logout-recruiter', 'RecruiterController@logoutRecruiter')->middleware('jwt.auth');;
+
 
     /*************** Common Routes ****************/
     Route::get('/general','CommonController@basicInformation');

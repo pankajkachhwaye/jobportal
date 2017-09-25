@@ -134,7 +134,7 @@ class RecruiterController extends Controller
         if ($save['code'] == 400)
             return Response::json(['code' => 400, 'status' => false, 'message' => $save['message'],'data' => array()]);
 
-        if($save['code'] == 101)
+        if($save['code'] == 200)
             return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message'],'data' => $save['data']]);
 
         if($save['code'] == 500)
@@ -146,7 +146,7 @@ class RecruiterController extends Controller
         if ($save['code'] == 400)
             return Response::json(['code' => 400, 'status' => false, 'message' => $save['message']]);
 
-        if($save['code'] == 101)
+        if($save['code'] == 200)
             return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message']]);
 
         if($save['code'] == 500)
@@ -168,7 +168,7 @@ class RecruiterController extends Controller
             array_push($jobs,$x);
         }
         if(count($jobs) > 0){
-            return Response::json( ['code' => 101,'status'=>true, 'message' => 'Job Application Found','data' => $jobs]);
+            return Response::json( ['code' => 200,'status'=>true, 'message' => 'Job Application Found','data' => $jobs]);
         }
         else{
             return Response::json( ['code' => 400,'status'=>false, 'message' => 'No job posted yet','data' => $jobs]);
@@ -218,7 +218,7 @@ class RecruiterController extends Controller
         if ($response['code'] == 400)
             return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
 
-        if($response['code'] == 101)
+        if($response['code'] == 200)
             return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
 
         if($response['code'] == 500)
@@ -231,7 +231,7 @@ class RecruiterController extends Controller
         if ($response['code'] == 400)
             return Response::json(['code' => 400, 'status' => false, 'message' => $response['message']]);
 
-        if($response['code'] == 101)
+        if($response['code'] == 200)
             return Response::json(['code' => $response['code'], 'status' => $response['status'],'message' => $response['message'],'data' => $response['data']]);
 
         if($response['code'] == 500)
@@ -284,5 +284,9 @@ class RecruiterController extends Controller
         return Response::json(['code' => 200, 'status' => true, 'message' =>'job deleted successfully.' ]);
     }
 
+    public function logoutRecruiter(Request $request){
+        JWTAuth::invalidate($request->token);
+        return Response::json(['code' => 200, 'status' => true,'message' => 'User logout successfully','data' =>array()]);
+    }
 
 }
