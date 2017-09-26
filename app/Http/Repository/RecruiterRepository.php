@@ -69,7 +69,7 @@ class RecruiterRepository
             $returndata['recruiter_profile']['org_logo'] = asset('storage/' . $logo);
 
 
-            return ['code' => 101, 'status' => true, 'message' => 'Profile has been updated successfully.', 'data' => $returndata];
+            return ['code' => 200, 'status' => true, 'message' => 'Profile has been updated successfully.', 'data' => $returndata];
 
         } catch (\Exception $exception) {
             return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
@@ -79,100 +79,100 @@ class RecruiterRepository
 
     public function saveNewJob($data = [], $model)
     {
-       try{
+        try{
 
-        $temp_data = $data->all();
+            $temp_data = $data->all();
 //            dd($temp_data);
-        if (isset($data->job_type))
-            $temp_data['job_type'] = $data->job_type;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.job-type'))];
+            if (isset($data->job_type))
+                $temp_data['job_type'] = $data->job_type;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.job-type'))];
 
-        if ($data->job_by_roles != '')
-            $temp_data['job_by_roles'] = $data->job_by_roles;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.job-role'))];
+            if ($data->job_by_roles != '')
+                $temp_data['job_by_roles'] = $data->job_by_roles;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.job-role'))];
 
-        if ($data->qualification != '')
-            $temp_data['qualification'] = $data->qualification;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.qualification'))];
+            if ($data->qualification != '')
+                $temp_data['qualification'] = $data->qualification;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.qualification'))];
 
-        if ($data->job_location != '')
-            $temp_data['job_location'] = $data->job_location;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.job-location'))];
+            if ($data->job_location != '')
+                $temp_data['job_location'] = $data->job_location;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.job-location'))];
 
-        if ($data->specialization != '')
-            $temp_data['specialization'] = $data->specialization;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.specialization'))];
+            if ($data->specialization != '')
+                $temp_data['specialization'] = $data->specialization;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.specialization'))];
 
-        if ($data->skills_required != '')
-            $temp_data['skills_required'] = $data->skills_required;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.skills'))];
+            if ($data->skills_required != '')
+                $temp_data['skills_required'] = $data->skills_required;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.skills'))];
 
-        if ($data->experience != '')
-            $temp_data['experience'] = $data->experience;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.experience'))];
+            if ($data->experience != '')
+                $temp_data['experience'] = $data->experience;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.experience'))];
 
-        if ($data->job_discription != '')
-            $temp_data['job_discription'] = $data->job_discription;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.job-discription'))];
+            if ($data->job_discription != '')
+                $temp_data['job_discription'] = $data->job_discription;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.job-discription'))];
 
-        if ($data->min_sal != '')
-            $temp_data['min_sal'] = $data->min_sal;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.minimum-salary'))];
+            if ($data->min_sal != '')
+                $temp_data['min_sal'] = $data->min_sal;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.minimum-salary'))];
 
-        if ($data->max_sal != '')
-            $temp_data['max_sal'] = $data->max_sal;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.maximum-salary'))];
+            if ($data->max_sal != '')
+                $temp_data['max_sal'] = $data->max_sal;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.maximum-salary'))];
 
-        if ($data->per != '')
-            $temp_data['per'] = $data->per;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.salary-per'))];
+            if ($data->per != '')
+                $temp_data['per'] = $data->per;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.salary-per'))];
 
-        if ($data->vacancies != '')
-            $temp_data['vacancies'] = $data->vacancies;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.vacancies'))];
+            if ($data->vacancies != '')
+                $temp_data['vacancies'] = $data->vacancies;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.vacancies'))];
 
-        if ($data->last_date != '')
-            $temp_data['last_date'] = date("Y-m-d", strtotime($data->last_date));
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.last-date-app'))];
+            if ($data->last_date != '')
+                $temp_data['last_date'] = $data->last_date;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.last-date-app'))];
 
-        if (isset($data->process))
-            $temp_data['process'] = $data->process;
-        else
-            return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.process'))];
+            if (isset($data->process))
+                $temp_data['process'] = $data->process;
+            else
+                return ['code' => 400, 'message' => trim(Lang::get('recruiter.post-new-job.process'))];
 
 
-        if ($temp_data['job_id'] == 0) {
-            $temp_data['created_at'] = Carbon::now();
-            unset($temp_data['job_id']);
-            $model->insert($temp_data);
-            return ['code' => 101, 'status' => true, 'message' => 'Job Added Successfully'];
+            if ($temp_data['job_id'] == 0) {
+                $temp_data['created_at'] = Carbon::now();
+                unset($temp_data['job_id']);
+                $model->insert($temp_data);
+                return ['code' => 200, 'status' => true, 'message' => 'Job Added Successfully'];
 
-        } else {
+            } else {
 //                dd($temp_data);
-            $job_id = $temp_data['job_id'];
-            unset($temp_data['job_id']);
-            $temp_data['updated_at'] = Carbon::now();
-            $model->where('id', $job_id)->update($temp_data);
-            return ['code' => 101, 'status' => true, 'message' => 'Job update Successfully'];
+                $job_id = $temp_data['job_id'];
+                unset($temp_data['job_id']);
+                $temp_data['updated_at'] = Carbon::now();
+                $model->where('id', $job_id)->update($temp_data);
+                return ['code' => 200, 'status' => true, 'message' => 'Job update Successfully'];
+
+
+            }
 
 
         }
-
-
-       }
         catch (\Exception $exception){
             return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
         }
@@ -267,11 +267,14 @@ class RecruiterRepository
 //                dd($x['profile']['seeker_area_of_sector']);
             $resume = $x['profile']['resume'];
             $x['profile']['resume'] = asset('storage/' . $resume);
+
+            $avtar = $x['profile']['avtar'];
+            $x['profile']['avtar'] = asset('storage/' . $avtar);
             $apply_date = $job_application->toArray();
             $x['profile']['seeker_apply_date'] = $apply_date['created_at'];
 //            $x['job_detail'] = $job_application->particularJob()->first(['last_date','job_discription']);
 
-            return ['code' => 101, 'status' => true, 'message' => 'Sekeer details Found', 'data' => $x];
+            return ['code' => 200, 'status' => true, 'message' => 'Sekeer details Found', 'data' => $x];
         } catch (\Exception $exception) {
             return ['code' => 500, 'status' => false, 'message' => $exception->getMessage()];
         }

@@ -296,18 +296,25 @@ class SeekerController extends Controller
 
     public function searchJob(Request $request){
         $data = $request->all();
-        $organisation_job = RecruiterModel::where('organisation_name','like','%'.$data["value"].'%')->get();
-        if($organisation_job->count() > 0){
-            $company_ids = [];
-            foreach ($organisation_job as $key_org => $val_org){
-                array_push($company_ids,$val_org->id);
-            }
-            $tem_jobs = JobsModel::GetSearchedJobsWithCom($data['value'],$company_ids,$data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
-
+        if($data['value'] == null){
+            $tem_jobs = JobsModel::GetSearchedJobsWithOutVal($data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
         }
         else{
-            $tem_jobs = JobsModel::GetSearchedJobs($data['value'],$data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
+            $organisation_job = RecruiterModel::where('organisation_name','like','%'.$data["value"].'%')->get();
+            if($organisation_job->count() > 0){
+                $company_ids = [];
+                foreach ($organisation_job as $key_org => $val_org){
+                    array_push($company_ids,$val_org->id);
+                }
+                $tem_jobs = JobsModel::GetSearchedJobsWithCom($data['value'],$company_ids,$data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
+
+            }
+            else{
+                $tem_jobs = JobsModel::GetSearchedJobs($data['value'],$data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
+            }
+
         }
+
 
         $jobs = [];
         foreach ($tem_jobs as $key_job => $value_job){

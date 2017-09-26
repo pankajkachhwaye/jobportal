@@ -72,6 +72,28 @@ class JobsModel extends Model
             });
     }
 
+    public function scopeGetSearchedJobsWithOutVal($query, $experience, $qualification, $locations, $job_type, $specialization, $designation, $area_of_sector)
+    {
+        return $query->whereIn('experience', $experience)
+        ->orWhere(function ($query) use ($qualification) {
+            $query->whereIn('qualification', $qualification);
+        })->orWhere(function ($query) use ($locations) {
+            $query->whereIn('job_location', $locations);
+        })->orWhere(function ($query) use ($job_type) {
+            $query->whereIn('job_type', $job_type);
+        })
+            ->orWhere(function ($query) use ($specialization) {
+                $query->whereIn('specialization', $specialization);
+            })
+            ->orWhere(function ($query) use ($designation) {
+                $query->whereIn('job_by_roles', $designation);
+            })
+            ->orWhere(function ($query) use ($area_of_sector) {
+                $query->whereIn('area_of_sector', $area_of_sector);
+            });
+    }
+
+
     public function jobApplications()
     {
         return $this->hasMany('App\Models\ApplyOnJobModel', 'job_id');
