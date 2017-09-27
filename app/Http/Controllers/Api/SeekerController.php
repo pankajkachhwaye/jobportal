@@ -120,52 +120,54 @@ class SeekerController extends Controller
                     $token = JWTAuth::fromUser($seeker);
                     $permnnt_seeker = $seeker->toArray();
                     $profile = $seeker->seekerProfile;
+                    $temp_profile = $profile->toArray();
                     $avtar = $profile->avtar;
                     $resume = $profile->resume;
-                    $profile->avtar =  asset('storage/'.$avtar);
-                    $profile->resume =  asset('storage/'.$resume);
+                    $temp_profile['avtar'] =  asset('storage/'.$avtar);
+                    $temp_profile['resume'] =  asset('storage/'.$resume);
                     $permnnt_seeker['role'] = 'seeker';
                     $permnnt_seeker['jwt_token'] = $token;
                     $location_id = $profile->preferred_location;
                     $location = LocationModel::find($location_id);
-                    $profile->preferred_location = $location->location_name;
-                    $profile->preferred_location_id = $location_id;
+                    $temp_profile['preferred_location'] = $location->location_name;
+                    $temp_profile['preferred_location_id'] = $location_id;
+
                     $job_type_id = $profile->job_type;
                     $jobType = $profile->jobType;
-                    $profile->job_type = $jobType->job_type;
-                    $profile->job_type_id = $job_type_id;
+                    $temp_profile['job_type'] = $jobType->job_type;
+                    $temp_profile['job_type_id'] = $job_type_id;
 
                     $seeker_qualification_id = $profile->seeker_qualification;
                     $seekerQualification = $profile->seekerQualification;
-                    $profile->seeker_qualification = $seekerQualification->qualification;
-                    $profile->seeker_qualification_id = $seeker_qualification_id;
+                    $temp_profile['seeker_qualification'] = $seekerQualification->qualification;
+                    $temp_profile['seeker_qualification_id'] = $seeker_qualification_id;
 
                     $area_of_sector_id = $profile->area_of_sector;
                     $area_of_sector = $profile->seekerAreaOfSector;
-                    $profile->area_of_sector = $area_of_sector->area_of_sector;
-                    $profile->area_of_sector_id = $area_of_sector_id;
+                    $temp_profile['area_of_sector'] = $area_of_sector->area_of_sector;
+                    $temp_profile['area_of_sector_id'] = $area_of_sector_id;
 
                    if($profile->work_experience == 'freasher'){
-                       $profile->specialization_id = 0;
-                       $profile->role_type_id = 0;
+                       $temp_profile['specialization_id'] = 0;
+                       $temp_profile['role_type_id'] = 0;
                    }
                    else{
                        $specialization_id = $profile->specialization;
                        $specialization = $profile->seekerSpecialization;
-                       $profile->area_of_sector = $specialization->specialization;
-                       $profile->specialization_id = $specialization_id;
+                       $temp_profile['area_of_sector'] = $specialization->specialization;
+                       $temp_profile['specialization_id'] = $specialization_id;
 
                         $role_type_id = $profile->role_type;
                        $role_type = $profile->seekerRoleType;
-                       $profile->role_type = $role_type->job_by_role;
-                       $profile->role_type_id = $role_type_id;
+                       $temp_profile['role_type'] = $role_type->job_by_role;
+                       $temp_profile['role_type_id'] = $role_type_id;
 
                    }
 
-                    $permnnt_seeker['seeker_profile'] = $profile;
+                    $permnnt_seeker['seeker_profile'] =  $temp_profile;
 
 
-                    dd($permnnt_seeker['seeker_profile']);
+//                    dd($permnnt_seeker['seeker_profile']);
 
                     return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $permnnt_seeker ] );
                 }
@@ -340,7 +342,7 @@ class SeekerController extends Controller
             $tem_jobs = JobsModel::GetSearchedJobsWithOutVal($data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
         }
         elseif ($data['value'] == null && (count($data['experience']) == 0 || count($data['qualification']) == 0 || count($data['job_location']) == 0 || count($data['job_type']) == 0 || count($data['specialization']) == 0 || count($data['job_by_roles']) == 0 || count($data['area_of_sector']) == 0)){
-            $tem_jobs = JobsModel::all()->get();
+            $tem_jobs =  JobsModel::orderBy('created_at' ,'desc')->get();
         }
         else{
             $organisation_job = RecruiterModel::where('organisation_name','like','%'.$data["value"].'%')->get();
