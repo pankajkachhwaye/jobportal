@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Facades\General;
 use App\Http\Repository\SeekerRepository;
 use App\Models\ApplyOnJobModel;
+use App\Models\LocationModel;
 use App\Models\RecruiterModel;
 use App\Models\RecruiterProfile;
 use App\Models\SeekerProfile;
@@ -125,7 +126,46 @@ class SeekerController extends Controller
                     $profile->resume =  asset('storage/'.$resume);
                     $permnnt_seeker['role'] = 'seeker';
                     $permnnt_seeker['jwt_token'] = $token;
+                    $location_id = $profile->preferred_location;
+                    $location = LocationModel::find($location_id);
+                    $profile->preferred_location = $location->location_name;
+                    $profile->preferred_location_id = $location_id;
+                    $job_type_id = $profile->job_type;
+                    $jobType = $profile->jobType;
+                    $profile->job_type = $jobType->job_type;
+                    $profile->job_type_id = $job_type_id;
+
+                    $seeker_qualification_id = $profile->seeker_qualification;
+                    $seekerQualification = $profile->seekerQualification;
+                    $profile->seeker_qualification = $seekerQualification->qualification;
+                    $profile->seeker_qualification_id = $seeker_qualification_id;
+
+                    $area_of_sector_id = $profile->area_of_sector;
+                    $area_of_sector = $profile->seekerAreaOfSector;
+                    $profile->area_of_sector = $area_of_sector->area_of_sector;
+                    $profile->area_of_sector_id = $area_of_sector_id;
+
+                   if($profile->work_experience == 'freasher'){
+                       $profile->specialization_id = 0;
+                       $profile->role_type_id = 0;
+                   }
+                   else{
+                       $specialization_id = $profile->specialization;
+                       $specialization = $profile->seekerSpecialization;
+                       $profile->area_of_sector = $specialization->specialization;
+                       $profile->specialization_id = $specialization_id;
+
+                        $role_type_id = $profile->role_type;
+                       $role_type = $profile->seekerRoleType;
+                       $profile->role_type = $role_type->job_by_role;
+                       $profile->role_type_id = $role_type_id;
+
+                   }
+
                     $permnnt_seeker['seeker_profile'] = $profile;
+
+
+                    dd($permnnt_seeker['seeker_profile']);
 
                     return Response::json(['code' => 200, 'status' => true, 'message' => 'You successfully logged in.', 'data' => $permnnt_seeker ] );
                 }
@@ -296,8 +336,11 @@ class SeekerController extends Controller
 
     public function searchJob(Request $request){
         $data = $request->all();
-        if($data['value'] == null){
+        if($data['value'] == null && (count($data['experience']) > 0 || count($data['qualification']) > 0 || count($data['job_location']) > 0 || count($data['job_type']) > 0 || count($data['specialization']) > 0 || count($data['job_by_roles']) > 0 || count($data['area_of_sector']) > 0)){
             $tem_jobs = JobsModel::GetSearchedJobsWithOutVal($data['experience'],$data['qualification'],$data['job_location'],$data['job_type'],$data['specialization'],$data['job_by_roles'],$data['area_of_sector'])->get();
+        }
+        elseif ($data['value'] == null && (count($data['experience']) == 0 || count($data['qualification']) == 0 || count($data['job_location']) == 0 || count($data['job_type']) == 0 || count($data['specialization']) == 0 || count($data['job_by_roles']) == 0 || count($data['area_of_sector']) == 0)){
+            $tem_jobs = JobsModel::all()->get();
         }
         else{
             $organisation_job = RecruiterModel::where('organisation_name','like','%'.$data["value"].'%')->get();

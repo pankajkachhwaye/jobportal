@@ -32,6 +32,7 @@ class SeekerProfile extends Model
 
 
 
+
     public function getSpecializationAttribute($value)
     {
         return ($value == null ? '':$value);
