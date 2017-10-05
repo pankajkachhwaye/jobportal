@@ -92,7 +92,7 @@ class SeekerRepository
             $returndata['seeker_profile']['avtar'] =asset('storage/'.$profile);
             $returndata['seeker_profile']['resume'] =asset('storage/'.$resume);
 
-            return ['code' => 101,'status'=>true, 'message' => 'Profile has been updated successfully.','data'=>$returndata];
+            return ['code' => 200,'status'=>true, 'message' => 'Profile has been updated successfully.','data'=>$returndata];
 
         }
         catch (\Exception $exception){
@@ -114,9 +114,11 @@ class SeekerRepository
                         $title = 'Job Portal';
                         $body = trim(Lang::get('recruiter.recruiter-notify.applied-on-job'));
                         $notify = $this->firebase_notification($recruiter->device_token,$title,$body);
+                        $responseNotification = json_decode($notify);
+                        dd($responseNotification);
                     }
 
-                return ['code' => 101, 'status' => true, 'message' => trim(Lang::get('seeker.apply-success'))];
+                return ['code' => 200, 'status' => true, 'message' => trim(Lang::get('seeker.apply-success'))];
             }
        }
         catch (\Exception $exception){
@@ -175,8 +177,8 @@ class SeekerRepository
         $response = curl_exec($ch);
 
         //Close request
-        curl_close($ch);
-        return $response;
+//        curl_close($ch);
+//        return $response;
 
     }
 }

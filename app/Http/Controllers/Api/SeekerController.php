@@ -129,40 +129,85 @@ class SeekerController extends Controller
                     $permnnt_seeker['jwt_token'] = $token;
                     $location_id = $profile->preferred_location;
                     $location = LocationModel::find($location_id);
-                    $temp_profile['preferred_location'] = $location->location_name;
-                    $temp_profile['preferred_location_id'] = $location_id;
+                    if($location != null){
+                        $temp_profile['preferred_location'] = $location_id;
+                        $temp_profile['preferred_location_name'] = $location->location_name;
+                    }
+                    else{
+                        $temp_profile['preferred_location'] = $location_id;
+                        $temp_profile['preferred_location_name'] = '';
+                    }
+
 
                     $job_type_id = $profile->job_type;
                     $jobType = $profile->jobType;
-                    $temp_profile['job_type'] = $jobType->job_type;
-                    $temp_profile['job_type_id'] = $job_type_id;
+                    if($jobType != null){
+                        $temp_profile['job_type'] = $job_type_id;
+                        $temp_profile['job_type_name'] = $jobType->job_type;
+                    }
+                    else{
+                        $temp_profile['job_type'] = $job_type_id;
+                        $temp_profile['job_type_name'] = '';
+                    }
+
 
                     $seeker_qualification_id = $profile->seeker_qualification;
                     $seekerQualification = $profile->seekerQualification;
-                    $temp_profile['seeker_qualification'] = $seekerQualification->qualification;
-                    $temp_profile['seeker_qualification_id'] = $seeker_qualification_id;
+                    if($seekerQualification != null){
+                        $temp_profile['seeker_qualification'] = $seeker_qualification_id;
+                        $temp_profile['seeker_qualification_name'] = $seekerQualification->qualification;
+                    }
+                    else{
+                        $temp_profile['seeker_qualification'] = $seeker_qualification_id;
+                        $temp_profile['seeker_qualification_name'] = '';
+                    }
+
 
                     $area_of_sector_id = $profile->area_of_sector;
                     $area_of_sector = $profile->seekerAreaOfSector;
-                    $temp_profile['area_of_sector'] = $area_of_sector->area_of_sector;
-                    $temp_profile['area_of_sector_id'] = $area_of_sector_id;
+                    if($area_of_sector != null){
+                        $temp_profile['area_of_sector'] = $area_of_sector_id;
+                        $temp_profile['area_of_sector_name'] = $area_of_sector->area_of_sector;
+                    }
+                    else{
+                        $temp_profile['area_of_sector'] = $area_of_sector_id;
+                        $temp_profile['area_of_sector_name'] = '';
+                    }
 
-                   if($profile->work_experience == 'freasher'){
-                       $temp_profile['specialization_id'] = 0;
-                       $temp_profile['role_type_id'] = 0;
-                   }
-                   else{
-                       $specialization_id = $profile->specialization;
-                       $specialization = $profile->seekerSpecialization;
-                       $temp_profile['area_of_sector'] = $specialization->specialization;
-                       $temp_profile['specialization_id'] = $specialization_id;
+
+                    if($profile->work_experience == 'freasher'){
+                        $temp_profile['specialization'] = '';
+                        $temp_profile['specialization_name'] = '';
+                        $temp_profile['role_type_name'] = '';
+                        $temp_profile['role_type'] = '';
+                    }
+                    else{
+                        $specialization_id = $profile->specialization;
+                        $specialization = $profile->seekerSpecialization;
+                        // dd($specialization);
+                        if($specialization != null){
+                            $temp_profile['specialization'] = $specialization_id;
+                            $temp_profile['specialization_name'] = $specialization->specialization;
+                        }
+                        else{
+                            $temp_profile['specialization'] = $specialization_id;
+                            $temp_profile['specialization_name'] = '';
+                        }
+
 
                         $role_type_id = $profile->role_type;
-                       $role_type = $profile->seekerRoleType;
-                       $temp_profile['role_type'] = $role_type->job_by_role;
-                       $temp_profile['role_type_id'] = $role_type_id;
+                        $role_type = $profile->seekerRoleType;
+                        if($role_type != null){
+                            $temp_profile['role_type'] = $role_type_id;
+                            $temp_profile['role_type_name'] = $role_type->job_by_role;
+                        }
+                        else{
+                            $temp_profile['role_type'] = $role_type_id;
+                            $temp_profile['role_type_name'] = '';
+                        }
 
-                   }
+
+                    }
 
                     $permnnt_seeker['seeker_profile'] =  $temp_profile;
 
@@ -197,7 +242,7 @@ class SeekerController extends Controller
         if ($save['code'] == 400)
             return Response::json(['code' => 400, 'status' => false, 'message' => $save['message'],'data'=>$save['data']]);
 
-        if($save['code'] == 101)
+        if($save['code'] == 200)
             return Response::json(['code' => $save['code'], 'status' => $save['status'], 'message' => $save['message'],'data'=>$save['data']]);
 
         if($save['code'] == 500)

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Config;
 use JWTAuth;
 
 use JWTAuthException;
+use Illuminate\Support\Facades\Input;
 class RecruiterController extends Controller
 {
 
@@ -287,6 +288,19 @@ class RecruiterController extends Controller
     public function logoutRecruiter(Request $request){
         JWTAuth::invalidate($request->token);
         return Response::json(['code' => 200, 'status' => true,'message' => 'User logout successfully','data' =>array()]);
+    }
+
+
+    public function test(){
+        $data = Input::all();
+        $png_url = "product-".time().".png";
+        $path = public_path().'img/designs/' . $png_url;
+
+         Image::make(file_get_contents($data->base64_image))->save($path);
+        $response = array(
+            'status' => 'success',
+        );
+        return Response::json( $response  );
     }
 
 }
